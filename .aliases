@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+# Shortcuts
+alias dl="cd ~/Downloads"
+alias dt="cd ~/Desktop"
+alias d="cd ~/dev"
+
+# Always enable colored `grep` output
+# Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
+alias grep='grep --color=auto'
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; brew autoremove; npm install -g npm pnpm; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
+
+# Browser
+alias chrome='/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser'
+alias brave='/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser'
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+# Canonical hex dump; some systems have this symlinked
+command -v hd >/dev/null || alias hd="hexdump -C"
+
+# macOS has no `md5sum`, so use `md5` as a fallback
+command -v md5sum >/dev/null || alias md5sum="md5"
+
+# macOS has no `sha1sum`, so use `shasum` as a fallback
+command -v sha1sum >/dev/null || alias sha1sum="shasum"
+
+# Copy to clipboard
+alias c="pbcopy"
+
+# Recursively delete `.DS_Store` files
+alias dscleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Empty the Trash on all mounted volumes and the main HDD.
+# Also, clear Apple’s System Logs to improve shell startup speed.
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Merge PDF files, preserving hyperlinks
+# Usage: `mergepdf input{1,2,3}.pdf`
+alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf'
+
+# PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
+alias plistbuddy="/usr/libexec/PlistBuddy"
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+	alias "${method}"="lwp-request -m '${method}'"
+done
+
+# System sleep (when going AFK)
+alias afk="pmset sleepnow"
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec ${SHELL} -l"
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
+###############################################################################
+# System                                                                      #
+###############################################################################
+alias hclear="printf '\33c\e[3J'"
+alias rm="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
+alias ln="ln -i"
+alias c.="code ."
+
+###############################################################################
+# Git & GitHub                                                                #
+###############################################################################
+alias grb="git rebase --committer-date-is-author-date"
+alias grbm="grb $(git_main_branch)"
+alias grbd="grb $(git_develop_branch)"
+alias gss="gsb"
+
+alias ghvw="gh repo view"
+alias ghfo="gh repo fork"
+alias ghcl="gh repo clone"
+alias ghcr="gh repo create"
+alias ghpr="gh pr create"
+
+###############################################################################
+# NPM & PNPM                                                                  #
+###############################################################################
+alias ni="npm install"
+alias nig="ni -g"
+alias niD="ni -D"
+alias nun="npm uninstall"
+alias nung="nu -g"
+alias nunD="nu -D"
+alias ns="npm start"
+alias nr="npm run"
+
+alias pni="pnpm install"
+alias pna="pnpm add"
+alias pnag="pna -g"
+alias pnaD="pna -D"
+alias pnr="pnpm remove"
+alias pnrg="pnr -g"
+alias pnrD="pnr -D"

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Add `~/bin` to the `$PATH`
+export PATH="$HOME/bin:$PATH"
+
+export PATH=$PATH:/usr/local/sbin

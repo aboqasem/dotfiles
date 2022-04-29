@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Fig pre block. Keep at the top of this file.
+. ~/.fig/shell/zshrc.pre.zsh
+
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,zsh_prompt,exports,aliases,functions,extra}; do
+  [ -r "$file" ] && [ -f "$file" ] && source "$file"
+done
+unset file
+
+# Homebrew completions
+fpath+=~/.zfunc
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
+# fzf init
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Fig post block. Keep at the bottom of this file.
+. ~/.fig/shell/zshrc.post.zsh
