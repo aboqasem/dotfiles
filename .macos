@@ -180,11 +180,25 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
+# Press fn key to:
+#  0: Do nothing
+#  1: Show Input Source
+#  2: Show Emoji & Symbols
+#  3: Start Dictation (Press fn Twice)
+defaults write com.apple.HIToolbox AppleFnUsageType -int 2
+
+# Add the ABC and Arabic keyboard layouts
+defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>252</integer><key>KeyboardLayout Name</key><string>ABC</string></dict>'
+defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>-17920</integer><key>KeyboardLayout Name</key><string>Arabic</string></dict>'
+
 # Set language and text formats
 defaults write NSGlobalDomain AppleLanguages -array "en-GB" "ar-MY"
 defaults write NSGlobalDomain AppleLocale -string "en_MY@currency=MYR"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
+
+# Use the Caps Lock to switch to and from ABC (Press and hold to enable typing in all uppercase)
+defaults write NSGlobalDomain TISRomanSwitchState -int 1
 
 # Show language menu in the top right corner of the boot screen
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
