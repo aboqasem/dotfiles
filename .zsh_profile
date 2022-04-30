@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Fig pre block. Keep at the top of this file.
-. ~/.fig/shell/zshrc.pre.zsh
+source ~/.fig/shell/zshrc.pre.zsh
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
@@ -24,4 +24,4 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Fig post block. Keep at the bottom of this file.
-. ~/.fig/shell/zshrc.post.zsh
+source ~/.fig/shell/zshrc.post.zsh

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Enable persistent REPL history for `node`.
 export NODE_REPL_HISTORY=~/.node_history

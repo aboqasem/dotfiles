@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 ###############################################################################
 # Homebrew                                                                    #
@@ -179,22 +179,25 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+
 # Autosuggestions plugin
-if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions ]; then
-  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+if [ ! -d "$ZSH_CUSTOM"/plugins/zsh-autosuggestions ]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM"/plugins/zsh-autosuggestions
 fi
 
 # Syntax highlighting plugin
-if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting ]; then
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
+if [ ! -d "$ZSH_CUSTOM"/plugins/zsh-syntax-highlighting ]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM"/plugins/zsh-syntax-highlighting
 fi
 
 # You Should Use plugin
-if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/you-should-use ]; then
-  git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/you-should-use
+if [ ! -d "$ZSH_CUSTOM"/plugins/you-should-use ]; then
+  git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "$ZSH_CUSTOM"/plugins/you-should-use
 fi
 
 # Theme
-if [ ! -f "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/themes/aboqasem.zsh-theme ]; then
-  cp ~/init/aboqasem.zsh-theme "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/themes/
+if [ ! -f "$ZSH_CUSTOM"/themes/aboqasem.zsh-theme ]; then
+  mkdir -p "$ZSH_CUSTOM"/themes
+  cp "$HOME"/init/aboqasem.zsh-theme "$ZSH_CUSTOM"/themes/
 fi
