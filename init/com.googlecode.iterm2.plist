@@ -4,6 +4,8 @@
 <dict>
 	<key>AdjustWindowForFontSizeChange</key>
 	<false/>
+	<key>AlternateMouseScroll</key>
+	<true/>
 	<key>BadgeFont</key>
 	<string>Helvetica</string>
 	<key>Custom Color Presets</key>
