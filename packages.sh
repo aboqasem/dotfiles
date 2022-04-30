@@ -164,7 +164,7 @@ if ! which node &>/dev/null; then
 fi
 
 npm i -g pnpm
-npm i -g git-split-diff
+npm i -g git-split-diffs
 npm i -g rebase-editor
 npm i -g commitizen
 npm i -g vercel
