@@ -644,4 +644,9 @@ for app in "Activity Monitor" \
   "SystemUIServer"; do
   killall "${app}" &>/dev/null
 done
+
+open -a "Rectangle"
+open -a "AltTab"
+open -a "Macs Fan Control"
+
 echo "Done. Note that some of these changes require a logout/restart to take effect."
