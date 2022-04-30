@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH"
 
 export PATH=$PATH:/usr/local/sbin
+
+export PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
