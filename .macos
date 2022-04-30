@@ -216,17 +216,23 @@ sudo pmset -a lidwake 1
 # Restart automatically on power loss
 sudo pmset -a autorestart 1
 
+# Automatic graphics switching
+sudo pmset -a gpuswitch 2
+
 # Restart automatically if the computer freezes
 sudo systemsetup -setrestartfreeze on
 
-# Sleep the display after 15 minutes
-sudo pmset -a displaysleep 15
+# Display sleep in minutes
+sudo pmset -c displaysleep 15
+sudo pmset -b displaysleep 3
 
-# Disable machine sleep while charging
+# Machine sleep in minutes
 sudo pmset -c sleep 0
-
-# Set machine sleep to 5 minutes on battery
 sudo pmset -b sleep 5
+
+# Disk sleep in minutes, should be less than or equal to machine sleep
+sudo pmset -c disksleep 0
+sudo pmset -b disksleep 5
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
