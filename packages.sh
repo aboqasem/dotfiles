@@ -177,24 +177,21 @@ npm i -g vercel
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Installing Oh My Zsh..."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+else
+  omz update
 fi
 
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
-# Autosuggestions plugin
-if [ ! -d "$ZSH_CUSTOM"/plugins/zsh-autosuggestions ]; then
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM"/plugins/zsh-autosuggestions
-fi
-
-# Syntax highlighting plugin
-if [ ! -d "$ZSH_CUSTOM"/plugins/zsh-syntax-highlighting ]; then
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM"/plugins/zsh-syntax-highlighting
-fi
-
-# You Should Use plugin
-if [ ! -d "$ZSH_CUSTOM"/plugins/you-should-use ]; then
-  git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "$ZSH_CUSTOM"/plugins/you-should-use
-fi
+# Install or update plugins
+for pluginRepo in {zsh-users/{zsh-autosuggestions,zsh-syntax-highlighting},MichaelAquilina/zsh-you-should-use}; do
+  pluginName=$(echo $pluginRepo | cut -d/ -f2)
+  if [ ! -d "$ZSH_CUSTOM"/plugins/"$pluginName" ]; then
+    git clone http://github.com/"$pluginRepo" "$ZSH_CUSTOM"/plugins/"$pluginName"
+  else
+    (cd "$ZSH_CUSTOM"/plugins/"$pluginName" && git pull)
+  fi
+done
 
 # Theme
 if [ ! -f "$ZSH_CUSTOM"/themes/aboqasem.zsh-theme ]; then
