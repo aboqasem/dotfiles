@@ -60,7 +60,7 @@ export plugins=(
   git
   zsh-syntax-highlighting
   zsh-autosuggestions
-  you-should-use
+  zsh-you-should-use
 )
 
 # Uncomment the following line if pasting URLs and other text is messed up.
