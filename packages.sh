@@ -130,25 +130,25 @@ brew install postgresql
 
 # Install casks
 brew install --cask iterm2
-brew install --cask alt-tab
-brew install --cask rectangle
-brew install --cask raycast
-brew install --cask fig
+brew install --cask alt-tab && open -a "AltTab"
+brew install --cask rectangle && open -a "Rectangle"
+brew install --cask raycast && open -a "Raycast"
+brew install --cask fig && open -a "Fig"
+brew install --cask cleanmymac && open -a "CleanMyMac X"
+brew install --cask macs-fan-control && open -a "Macs Fan Control"
 brew install --cask brave-browser
 brew install --cask insomnia
 brew install --cask visual-studio-code
 brew install --cask pgadmin4
 brew install --cask docker
+brew install --cask gimp
 brew install --cask oracle-jdk
-brew install --cask cleanmymac
-brew install --cask macs-fan-control
 brew install --cask qlcolorcode
 brew install --cask qlimagesize
 brew install --cask qlmarkdown
 brew install --cask qlstephen
 brew install --cask qlvideo
 brew install --cask quicklook-json
-brew install --cask gimp
 
 # Remove outdated versions from the cellar.
 brew cleanup
