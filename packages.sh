@@ -94,7 +94,7 @@ brew install grep
 
 # Install other useful binaries.
 brew install git
-brew install git-lfs
+brew install git-lfs && git lfs install && git lfs install --system
 brew install gs
 brew install imagemagick
 brew install rename

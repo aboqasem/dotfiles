@@ -12,6 +12,9 @@ function doIt() {
     --exclude "LICENSE-MIT.txt" \
     -avh --no-perms . ~
   source ~/.zsh_profile
+
+  # Install lfs after resetting .gitconfig
+  git lfs install && git lfs install --system
 }
 
 if [ "$1" = "--force" -o "$1" = "-f" ]; then
