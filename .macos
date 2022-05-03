@@ -200,6 +200,14 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 # Use the Caps Lock to switch to and from ABC (Press and hold to enable typing in all uppercase)
 defaults write NSGlobalDomain TISRomanSwitchState -int 1
 
+# Disable "Mission Control" keyboard shortcut (^↑), used in VSCode
+/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:32:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:34:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+# Disable "Application windows" keyboard shortcut (^↓), used in VSCode
+/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:33:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:35:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
 # Show language menu in the top right corner of the boot screen
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
