@@ -641,6 +641,20 @@ defaults import com.knollsoft.Rectangle.plist ~/init/com.knollsoft.Rectangle.pli
 defaults import com.crystalidea.macsfancontrol.plist ~/init/com.crystalidea.macsfancontrol.plist
 
 ###############################################################################
+# Login Items                                                                 #
+###############################################################################
+
+for app in "Raycast" \
+  "Insomnia" \
+  "Fig" \
+  "AltTab" \
+  "Rectangle" \
+  "CleanMyMac X" \
+  "Macs Fan Control"; do
+  osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/'$app'.app", hidden:false}' &>/dev/null
+done
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
