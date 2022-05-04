@@ -188,8 +188,14 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 defaults write com.apple.HIToolbox AppleFnUsageType -int 2
 
 # Add the ABC and Arabic keyboard layouts
-defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>252</integer><key>KeyboardLayout Name</key><string>ABC</string></dict>'
-defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>-17920</integer><key>KeyboardLayout Name</key><string>Arabic</string></dict>'
+currentInputSources=$(defaults read com.apple.HIToolbox AppleEnabledInputSources)
+for layout in "252:ABC" "-17920:Arabic"; do
+  layoutId=$(echo $layout | cut -d: -f1)
+  layoutName=$(echo $layout | cut -d: -f2)
+  if ! echo $currentInputSources | grep -Fq -- $layoutId; then
+    defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>'$layoutId'</integer><key>KeyboardLayout Name</key><string>'$layoutName'</string></dict>'
+  fi
+done
 
 # Set language and text formats
 defaults write NSGlobalDomain AppleLanguages -array "en-GB" "ar-MY"
