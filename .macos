@@ -657,7 +657,6 @@ defaults import com.crystalidea.macsfancontrol.plist ~/init/com.crystalidea.macs
 ###############################################################################
 
 for app in "Raycast" \
-  "Insomnia" \
   "Fig" \
   "AltTab" \
   "Rectangle" \
