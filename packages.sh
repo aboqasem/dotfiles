@@ -186,7 +186,7 @@ ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 for pluginRepo in {zsh-users/{zsh-autosuggestions,zsh-syntax-highlighting},MichaelAquilina/zsh-you-should-use}; do
   pluginName=$(echo $pluginRepo | cut -d/ -f2)
   if [ ! -d "$ZSH_CUSTOM"/plugins/"$pluginName" ]; then
-    git clone http://github.com/"$pluginRepo" "$ZSH_CUSTOM"/plugins/"$pluginName"
+    git clone https://github.com/"$pluginRepo" "$ZSH_CUSTOM"/plugins/"$pluginName"
   else
     (cd "$ZSH_CUSTOM"/plugins/"$pluginName" && git pull)
   fi
