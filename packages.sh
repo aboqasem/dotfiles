@@ -183,10 +183,11 @@ fi
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 # Install or update plugins
-for pluginRepo in {zsh-users/{zsh-autosuggestions,zsh-syntax-highlighting},MichaelAquilina/zsh-you-should-use}; do
-  pluginName=$(echo $pluginRepo | cut -d/ -f2)
+for pluginDetail in {zsh-users/{zsh-autosuggestions,zsh-syntax-highlighting},MichaelAquilina/zsh-you-should-use:you-should-use}; do
+  pluginName="$(echo "$pluginDetail" | cut -d':' -f2 | xargs -n1 basename)"
+  pluginRepo="$(echo "$pluginDetail" | cut -d':' -f1)"
   if [ ! -d "$ZSH_CUSTOM"/plugins/"$pluginName" ]; then
-    git clone https://github.com/"$pluginRepo" "$ZSH_CUSTOM"/plugins/"$pluginName"
+    git clone https://github.com/"$pluginRepo"/ "$ZSH_CUSTOM"/plugins/"$pluginName"/
   else
     (cd "$ZSH_CUSTOM"/plugins/"$pluginName" && git pull)
   fi
