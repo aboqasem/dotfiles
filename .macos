@@ -432,8 +432,11 @@ defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 # Show indicator lights for open applications in the Dock
 defaults write com.apple.dock show-process-indicators -bool true
 
-# Set app icons in the Dock
-defaults write com.apple.dock persistent-apps -array "Finder" "Mail" "Notes" "System Preferences" "App Store" "Preview" "iTerm" "Visual Studio Code" "Brave Browser"
+# Set apps in the Dock
+defaults write com.apple.dock persistent-apps -array
+for dockItem in {/System/Applications/{"System Preferences","Notes","Mail","App Store"},/Applications/{"iTerm","Visual Studio Code","Brave Browser"}}.app; do
+  defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>'$dockItem'</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+done
 
 # Don’t animate opening applications from the Dock
 defaults write com.apple.dock launchanim -bool false
