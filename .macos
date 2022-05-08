@@ -656,13 +656,8 @@ defaults import com.crystalidea.macsfancontrol.plist ~/init/com.crystalidea.macs
 # Login Items                                                                 #
 ###############################################################################
 
-for app in "Raycast" \
-  "Fig" \
-  "AltTab" \
-  "Rectangle" \
-  "CleanMyMac X" \
-  "Macs Fan Control"; do
-  osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/'$app'.app", hidden:false}' &>/dev/null
+for appPath in {/System/Applications/"Mail",/Applications/{"Raycast","Fig","AltTab","Rectangle","CleanMyMac X","Macs Fan Control"}}.app; do
+  osascript -e 'tell application "System Events" to make login item at end with properties {path:"'$appPath'", hidden:true}' &>/dev/null
 done
 
 ###############################################################################
