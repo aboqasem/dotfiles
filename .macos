@@ -278,7 +278,8 @@ sudo chflags uchg /private/var/vm/sleepimage
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-# Save screenshots to Documents/Screenshots
+# Save screenshots to ~/Documents/Screenshots
+mkdir -p ~/Documents/Screenshots
 defaults write com.apple.screencapture location -string ~/Documents/Screenshots
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
