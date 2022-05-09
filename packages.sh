@@ -99,7 +99,6 @@ brew install gs
 brew install imagemagick
 brew install rename
 brew install tree
-brew install docker
 brew install fzf
 brew install fd
 brew install gh
@@ -176,7 +175,7 @@ npm i -g vercel
 # Install Oh My Zsh if not installed
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Installing Oh My Zsh..."
-  sh  -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
   wait
 fi
 
