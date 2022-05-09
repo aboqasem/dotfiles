@@ -4,6 +4,10 @@
 <dict>
 	<key>ActivePreset</key>
 	<string>Unsaved:VU5TQVZFRHwyLGNwdWNvcmVhdmcsNDAsNTV8MixjcHVjb3JlYXZnLDQwLDU1</string>
+	<key>AppFirstRun</key>
+	<integer>0</integer>
+	<key>CustomPresets</key>
+	<array/>
 	<key>DontCheckForHelperTool</key>
 	<integer>0</integer>
 	<key>Fahrenheit</key>
@@ -14,6 +18,8 @@
 	<integer>0</integer>
 	<key>PreciseTemperature</key>
 	<integer>0</integer>
+	<key>RateOnMacupdateNextDate</key>
+	<string>2999-01-01T00:00:00</string>
 	<key>RateOnMacupdateSkip</key>
 	<integer>1</integer>
 	<key>ShowEGpuTemp</key>

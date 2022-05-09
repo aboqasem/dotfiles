@@ -6,6 +6,8 @@
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
+	<key>SUHasLaunchedBefore</key>
+	<true/>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>alignThumbnails</key>
@@ -32,6 +34,8 @@
 	<string>false</string>
 	<key>nextWindowShortcut</key>
 	<string>⇥</string>
+	<key>nextWindowShortcut2</key>
+	<string>`</string>
 	<key>preferencesVersion</key>
 	<string>6.25.0</string>
 	<key>screensToShow</key>
