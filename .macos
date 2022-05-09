@@ -644,14 +644,11 @@ defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 # Don’t display the annoying prompt when quitting iTerm
 # defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
-# Import AltTab preferences
-defaults import com.lwouis.alt-tab-macos.plist ~/init/com.lwouis.alt-tab-macos.plist
-
-# Import Rectangle preferences
-defaults import com.knollsoft.Rectangle.plist ~/init/com.knollsoft.Rectangle.plist
-
-# Import Macs Fan Control preferences
-defaults import com.crystalidea.macsfancontrol.plist ~/init/com.crystalidea.macsfancontrol.plist
+# Import preferences
+for plistFile in ~/init/*.plist; do
+  plistName=$(basename "$plistFile")
+  cat "$plistFile" | defaults import "$plistName" -
+done
 
 ###############################################################################
 # Login Items                                                                 #
