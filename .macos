@@ -634,7 +634,7 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
 ###############################################################################
-# iTerm 2, AltTab, Rectangle, and Macs Fan Control                            #
+# iTerm 2, AltTab, Rectangle, Macs Fan Control, and CleanMyMac                #
 ###############################################################################
 
 # Set iTerm preferences folder
