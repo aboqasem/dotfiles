@@ -657,8 +657,8 @@ done
 # Login Items                                                                 #
 ###############################################################################
 
-for appPath in {/System/Applications/"Mail",/Applications/{"Raycast","Fig","AltTab","Rectangle","CleanMyMac X","Macs Fan Control"}}.app; do
-  osascript -e 'tell application "System Events" to make login item at end with properties {path:"'$appPath'", hidden:true}' &>/dev/null
+for appPath in {/System/Applications/"Mail"}.app; do
+  osascript -e 'tell application "System Events" to make login item at end with properties {path:"'$appPath'", hidden:false}' &>/dev/null
 done
 
 ###############################################################################
