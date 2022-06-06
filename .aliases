@@ -64,7 +64,7 @@ alias map="xargs -n1"
 
 # One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	alias "${method}"="lwp-request -m '${method}'"
+  alias "${method}"="lwp-request -m '${method}'"
 done
 
 # System sleep (when going AFK)
@@ -107,8 +107,8 @@ alias ni="npm install"
 alias nig="ni -g"
 alias niD="ni -D"
 alias nun="npm uninstall"
-alias nung="nu -g"
-alias nunD="nu -D"
+alias nung="nun -g"
+alias nunD="nun -D"
 alias ns="npm start"
 alias nr="npm run"
 
