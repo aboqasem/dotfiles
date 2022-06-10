@@ -90,8 +90,8 @@ alias c.="code ."
 # Git & GitHub                                                                #
 ###############################################################################
 alias grb="git rebase --committer-date-is-author-date"
-alias grbm="grb $(git_main_branch)"
-alias grbd="grb $(git_develop_branch)"
+alias grbm='grb $(git_main_branch)'
+alias grbd='grb $(git_develop_branch)'
 alias gss="gsb"
 
 alias ghvw="gh repo view"
