@@ -140,6 +140,8 @@ brew install --cask insomnia
 brew install --cask visual-studio-code
 brew install --cask pgadmin4
 brew install --cask docker
+brew install --cask libreoffice
+brew install --cask adobe-acrobat-reader
 brew install --cask gimp
 brew install --cask oracle-jdk
 brew install --cask qlcolorcode
