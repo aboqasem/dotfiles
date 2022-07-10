@@ -24,6 +24,9 @@ sudo scutil --set HostName "nulltrooper"
 sudo scutil --set LocalHostName "nulltrooper"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "nulltrooper"
 
+# Disable Gatekeeper (do not ask to run software downloaded from the internet)
+sudo spctl --master-disable
+
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
