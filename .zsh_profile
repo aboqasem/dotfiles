@@ -23,5 +23,8 @@ fi
 # fzf init
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# jenv init
+eval "$(jenv init -)"
+
 # Fig post block. Keep at the bottom of this file.
 source ~/.fig/shell/zshrc.post.zsh

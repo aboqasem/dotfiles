@@ -55,77 +55,48 @@ brew install gnupg
 # Install more recent versions of some macOS tools.
 brew install vim
 brew install grep
-# brew install openssh
-# brew install screen
-# brew install php
-# brew install gmp
+brew install openssh
+brew install screen
+brew install gmp
 
-# Install font tools.
-# brew tap bramstein/webfonttools
-# brew install sfnt2woff
-# brew install sfnt2woff-zopfli
-# brew install woff2
+# Java
+brew install --cask oracle-jdk
+brew install openjdk
+brew install openjdk@11
+brew install maven
 
-# Install some CTF tools; see https://github.com/ctfs/write-ups.
-# brew install aircrack-ng
-# brew install bfg
-# brew install binutils
-# brew install binwalk
-# brew install cifer
-# brew install dex2jar
-# brew install dns2tcp
-# brew install fcrackzip
-# brew install foremost
-# brew install hashpump
-# brew install hydra
-# brew install john
-# brew install knock
-# brew install netpbm
-# brew install nmap
-# brew install pngcheck
-# brew install socat
-# brew install sqlmap
-# brew install tcpflow
-# brew install tcpreplay
-# brew install tcptrace
-# brew install ucspi-tcp # `tcpserver` etc.
-# brew install xpdf
-# brew install xz
+brew install jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+jenv enable-plugin maven
+for dir in /usr/local/Cellar/openjdk*; do
+  for dir in $dir/*/libexec/openjdk.jdk/Contents/Home; do
+    jenv add $dir
+  done
+done
 
-# Install other useful binaries.
+# Git
 brew install git
 brew install git-lfs && git lfs install && git lfs install --system
+brew install git-delta
+brew install git-gui
+brew install gh
+
+# Install other useful binaries.
 brew install gs
 brew install imagemagick
 brew install rename
 brew install tree
 brew install fzf
 brew install fd
-brew install gh
-brew install git-delta
-brew install git-gui
 brew install less
-brew install openjdk
 brew install nano
-brew install nvm
-brew install node
 brew install tldr
 brew install shellcheck
 brew install speedtest-cli
 brew install watch
 brew install heroku/brew/heroku
 brew install postgresql
-# brew install ack
-# brew install exiv2
-# brew install lua
-# brew install lynx
-# brew install p7zip
-# brew install pigz
-# brew install pv
-# brew install rlwrap
-# brew install ssh-copy-id
-# brew install vbindiff
-# brew install zopfli
 
 # Install casks
 brew install --cask iterm2
@@ -136,14 +107,14 @@ brew install --cask fig && open -a "Fig"
 brew install --cask cleanmymac && open -a "CleanMyMac X"
 brew install --cask macs-fan-control && open -a "Macs Fan Control"
 brew install --cask brave-browser
-brew install --cask insomnia
+brew install --cask postman
 brew install --cask visual-studio-code
+brew install --cask jetbrains-toolbox
 brew install --cask pgadmin4
 brew install --cask docker
 brew install --cask libreoffice
 brew install --cask adobe-acrobat-reader
 brew install --cask gimp
-brew install --cask oracle-jdk
 brew install --cask qlcolorcode
 brew install --cask qlimagesize
 brew install --cask qlmarkdown
@@ -158,17 +129,15 @@ brew cleanup
 # Node, NPM, and PNPM                                                         #
 ###############################################################################
 
+brew install nvm
+
 # Install Node if not installed
 if ! which node &>/dev/null; then
   echo "Installing Node..."
   nvm install --lts --latest-npm --default
 fi
 
-npm i -g pnpm
-npm i -g git-split-diffs
-npm i -g rebase-editor
-npm i -g commitizen
-npm i -g vercel
+npm i -g pnpm git-split-diffs rebase-editor commitizen vercelaa
 
 ###############################################################################
 # Oh My Zsh                                                                   #

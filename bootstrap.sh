@@ -11,6 +11,7 @@ function doIt() {
     --exclude "README.md" \
     --exclude "LICENSE-MIT.txt" \
     -avh --no-perms . ~
+  mv ~/_gitignore ~/.gitignore
   source ~/.zsh_profile
 
   # Install lfs after resetting .gitconfig
