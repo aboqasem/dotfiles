@@ -137,7 +137,7 @@ if ! which node &>/dev/null; then
   nvm install --lts --latest-npm --default
 fi
 
-npm i -g pnpm git-split-diffs rebase-editor commitizen vercelaa
+npm i -g pnpm git-split-diffs rebase-editor commitizen vercel
 
 ###############################################################################
 # Oh My Zsh                                                                   #
