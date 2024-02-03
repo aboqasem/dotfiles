@@ -19,10 +19,10 @@ done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "nulltrooper"
-sudo scutil --set HostName "nulltrooper"
-sudo scutil --set LocalHostName "nulltrooper"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "nulltrooper"
+sudo scutil --set ComputerName "Zouabi"
+sudo scutil --set HostName "Zouabi"
+sudo scutil --set LocalHostName "Zouabi"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "Zouabi"
 
 # Disable Gatekeeper (do not ask to run software downloaded from the internet)
 sudo spctl --master-disable
@@ -447,7 +447,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 
 # Set apps in the Dock
 defaults write com.apple.dock persistent-apps -array
-for dockItem in {/System/Applications/{"Mail","Notes","App Store","System Preferences"},/Applications/{"iTerm","Visual Studio Code","Brave Browser"}}.app; do
+for dockItem in {/System/Applications/{Mail,Notes,"App Store","System Preferences"},/Applications/{iTerm,"Visual Studio Code","Brave Browser"}}.app; do
   defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>'$dockItem'</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
 done
 
@@ -640,31 +640,6 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
 ###############################################################################
-# iTerm 2, AltTab, Rectangle, Macs Fan Control, and CleanMyMac                #
-###############################################################################
-
-# Set iTerm preferences folder
-defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string ~/init
-defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
-
-# Don’t display the annoying prompt when quitting iTerm
-# defaults write com.googlecode.iterm2 PromptOnQuit -bool false
-
-# Import preferences
-for plistFile in ~/init/*.plist; do
-  plistName=$(basename "$plistFile")
-  cat "$plistFile" | defaults import "$plistName" -
-done
-
-###############################################################################
-# Login Items                                                                 #
-###############################################################################
-
-for appPath in {/System/Applications/"Mail"}.app; do
-  osascript -e 'tell application "System Events" to make login item at end with properties {path:"'$appPath'", hidden:false}' &>/dev/null
-done
-
-###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
@@ -687,15 +662,8 @@ for app in "Rectangle" \
   "AltTab" \
   "Macs Fan Control"; do
   (
-    open -a "${app}" && sleep 3 && osascript <<EOF >/dev/null
-tell application "System Events"
-  tell process "$app"
-    click button 1 of window 1
-  end tell
-end tell
-EOF
+    open -a "${app}"
   ) &
 done
-wait
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."

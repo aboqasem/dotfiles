@@ -33,13 +33,13 @@ if [ $? -eq 0 ]; then
 fi
 
 # Create a data URL from a file
-# function dataurl() {
-#   local mimeType=$(file -b --mime-type "$1")
-#   if [[ $mimeType == text/* ]]; then
-#     mimeType="${mimeType};charset=utf-8"
-#   fi
-#   echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
-# }
+function dataurl() {
+  local mimeType=$(file -b --mime-type "$1")
+  if [[ $mimeType == text/* ]]; then
+    mimeType="${mimeType};charset=utf-8"
+  fi
+  echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
+}
 
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
@@ -48,23 +48,14 @@ function server() {
   python3 -m http.server $port
 }
 
-# Start a PHP server from a directory, optionally specifying the port
-# (Requires PHP 5.4.0+.)
-# function phpserver() {
-#   local port="${1:-4000}"
-#   local ip=$(ipconfig getifaddr en1)
-#   sleep 1 && open "http://${ip}:${port}/" &
-#   php -S "${ip}:${port}"
-# }
-
 # Compare original and gzipped file size
-# function gz() {
-#   local origsize=$(wc -c <"$1")
-#   local gzipsize=$(gzip -c "$1" | wc -c)
-#   local ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l)
-#   printf "orig: %d bytes\n" "$origsize"
-#   printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio"
-# }
+function gzcmp() {
+  local origsize=$(wc -c <"$1")
+  local gzipsize=$(gzip -c "$1" | wc -c)
+  local ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l)
+  printf "orig: %d bytes\n" "$origsize"
+  printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio"
+}
 
 # Run `dig` and display the most useful info
 function digga() {

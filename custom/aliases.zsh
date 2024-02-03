@@ -12,9 +12,6 @@ alias grep='grep --color=auto'
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
-# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; brew autoremove; npm install -g npm pnpm; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
-
 # Browser
 alias chrome='/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser'
 alias brave='/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser'
@@ -44,15 +41,11 @@ alias dscleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs to improve shell startup speed.
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+alias emptytrash="sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
 
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# Merge PDF files, preserving hyperlinks
-# Usage: `mergepdf input{1,2,3}.pdf`
-alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf'
 
 # PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
 alias plistbuddy="/usr/libexec/PlistBuddy"
@@ -61,11 +54,6 @@ alias plistbuddy="/usr/libexec/PlistBuddy"
 # For example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
 alias map="xargs -n1"
-
-# One of @janmoesen’s ProTip™s
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-  alias "${method}"="lwp-request -m '${method}'"
-done
 
 # System sleep (when going AFK)
 alias afk="pmset sleepnow"
@@ -79,46 +67,22 @@ alias path='echo -e ${PATH//:/\\n}'
 ###############################################################################
 # System                                                                      #
 ###############################################################################
-alias hclear="printf '\33c\e[3J'"
+
 alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 alias ln="ln -i"
-alias c.="code ."
 
 ###############################################################################
-# Git & GitHub                                                                #
+# Git                                                                         #
 ###############################################################################
-alias grb="git rebase --committer-date-is-author-date"
-alias grbm='grb $(git_main_branch)'
-alias grbd='grb $(git_develop_branch)'
+
+# alias grb="git rebase --committer-date-is-author-date"
+# alias grbm='grb $(git_main_branch)'
+# alias grbd='grb $(git_develop_branch)'
+# alias grbi='grb --interactive'
+# alias grbo='grb --onto'
+# alias grbom='grb origin/$(git_main_branch)'
+# alias grbod='grb origin/$(git_develop_branch)'
+
 alias gss="gsb"
-
-alias ghvw="gh repo view"
-alias ghfo="gh repo fork"
-alias ghcl="gh repo clone"
-alias ghcr="gh repo create"
-alias ghpr="gh pr create"
-
-###############################################################################
-# NPM & PNPM                                                                  #
-###############################################################################
-alias ni="npm install"
-alias nig="ni -g"
-alias niD="ni -D"
-alias nun="npm uninstall"
-alias nung="nun -g"
-alias nunD="nun -D"
-alias ns="npm start"
-alias nr="npm run"
-alias nrd="nr dev"
-alias nrb="nr build"
-alias nrt="nr test"
-
-alias pni="pnpm install"
-alias pna="pnpm add"
-alias pnag="pna -g"
-alias pnaD="pna -D"
-alias pnr="pnpm remove"
-alias pnrg="pnr -g"
-alias pnrD="pnr -D"

@@ -1,0 +1,29 @@
+{
+	"$schema": "./sync/node_modules/@biomejs/biome/configuration_schema.json",
+	"organizeImports": {
+		"enabled": true
+	},
+	"vcs": {
+		"enabled": true,
+		"root": "sync/",
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"nursery": {
+				"useGroupedTypeImport": "warn",
+				"useAwait": "warn",
+				"useImportType": "warn",
+				"useExportType": "warn",
+				"useConsistentArrayType": "warn"
+			}
+		}
+	},
+	"formatter": {
+		"enabled": true,
+		"lineWidth": 120
+	}
+}

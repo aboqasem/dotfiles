@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+mydir=${0:a:h}
+
+bun run $mydir/../sync/src/index.ts -- $@

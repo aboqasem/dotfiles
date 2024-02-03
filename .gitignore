@@ -13,4 +13,6 @@ Thumbs.db
 .Spotlight-V100
 .Trashes
 
-.extra
+node_modules
+
+synced/**/*.bak

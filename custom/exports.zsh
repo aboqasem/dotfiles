@@ -1,11 +1,22 @@
 #!/usr/bin/env zsh
 
-# Enable persistent REPL history for `node`.
-export NODE_REPL_HISTORY=~/.node_history
-# Allow 32³ entries; the default is 1000.
-export NODE_REPL_HISTORY_SIZE='32768'
-# Use sloppy mode by default, matching web browsers.
-export NODE_REPL_MODE='sloppy'
+# Path to your oh-my-zsh installation.
+export ZSH=~/.oh-my-zsh
+
+# theme
+export ZSH_THEME="aboqasem"
+
+# Which plugins would you like to load?
+export plugins=(
+  git
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+  you-should-use
+  timer
+)
+
+# `timer` plugin
+export TIMER_FORMAT="[%d]"
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8'
@@ -16,8 +27,8 @@ export HISTFILESIZE="${HISTSIZE}"
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth'
 
-export EDITOR=nano
-export VISUAL="code --wait"
+export EDITOR=vim
+export VISUAL=vim
 
 export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
 
@@ -38,30 +49,11 @@ export GPG_TTY=$(tty)
 # Do not auto update Homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-# Load nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"
-
-
-# Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
-
-# theme
-export ZSH_THEME="aboqasem"
-
 # Uncomment the following line to disable auto-setting terminal title.
 export DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 export COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load?
-export plugins=(
-  git
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-  you-should-use
-)
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # export DISABLE_MAGIC_FUNCTIONS="true"
@@ -69,10 +61,7 @@ export plugins=(
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# export DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# export ZSH_CUSTOM=/path/to/new-custom-folder
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Load oh-my-zsh
 source "$ZSH/oh-my-zsh.sh"
