@@ -164,7 +164,5 @@ for pluginDetail in {zsh-users/{zsh-autosuggestions,zsh-syntax-highlighting},Mic
 done
 
 # Theme
-if [ ! -f "$ZSH_CUSTOM"/themes/aboqasem.zsh-theme ]; then
-  mkdir -p "$ZSH_CUSTOM"/themes
-  cp "$HOME"/init/aboqasem.zsh-theme "$ZSH_CUSTOM"/themes/
-fi
+mkdir -p "$ZSH_CUSTOM"/themes
+cp "$HOME"/init/{aboqasem.zsh-theme,gitstatus.py} "$ZSH_CUSTOM"/themes/
