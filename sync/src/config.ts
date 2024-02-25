@@ -1,4 +1,4 @@
-import type fs from "fs";
+import fs from "fs";
 import path from "path";
 import { Command, Option } from "@commander-js/extra-typings";
 import {
@@ -65,6 +65,9 @@ export function symlinkPathAndConfig(meta: SymlinkPath): [string, SymlinkPathCon
 	return typeof meta === "string" ? [meta, symlinkPathConfigDefaults] : [meta[0], meta[1] ?? symlinkPathConfigDefaults];
 }
 export function symlinkPathValidateType(path: string, stat: fs.Stats, type: SymlinkPathType): void {
+	if (stat.isSymbolicLink()) {
+		stat = fs.statSync(path);
+	}
 	if ((stat.isFile() && type === SymlinkPathType.File) || (stat.isDirectory() && type === SymlinkPathType.Dir)) {
 		return;
 	}

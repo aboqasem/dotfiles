@@ -19,6 +19,9 @@
 				"useImportType": "warn",
 				"useExportType": "warn",
 				"useConsistentArrayType": "warn"
+			},
+			"style": {
+				"noParameterAssign": "off"
 			}
 		}
 	},

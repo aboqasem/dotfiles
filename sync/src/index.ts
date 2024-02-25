@@ -24,7 +24,7 @@ if (!args.do) {
 
 $.throws(true);
 
-let warn = false;
+const bakFiles = [];
 
 const typeDirLookup = new Map<string, boolean>();
 async function createTypeDirIfNotExists(type: string): Promise<string> {
@@ -66,9 +66,9 @@ for (const group of config.groups) {
 					const symlinkLog = itemLog.bind(console, chalk.cyan(itemPath.padEnd(maxLengths.otherInfo)), chalk.gray(">"));
 
 					const sourcePath = path.resolve(typeDir, itemPath);
-					const sourcePathStat = fs.statSync(sourcePath, { throwIfNoEntry: false });
+					const sourcePathStat = fs.lstatSync(sourcePath, { throwIfNoEntry: false });
 					const targetPath = path.resolve(HOME, itemPath);
-					const targetPathStat = fs.statSync(targetPath, { throwIfNoEntry: false });
+					const targetPathStat = fs.lstatSync(targetPath, { throwIfNoEntry: false });
 
 					if (!sourcePathStat && !targetPathStat) {
 						symlinkLog(`Does not exist. Creating an empty ${itemConfig.type} and creaing symlink...`);
@@ -129,11 +129,12 @@ for (const group of config.groups) {
 						.quiet()
 						.nothrow()
 						.then(({ exitCode }) => exitCode !== 0);
+					const bakFile = `${sourcePath}.bak`;
 					if (hasDiff) {
 						symlinkLog(
 							`${chalk.yellow("Diff found.")} Backing up source, replacing it with target, and creating symlink.`,
 						);
-						warn = true;
+						bakFiles.push(utils.tilde(bakFile));
 					} else {
 						symlinkLog(`${chalk.green("No diff.")} Replacing with symlink...`);
 					}
@@ -142,7 +143,7 @@ for (const group of config.groups) {
 							await utils.mv(sourcePath, `${sourcePath}.bak`);
 							await utils.mv(targetPath, sourcePath);
 						}
-						await utils.symlink(sourcePath, targetPath, { force: true });
+						await utils.symlink(sourcePath, targetPath);
 					}
 				}
 				break;
@@ -157,7 +158,7 @@ for (const group of config.groups) {
 					);
 
 					const sourcePath = path.resolve(typeDir, `${itemDomain}.plist`);
-					const sourcePathStat = fs.statSync(sourcePath, { throwIfNoEntry: false });
+					const sourcePathStat = fs.lstatSync(sourcePath, { throwIfNoEntry: false });
 
 					switch (args.defaultsAction) {
 						case DefaultsActionType.Export:
@@ -219,7 +220,8 @@ for (const group of config.groups) {
 	}
 }
 
-if (warn) {
+if (bakFiles.length) {
+	console.log(chalk.yellow("Backed up files:"), bakFiles.join(", "));
 	console.log(chalk.yellow("Review and commit."));
 }
 
