@@ -1,3 +1,8 @@
+[user]
+
+	name = Mohammad Al Zouabi
+	email = mb.alzouabi@gmail.com
+
 [alias]
 
 	# View abbreviated SHA, description, and history graph of the latest 20 commits.
@@ -108,13 +113,13 @@
 
 [core]
 
-	editor = nano
+	editor = vim
 
-	pager = git-split-diffs --color | less -RFX
+	pager = delta
 
 	# Use custom `.gitignore` and `.gitattributes`.
-	excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
+	excludesfile = ~/.gitignore_global
+	attributesfile = ~/.gitattributes_global
 
 	# Treat spaces before tabs and all kinds of trailing whitespace as an error.
 	# [default] trailing-space: looks for spaces at the end of a line
@@ -172,6 +177,10 @@
 
 	# Use `hexdump` to diff binary files.
 	textconv = hexdump -v -C
+
+[diff "lockb"]
+
+	textconv = bun
 
 [merge]
 

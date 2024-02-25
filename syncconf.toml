@@ -1,0 +1,175 @@
+[[groups]]
+  name = "Dotfiles"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    ".editorconfig",
+    ".gitattributes_global",
+    ".gitconfig",
+    ".gitignore_global",
+    ".hushlogin",
+    ".zprofile",
+    ".zshrc",
+  ]
+
+[[groups]]
+  name = "Atuin"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    [".config/atuin", { type = "dir" }],
+  ]
+
+
+[[groups]]
+  name = "iTerm"
+[[groups.items]]
+  type = "defaults"
+  domains = [
+    [
+      "com.googlecode.iTerm2",
+      { include = [
+        "AdjustWindowForFontSizeChange",
+        "AlternateMouseScroll",
+        "BadgeFont",
+        "Custom Color Presets",
+        "Default Bookmark Guid",
+        "DimBackgroundWindows",
+        "DimOnlyText",
+        "DisableWindowSizeSnap",
+        "EnableAPIServer",
+        "HapticFeedbackForEsc",
+        "HideTab",
+        "HotkeyMigratedFromSingleToMulti",
+        "IRMemory",
+        "New Bookmarks",
+        "PointerActions",
+        "SeparateStatusBarsPerPane",
+        "SoundForEsc",
+        "SplitPaneDimmingAmount",
+        "SwitchPaneModifier",
+        "TabStyleWithAutomaticOption",
+        "UseBorder",
+        "VisualIndicatorForEsc",
+        "findMode_iTerm",
+        "kCPKSelectionViewPreferredModeKey",
+        "kCPKSelectionViewShowHSBTextFieldsKey",
+      ] },
+    ],
+  ]
+
+[[groups]]
+  name = "Macs Fan Control"
+[[groups.items]]
+  type = "defaults"
+  domains = [
+    [
+      "com.crystalidea.MacsFanControl",
+      { include = [
+        "ActivePreset",
+        "AppFirstRun",
+        "CustomPresets",
+        "DontCheckForHelperTool",
+        "Fahrenheit",
+        "InterfaceLanguage",
+        "MoveToAppsSkip",
+        "PreciseTemperature",
+        "RateOnMacupdateNextDate",
+        "RateOnMacupdateSkip",
+        "ShowEGpuTemp",
+        "ShowNVMeDrives",
+        "ShowSmartDrives",
+        "UpdateChecker_Auto",
+        "menubarIcon",
+        "menubarTwoLines",
+        "trayFan",
+        "traySensor",
+      ] },
+    ],
+  ]
+
+[[groups]]
+  name = "Rectangle"
+[[groups.items]]
+  type = "defaults"
+  domains = [
+    [
+      "com.knollsoft.Rectangle",
+      { include = [
+        "SUAutomaticallyUpdate",
+        "SUEnableAutomaticChecks",
+        "SUHasLaunchedBefore",
+        "alternateDefaultShortcuts",
+        "hideMenubarIcon",
+        "lastVersion",
+        "launchOnLogin",
+        "moveCursorAcrossDisplays",
+        "subsequentExecutionMode",
+      ] },
+    ],
+  ]
+
+
+[[groups]]
+  name = "AltTab"
+[[groups.items]]
+  type = "defaults"
+  domains = [
+    [
+      "com.lwouis.alt-tab-macos",
+      { include = [
+        "SUAutomaticallyUpdate",
+        "SUEnableAutomaticChecks",
+        "SUHasLaunchedBefore",
+        "SUUpdateRelaunchingMarker",
+        "alignThumbnails",
+        "appsToShow",
+        "appsToShow2",
+        "crashPolicy",
+        "fadeOutAnimation",
+        "hideAppBadges",
+        "hideWindowlessApps",
+        "holdShortcut",
+        "holdShortcut2",
+        "menubarIcon",
+        "mouseHoverEnabled",
+        "nextWindowShortcut",
+        "nextWindowShortcut2",
+        "preferencesVersion",
+        "screensToShow",
+        "screensToShow2",
+        "shortcutStyle",
+        "showFullscreenWindows",
+        "showHiddenWindows",
+        "showMinimizedWindows",
+        "showOnScreen",
+        "showTabsAsWindows",
+        "spacesToShow",
+        "startAtLogin",
+        "theme",
+        "titleTruncation",
+        "updatePolicy",
+        "windowMaxWidthInRow",
+      ] },
+    ],
+  ]
+
+
+[[groups]]
+  name = "CleanMyMac"
+[[groups.items]]
+  type = "defaults"
+  domains = [
+    [
+      "com.macpaw.CleanMyMac4",
+      { include = [
+        "MenubarAppEnabled",
+        "SUAutomaticallyUpdate",
+        "SUEnableAutomaticChecks",
+        "SUHasLaunchedBefore",
+        "SeenIntroVideo",
+        "ShowReleaseNotes",
+        "SmartScanModuleDisabledTasks",
+      ] },
+    ],
+  ]

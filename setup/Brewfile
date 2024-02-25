@@ -1,0 +1,106 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+tap "homebrew/core"
+tap "homebrew/services"
+
+###############################################################################
+# Utils                                                                       #
+###############################################################################
+
+# Install GNU core utilities (those that come with macOS are outdated).
+# Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
+brew 'coreutils'
+# Install some other useful utilities like `sponge`.
+brew 'moreutils'
+# Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
+brew 'findutils'
+# Install GNU `sed`, overwriting the built-in `sed`.
+brew 'gnu-sed'
+# Install a modern version of Zsh & Bash.
+brew 'zsh'
+brew 'bash'
+
+# Install GnuPG to enable PGP-signing commits.
+brew 'gnupg'
+
+# Install more recent versions of some macOS tools.
+brew 'vim'
+brew 'grep'
+brew 'openssh'
+brew 'screen'
+brew 'gmp'
+
+# Install other useful binaries.
+brew 'atuin'
+brew 'fd'
+brew 'fzf'
+brew 'gs'
+brew 'imagemagick'
+brew 'less'
+brew 'nano'
+brew 'postgresql'
+brew 'rename'
+brew 'shellcheck'
+brew 'tldr'
+brew 'tree'
+brew 'watch'
+
+###############################################################################
+# Java                                                                        #
+###############################################################################
+
+brew 'jvm'
+brew 'openjdk'
+brew 'openjdk@11'
+brew 'maven'
+brew 'jenv'
+
+###############################################################################
+# Golang                                                                      #
+###############################################################################
+
+brew 'go'
+
+###############################################################################
+# Git                                                                         #
+###############################################################################
+brew 'git'
+brew 'git-delta'
+brew 'gh'
+
+###############################################################################
+# Development                                                                 #
+###############################################################################
+cask 'iterm2'
+cask 'visual-studio-code'
+cask 'jetbrains-toolbox'
+cask 'docker'
+
+###############################################################################
+# Tools                                                                       #
+###############################################################################
+cask 'brave-browser'
+cask 'alt-tab'
+cask 'rectangle'
+cask 'cleanmymac'
+cask 'fig'
+cask 'raycast'
+cask 'macs-fan-control'
+
+###############################################################################
+# Editing                                                                     #
+###############################################################################
+cask 'libreoffice'
+cask 'adobe-acrobat-reader'
+cask 'gimp'
+
+###############################################################################
+# Quicklook                                                                   #
+###############################################################################
+cask 'qlcolorcode'
+cask 'qlimagesize'
+cask 'qlmarkdown'
+cask 'qlstephen'
+cask 'qlvideo'
+cask 'quicklook-json'

@@ -1,0 +1,9 @@
+{
+  "evenBetterToml.formatter.alignEntries": true,
+  "evenBetterToml.formatter.alignComments": true,
+  "evenBetterToml.formatter.allowedBlankLines": 3,
+  "evenBetterToml.formatter.arrayAutoCollapse": false,
+  "evenBetterToml.formatter.arrayAutoExpand": true,
+  "evenBetterToml.formatter.arrayTrailingComma": true,
+  "evenBetterToml.formatter.indentEntries": true
+}

@@ -1,15 +1,7 @@
 #!/usr/bin/env zsh
 
 # Fig pre block. Keep at the top of this file.
-source ~/.fig/shell/zshrc.pre.zsh
-
-# Load the shell dotfiles, and then some:
-# * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{path,zsh_prompt,exports,aliases,functions,extra}; do
-  [ -r "$file" ] && [ -f "$file" ] && source "$file"
-done
-unset file
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 
 # Homebrew completions
 fpath+=~/.zfunc
@@ -26,5 +18,11 @@ fi
 # jenv init
 eval "$(jenv init -)"
 
+# atuin init
+eval "$(atuin init zsh --disable-up-arrow)"
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
 # Fig post block. Keep at the bottom of this file.
-source ~/.fig/shell/zshrc.post.zsh
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
