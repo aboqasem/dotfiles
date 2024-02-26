@@ -30,8 +30,14 @@ Run the sync script frequently:
 dotfiles-sync
 ```
 
+## Tips
+
+- All `*.zsh` files in `$DOTFILES/custom` will be sourced by [`oh-my-zsh`][oh-my-zsh]. Use `custom/other.zsh` to add custom things that should not be committed.
+
 ## Inspiration
 
 - [`mathiasbynens/dotfiles`](https://github.com/mathiasbynens/dotfiles)
 - [`driesvints/dotfiles`](https://github.com/driesvints/dotfiles)
 - [`lra/mackup`](https://github.com/lra/mackup)
+
+[oh-my-zsh]: https://ohmyz.sh/

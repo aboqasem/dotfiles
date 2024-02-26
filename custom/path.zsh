@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-export PATH="$HOME/bin:$PATH"
+export PATH="$DOTFILES/bin:$PATH"
 
-export PATH=$PATH:/usr/local/sbin
+export PATH="$PATH:/usr/local/sbin"
 
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix grep)/libexec/gnubin:$PATH"

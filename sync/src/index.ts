@@ -31,7 +31,7 @@ async function createTypeDirIfNotExists(type: string): Promise<string> {
 	const dirPath = path.join(SYNCED_DIR_PATH, type);
 	if (!typeDirLookup.has(dirPath)) {
 		if (!fs.existsSync(dirPath)) {
-			console.log(chalk.gray(`Creating "${utils.tilde(dirPath)}" directory...`));
+			console.log(chalk.gray(`Creating ${utils.tilde(dirPath)} directory...`));
 			if (args.do) {
 				await utils.mkdirp(dirPath);
 			}

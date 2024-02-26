@@ -16,3 +16,5 @@ Thumbs.db
 node_modules
 
 synced/**/*.bak
+
+custom/other.zsh
