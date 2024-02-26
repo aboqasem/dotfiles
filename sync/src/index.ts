@@ -129,7 +129,7 @@ for (const group of config.groups) {
 						.quiet()
 						.nothrow()
 						.then(({ exitCode }) => exitCode !== 0);
-					const bakFile = `${sourcePath}.bak`;
+					const bakFile = `${sourcePath}.${Date.now()}.bak`;
 					if (hasDiff) {
 						symlinkLog(
 							`${chalk.yellow("Diff found.")} Backing up source, replacing it with target, and creating symlink.`,
@@ -161,41 +161,55 @@ for (const group of config.groups) {
 					const sourcePathStat = fs.lstatSync(sourcePath, { throwIfNoEntry: false });
 
 					switch (args.defaultsAction) {
-						case DefaultsActionType.Export:
+						case DefaultsActionType.Export: {
 							if (sourcePathStat) {
-								defaultsLog(chalk.yellow("TODO"));
+								defaultsLog(`${chalk.yellow("Existing found.")} Backing up and exporting defaults...`);
+								if (args.do) {
+									const bakFile = `${sourcePath}.${Date.now()}.bak`;
+									await utils.mv(sourcePath, bakFile);
+									bakFiles.push(utils.tilde(bakFile));
+								}
+							} else {
+								defaultsLog(`${chalk.green("Does not exist.")} Exporting defaults...`);
+							}
+
+							if (!args.do) {
 								continue;
 							}
 
-							defaultsLog("Exporting defaults...");
-							if (args.do) {
-								const exporter = $`defaults export ${itemDomain} -`;
-								if (!itemConfig.include) {
-									await Bun.write(sourcePath, await exporter.arrayBuffer());
-									break;
-								}
-								const content = await exporter.text();
-								const parsed = plist.parse(content);
-								if (
-									typeof parsed !== "object" ||
-									Array.isArray(parsed) ||
-									parsed instanceof Date ||
-									parsed instanceof Buffer
-								) {
-									throw new Error(`Unexpected plist type: ${typeof parsed}`);
-								}
-
-								const included: { -readonly [K in keyof PlistObject]: PlistObject[K] } = {};
-								for (const key of itemConfig.include) {
-									included[key] = parsed[key];
-								}
-
-								await Bun.write(sourcePath, plist.build(included));
+							const exporter = $`defaults export ${itemDomain} -`;
+							if (!itemConfig.include) {
+								await Bun.write(sourcePath, await exporter.arrayBuffer());
+								break;
+							}
+							const content = await exporter.text();
+							const parsed = plist.parse(content);
+							if (
+								typeof parsed !== "object" ||
+								Array.isArray(parsed) ||
+								parsed instanceof Date ||
+								parsed instanceof Buffer
+							) {
+								throw new Error(`Unexpected plist type: ${typeof parsed}`);
 							}
 
-							break;
+							const included: { -readonly [K in keyof PlistObject]: PlistObject[K] } = {};
+							for (const key of itemConfig.include) {
+								included[key] = parsed[key];
+							}
 
-						case DefaultsActionType.Import:
+							await Bun.write(
+								sourcePath,
+								plist.build(included, {
+									pretty: true,
+									indent: "\t",
+								}),
+							);
+
+							break;
+						}
+
+						case DefaultsActionType.Import: {
 							if (!sourcePathStat) {
 								defaultsLog(`${chalk.yellow("Does not exist.")} Skipping...`);
 								continue;
@@ -207,6 +221,7 @@ for (const group of config.groups) {
 							}
 
 							break;
+						}
 
 						default:
 							throw new Error(`Unexpected DefaultsActionType: ${args.defaultsAction}`);
@@ -221,7 +236,7 @@ for (const group of config.groups) {
 }
 
 if (bakFiles.length) {
-	console.log(chalk.yellow("Backed up files:"), bakFiles.join(", "));
+	console.log(chalk.yellow("Backed up files:"), bakFiles.join(" "));
 	console.log(chalk.yellow("Review and commit."));
 }
 
