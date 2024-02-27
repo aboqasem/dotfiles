@@ -12,21 +12,27 @@ namespace utils {
 		throw new Error("Unreachable");
 	}
 
-  export function keep(data: Record<string, unknown> | unknown[], queries: string | string[]): unknown {
-			if (typeof queries === "string") {
-				queries = [queries];
-			}
-
-			let kept: Record<string, unknown> | unknown[] = Array.isArray(data) ? [] : {};
-			for (const query of queries) {
-				const ptrs: Record<string, unknown> = get(data, query, get.MAP);
-				for (const ptr in ptrs) {
-					kept = set(kept, ptr.substring(1), ptrs[ptr]);
-				}
-			}
-
-			return kept;
+	export function assert(condition: unknown, message = "Assertion failed"): asserts condition {
+		if (!condition) {
+			throw new Error(message);
 		}
+	}
+
+	export function keep(data: Record<string, unknown> | unknown[], queries: string | string[]): unknown {
+		if (typeof queries === "string") {
+			queries = [queries];
+		}
+
+		let kept: Record<string, unknown> | unknown[] = Array.isArray(data) ? [] : {};
+		for (const query of queries) {
+			const ptrs: Record<string, unknown> = get(data, query, get.MAP);
+			for (const ptr in ptrs) {
+				kept = set(kept, ptr.substring(1), ptrs[ptr]);
+			}
+		}
+
+		return kept;
+	}
 
 	export function mkdirp(path: string): ShellPromise {
 		return $`mkdir -p ${path}`;

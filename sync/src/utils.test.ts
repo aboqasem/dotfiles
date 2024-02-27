@@ -60,4 +60,3 @@ describe("keep", () => {
 		expect(result.array).toEqual([null, { keep: true }, { keep: true }]);
 	});
 });
-

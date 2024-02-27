@@ -19,7 +19,7 @@ import {
 import utils from "./utils";
 
 if (!args.do) {
-	console.log(chalk.yellow("Dry run..."));
+	console.log(chalk.yellow("DRY RUN...\n"));
 }
 
 $.throws(true);
@@ -173,35 +173,24 @@ for (const group of config.groups) {
 								defaultsLog(`${chalk.green("Does not exist.")} Exporting defaults...`);
 							}
 
-							if (!args.do) {
-								continue;
-							}
+							const content = await $`defaults export ${itemDomain} -`.text();
+							let plistObject = plist.parse(content);
 
-							const exporter = $`defaults export ${itemDomain} -`;
-							if (!itemConfig.include) {
-								await Bun.write(sourcePath, await exporter.arrayBuffer());
-								break;
-							}
-							const content = await exporter.text();
-							const parsed = plist.parse(content);
-							if (
-								typeof parsed !== "object" ||
-								Array.isArray(parsed) ||
-								parsed instanceof Date ||
-								parsed instanceof Buffer
-							) {
-								throw new Error(`Unexpected plist type: ${typeof parsed}`);
-							}
-
-							const included = utils.keep(parsed, itemConfig.include) as PlistObject;
-
-							await Bun.write(
-								sourcePath,
-								plist.build(included, {
-									pretty: true,
-									indent: "\t",
-								}),
+							utils.assert(
+								typeof plistObject === "object" &&
+									!Array.isArray(plistObject) &&
+									!(plistObject instanceof Date) &&
+									!(plistObject instanceof Buffer),
+								`Unexpected plist type: ${typeof plistObject}`,
 							);
+
+							if (itemConfig.include) {
+								plistObject = utils.keep(plistObject, itemConfig.include) as PlistObject;
+							}
+
+							if (args.do) {
+								await Bun.write(sourcePath, plist.build(plistObject, { pretty: true, indent: "\t" }));
+							}
 
 							break;
 						}
@@ -209,7 +198,7 @@ for (const group of config.groups) {
 						case DefaultsActionType.Import: {
 							if (!sourcePathStat) {
 								defaultsLog(`${chalk.yellow("Does not exist.")} Skipping...`);
-								continue;
+								break;
 							}
 
 							defaultsLog(`${chalk.green("Found.")} Importing defaults...`);
@@ -233,10 +222,10 @@ for (const group of config.groups) {
 }
 
 if (bakFiles.length) {
-	console.log(chalk.yellow("Backed up files:"), bakFiles.join(" "));
+	console.log(chalk.yellow("\nBacked up files:"), bakFiles.join(" "));
 	console.log(chalk.yellow("Review and commit."));
 }
 
 if (!args.do) {
-	console.log(chalk.yellow("Use --do to apply changes."));
+	console.log(chalk.yellow("\nUse --do to apply changes."));
 }
