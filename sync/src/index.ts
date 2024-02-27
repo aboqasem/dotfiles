@@ -164,10 +164,10 @@ for (const group of config.groups) {
 						case DefaultsActionType.Export: {
 							if (sourcePathStat) {
 								defaultsLog(`${chalk.yellow("Existing found.")} Backing up and exporting defaults...`);
+								const bakFile = `${sourcePath}.${Date.now()}.bak`;
+								bakFiles.push(utils.tilde(bakFile));
 								if (args.do) {
-									const bakFile = `${sourcePath}.${Date.now()}.bak`;
 									await utils.mv(sourcePath, bakFile);
-									bakFiles.push(utils.tilde(bakFile));
 								}
 							} else {
 								defaultsLog(`${chalk.green("Does not exist.")} Exporting defaults...`);

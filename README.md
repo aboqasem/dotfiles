@@ -20,7 +20,7 @@
     cd ~/dev/dotfiles && zsh setup.sh
     ```
 
-4. Restart your computer to finalize the process
+4. Follow the instructions printed at the end of the installation.
 
 ## Keeping up to date
 
