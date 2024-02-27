@@ -193,10 +193,7 @@ for (const group of config.groups) {
 								throw new Error(`Unexpected plist type: ${typeof parsed}`);
 							}
 
-							const included: { -readonly [K in keyof PlistObject]: PlistObject[K] } = {};
-							for (const key of itemConfig.include) {
-								included[key] = parsed[key];
-							}
+							const included = utils.keep(parsed, itemConfig.include) as PlistObject;
 
 							await Bun.write(
 								sourcePath,
