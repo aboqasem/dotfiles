@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>SUAutomaticallyUpdate</key>
-	<true/>
-	<key>SUEnableAutomaticChecks</key>
-	<true/>
-	<key>SUHasLaunchedBefore</key>
-	<true/>
-	<key>alternateDefaultShortcuts</key>
-	<false/>
-	<key>hideMenubarIcon</key>
-	<true/>
-	<key>lastVersion</key>
-	<string>54</string>
-	<key>launchOnLogin</key>
-	<true/>
-	<key>moveCursorAcrossDisplays</key>
-	<integer>2</integer>
-	<key>subsequentExecutionMode</key>
-	<integer>0</integer>
-</dict>
+	<dict>
+		<key>SUAutomaticallyUpdate</key>
+		<true/>
+		<key>SUEnableAutomaticChecks</key>
+		<true/>
+		<key>SUHasLaunchedBefore</key>
+		<true/>
+		<key>alternateDefaultShortcuts</key>
+		<false/>
+		<key>hideMenubarIcon</key>
+		<true/>
+		<key>lastVersion</key>
+		<string>54</string>
+		<key>launchOnLogin</key>
+		<true/>
+		<key>moveCursorAcrossDisplays</key>
+		<integer>2</integer>
+		<key>subsequentExecutionMode</key>
+		<integer>0</integer>
+	</dict>
 </plist>
