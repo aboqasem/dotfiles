@@ -12,8 +12,6 @@
 		<false/>
 		<key>hideMenubarIcon</key>
 		<true/>
-		<key>lastVersion</key>
-		<string>54</string>
 		<key>launchOnLogin</key>
 		<true/>
 		<key>moveCursorAcrossDisplays</key>

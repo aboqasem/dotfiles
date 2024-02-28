@@ -17,7 +17,7 @@
 		<key>appsToShow2</key>
 		<string>0</string>
 		<key>crashPolicy</key>
-		<string>1</string>
+		<string>0</string>
 		<key>fadeOutAnimation</key>
 		<string>false</string>
 		<key>hideAppBadges</key>
@@ -37,11 +37,11 @@
 		<key>nextWindowShortcut2</key>
 		<string>`</string>
 		<key>preferencesVersion</key>
-		<string>6.25.0</string>
+		<string>6.65.0</string>
 		<key>screensToShow</key>
 		<string>1</string>
 		<key>screensToShow2</key>
-		<string>0</string>
+		<string>1</string>
 		<key>shortcutStyle</key>
 		<string>0</string>
 		<key>showFullscreenWindows</key>

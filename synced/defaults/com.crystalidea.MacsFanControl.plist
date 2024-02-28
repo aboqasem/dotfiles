@@ -3,7 +3,7 @@
 <plist version="1.0">
 	<dict>
 		<key>ActivePreset</key>
-		<string>Unsaved:VU5TQVZFRHwyLGNwdWNvcmVhdmcsNDAsNTV8MixjcHVjb3JlYXZnLDQwLDU1</string>
+		<string>Unsaved:VU5TQVZFRHwyLGNwdWNvcmVhdmcsNTUsNzV8MixjcHVjb3JlYXZnLDU1LDc1</string>
 		<key>AppFirstRun</key>
 		<integer>0</integer>
 		<key>CustomPresets</key>
@@ -31,7 +31,7 @@
 		<key>UpdateChecker_Auto</key>
 		<integer>1</integer>
 		<key>menubarIcon</key>
-		<integer>1</integer>
+		<integer>2</integer>
 		<key>menubarTwoLines</key>
 		<integer>0</integer>
 		<key>trayFan</key>
