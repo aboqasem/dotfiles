@@ -24,6 +24,8 @@ if (!args.do) {
 
 $.throws(true);
 
+const EMPTY_OBJECT = Object.freeze({});
+
 const bakFiles = [];
 
 const typeDirLookup = new Map<string, boolean>();
@@ -162,19 +164,16 @@ for (const group of config.groups) {
 
 					switch (args.defaultsAction) {
 						case DefaultsActionType.Export: {
-							if (sourcePathStat) {
-								defaultsLog(`${chalk.yellow("Existing found.")} Backing up and exporting defaults...`);
-								const bakFile = `${sourcePath}.${Date.now()}.bak`;
-								bakFiles.push(utils.tilde(bakFile));
-								if (args.do) {
-									await utils.mv(sourcePath, bakFile);
-								}
-							} else {
+							if (!sourcePathStat) {
 								defaultsLog(`${chalk.green("Does not exist.")} Exporting defaults...`);
 							}
+							const exported = await $`defaults export ${itemDomain} -`.text();
+							let plistObject = plist.parse(exported);
 
-							const content = await $`defaults export ${itemDomain} -`.text();
-							let plistObject = plist.parse(content);
+							if (Bun.deepEquals(plistObject, EMPTY_OBJECT)) {
+								defaultsLog(chalk.green("Nothing to export."));
+								break;
+							}
 
 							utils.assert(
 								typeof plistObject === "object" &&
@@ -188,8 +187,25 @@ for (const group of config.groups) {
 								plistObject = utils.keep(plistObject, itemConfig.include) as PlistObject;
 							}
 
+							const final = plist.build(plistObject, { pretty: true, indent: "\t" });
+
+							if (sourcePathStat) {
+								const existing = await Bun.file(sourcePath).text();
+								if (existing === final) {
+									defaultsLog(chalk.green("No change."));
+									break;
+								}
+
+								defaultsLog(`${chalk.yellow("Diff found.")} Backing up existing and saving new...`);
+								const bakFile = `${sourcePath}.${Date.now()}.bak`;
+								bakFiles.push(utils.tilde(bakFile));
+								if (args.do) {
+									await utils.mv(sourcePath, bakFile);
+								}
+							}
+
 							if (args.do) {
-								await Bun.write(sourcePath, plist.build(plistObject, { pretty: true, indent: "\t" }));
+								await Bun.write(sourcePath, final);
 							}
 
 							break;
