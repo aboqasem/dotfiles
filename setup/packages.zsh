@@ -6,7 +6,7 @@ mydir=${0:a:h}
 # Bun                                                                         #
 ###############################################################################
 
-if test ! $(which bun); then
+if ! type bun >/dev/null; then
   echo "Installing Bun..."
   curl -fsSL https://bun.sh/install | bash
 fi
@@ -16,7 +16,7 @@ fi
 ###############################################################################
 
 # Install Oh My Zsh if not installed
-if test ! $(which omz); then
+if ! type omz >/dev/null; then
   echo "Installing Oh My Zsh..."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
   wait
@@ -27,7 +27,7 @@ fi
 ###############################################################################
 
 # Install Homebrew if not installed
-if test ! $(which brew); then
+if ! type brew >/dev/null; then
   echo "Installing Homebrew..."
   bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
