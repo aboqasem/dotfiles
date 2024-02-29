@@ -650,20 +650,8 @@ for app in "Activity Monitor" \
   "Mail" \
   "Messages" \
   "Photos" \
-  "iTerm" \
-  "Rectangle" \
-  "AltTab" \
-  "Macs Fan Control" \
   "SystemUIServer"; do
   killall "${app}" &>/dev/null
-done
-
-for app in "Rectangle" \
-  "AltTab" \
-  "Macs Fan Control"; do
-  (
-    open -a "${app}"
-  ) &
 done
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."

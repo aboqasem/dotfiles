@@ -50,7 +50,6 @@ brew 'watch'
 # Java                                                                        #
 ###############################################################################
 
-brew 'jvm'
 brew 'openjdk'
 brew 'openjdk@11'
 brew 'maven'
