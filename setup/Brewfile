@@ -21,6 +21,8 @@ brew 'gnu-sed'
 brew 'zsh'
 brew 'bash'
 
+brew 'tmux'
+
 # Install GnuPG to enable PGP-signing commits.
 brew 'gnupg'
 
@@ -28,7 +30,6 @@ brew 'gnupg'
 brew 'vim'
 brew 'grep'
 brew 'openssh'
-brew 'screen'
 brew 'gmp'
 
 # Install other useful binaries.
