@@ -46,7 +46,7 @@ async function createTypeDirIfNotExists(type: string): Promise<string> {
 for (const group of config.groups) {
 	const groupName = group.name;
 	const groupLog = console.log.bind(console, chalk.blue(groupName.padEnd(maxLengths.groupName)));
-	if (!args.groups.includes(groupName)) {
+	if (!args.groups.includes(groupName) || args.excludeGroups.includes(groupName)) {
 		groupLog(chalk.gray(`Skipping ${groupName}...`));
 		continue;
 	}
@@ -55,7 +55,7 @@ for (const group of config.groups) {
 		const itemType = item.type;
 		const itemLog = groupLog.bind(console, chalk.magenta(itemType.padEnd(maxLengths.itemType)));
 
-		if (!args.types.includes(itemType)) {
+		if (!args.types.includes(itemType) || args.excludeTypes.includes(itemType)) {
 			itemLog(chalk.gray(`Skipping ${itemType}...`));
 			continue;
 		}

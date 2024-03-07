@@ -120,7 +120,11 @@ export const groupNames = config.groups.map((group) => group.name);
 export const args = new Command()
 	.option("--do", "Perform the sync", false)
 	.addOption(new Option("--groups <groups...>", "Groups to sync").choices(groupNames).default(groupNames))
+	.addOption(
+		new Option("--exclude-groups <groups...>", "Groups to not sync").choices(groupNames).default([] as string[]),
+	)
 	.addOption(new Option("--types <types...>", "Types to sync").choices(itemTypes).default(itemTypes))
+	.addOption(new Option("--exclude-types <types...>", "Types to not sync").choices(itemTypes).default([] as ItemType[]))
 	.addOption(
 		new Option("--defaults-action <action>", "`defaults` action")
 			.choices(defaultsActionTypes)
