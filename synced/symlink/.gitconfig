@@ -89,6 +89,18 @@
 
 	rebase = true
 
+[rerere]
+
+	enabled = true
+
+[column]
+
+	ui = auto
+
+[fetch]
+
+	writeCommitGraph = true
+
 [sequence]
 
 	editor = rebase-editor
