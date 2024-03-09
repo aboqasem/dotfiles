@@ -83,7 +83,8 @@
 
 [rebase]
 
-	autosquash = true
+	autoSquash = true
+	autoStash = true
 
 [pull]
 

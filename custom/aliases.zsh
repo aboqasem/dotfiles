@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 
 # Shortcuts
-alias dl="cd ~/Downloads"
-alias dt="cd ~/Desktop"
-alias d="cd ~/dev"
+alias cddl="cd ~/Downloads"
+alias cddf="cd $DOTFILES"
+alias cdd="cd ~/dev"
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
@@ -59,7 +59,7 @@ alias map="xargs -n1"
 alias afk="pmset sleepnow"
 
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="exec ${SHELL} -l"
+alias reload="exec $SHELL -l"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
