@@ -7,3 +7,12 @@
 [submodule "custom/plugins/you-should-use"]
 	path = custom/plugins/you-should-use
 	url = https://github.com/MichaelAquilina/zsh-you-should-use/
+[submodule "synced/symlink/.tmux/plugins/tpm"]
+	path = synced/symlink/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "synced/symlink/.tmux/plugins/tmux-continuum"]
+	path = synced/symlink/.tmux/plugins/tmux-continuum
+	url = https://github.com/tmux-plugins/tmux-continuum
+[submodule "synced/symlink/.tmux/plugins/tmux-resurrect"]
+	path = synced/symlink/.tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect

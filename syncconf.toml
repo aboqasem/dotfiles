@@ -27,6 +27,15 @@
     [".config/atuin", { type = "dir" }],
   ]
 
+[[groups]]
+  name = "tmux"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    ".tmux.conf",
+    [".tmux", { type = "dir" }],
+  ]
+
 
 [[groups]]
   name = "iTerm"
