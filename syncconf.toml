@@ -4,12 +4,19 @@
   type = "symlink"
   paths = [
     ".editorconfig",
-    ".gitattributes_global",
-    ".gitconfig",
-    ".gitignore_global",
     ".hushlogin",
     ".zprofile",
     ".zshrc",
+  ]
+
+[[groups]]
+  name = "Git"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    ".gitattributes_global",
+    ".gitconfig",
+    ".gitignore_global",
   ]
 
 [[groups]]

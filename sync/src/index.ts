@@ -72,19 +72,15 @@ for (const group of config.groups) {
 					const targetPath = path.resolve(HOME, itemPath);
 					const targetPathStat = fs.lstatSync(targetPath, { throwIfNoEntry: false });
 
+					if (!targetPathStat && args.do) {
+						await utils.mkdirp(path.dirname(targetPath));
+					}
+
 					if (!sourcePathStat && !targetPathStat) {
-						symlinkLog(`Does not exist. Creating an empty ${itemConfig.type} and creaing symlink...`);
+						symlinkLog(`Does not exist. Creating an empty ${itemConfig.type} and creating symlink...`);
 						if (args.do) {
-							switch (itemConfig.type) {
-								case SymlinkPathType.File:
-									await utils.mkdirp(path.dirname(targetPath));
-									await utils.touch(targetPath);
-									break;
-								case SymlinkPathType.Dir:
-									await utils.mkdirp(targetPath);
-									break;
-								default:
-									throw new Error(`Unexpected SymlinkPathType: ${itemConfig.type}`);
+							if (itemConfig.type === SymlinkPathType.File) {
+								await utils.touch(targetPath);
 							}
 							await utils.symlink(sourcePath, targetPath);
 						}
