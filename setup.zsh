@@ -13,7 +13,7 @@ echo 'Next:'
 echo "  - Sync dotfiles: \`~/$myrelativetohomedir/bin/dotfiles-sync --defaults-action import # --do\`"
 echo '  - Login to:'
 echo '    - Atuin: `atuin account login`'
-echo '    - Fig: `fig login`'
+echo '    - CodeWhisperer: `cw login`'
 echo '    - VSCode'
 echo '    - JetBrains Toolbox'
 echo '  - Set up Brave'

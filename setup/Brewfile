@@ -85,7 +85,7 @@ cask 'brave-browser'
 cask 'alt-tab'
 cask 'rectangle'
 cask 'cleanmymac'
-cask 'fig'
+cask 'codewhisperer'
 cask 'raycast'
 cask 'macs-fan-control'
 
