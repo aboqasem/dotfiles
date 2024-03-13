@@ -74,12 +74,13 @@ function o() {
 function _o() { _arguments "*: :($(ls .))"; }
 compdef _o o
 
-# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
-# the `.git` directory, listing directories first. The output gets piped into
-# `less` with options to preserve color and line numbers, unless the output is
-# small enough for one screen.
 function tre() {
-  tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
+  tree -a -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
+}
+
+# https://unix.stackexchange.com/a/572990/423419
+function gtre() {
+  git ls-tree -r --name-only HEAD | tree --fromfile -a --dirsfirst "$@" | less -FRNX
 }
 
 # capture the output of a command so it can be retrieved with `ret`

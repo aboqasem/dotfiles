@@ -22,7 +22,7 @@ export LC_ALL='en_US.UTF-8'
 export LESS_TERMCAP_md=$YELLOW
 
 # Don’t clear the screen after quitting a manual page.
-export MANPAGER='less -X'
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Avoid issues with `gpg` as installed via Homebrew.
 # https://stackoverflow.com/a/42265848/96656

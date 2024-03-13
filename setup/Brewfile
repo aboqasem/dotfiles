@@ -34,6 +34,7 @@ brew 'gmp'
 
 # Install other useful binaries.
 brew 'atuin'
+brew 'bat'
 brew 'fd'
 brew 'fzf'
 brew 'gs'

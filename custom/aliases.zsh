@@ -9,6 +9,10 @@ alias cdd="cd ~/dev"
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
 alias grep='grep --color=auto'
 
+alias cat='bat'
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
