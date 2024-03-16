@@ -26,7 +26,7 @@ $.throws(true);
 
 const EMPTY_OBJECT = Object.freeze({});
 
-const bakFiles = [];
+const bakPaths = [];
 
 const typeDirLookup = new Map<string, boolean>();
 async function createTypeDirIfNotExists(type: string): Promise<string> {
@@ -127,18 +127,18 @@ for (const group of config.groups) {
 						.quiet()
 						.nothrow()
 						.then(({ exitCode }) => exitCode !== 0);
-					const bakFile = `${sourcePath}.${Date.now()}.bak`;
+					const bakPath = `${sourcePath}.${Date.now()}.bak`;
 					if (hasDiff) {
 						symlinkLog(
 							`${chalk.yellow("Diff found.")} Backing up source, replacing it with target, and creating symlink.`,
 						);
-						bakFiles.push(utils.tilde(bakFile));
+						bakPaths.push(utils.tilde(bakPath));
 					} else {
 						symlinkLog(`${chalk.green("No diff.")} Replacing with symlink...`);
 					}
 					if (args.do) {
 						if (hasDiff) {
-							await utils.mv(sourcePath, `${sourcePath}.bak`);
+							await utils.mv(sourcePath, bakPath);
 							await utils.mv(targetPath, sourcePath);
 						}
 						await utils.symlink(sourcePath, targetPath);
@@ -194,7 +194,7 @@ for (const group of config.groups) {
 
 								defaultsLog(`${chalk.yellow("Diff found.")} Backing up existing and saving new...`);
 								const bakFile = `${sourcePath}.${Date.now()}.bak`;
-								bakFiles.push(utils.tilde(bakFile));
+								bakPaths.push(utils.tilde(bakFile));
 								if (args.do) {
 									await utils.mv(sourcePath, bakFile);
 								}
@@ -233,8 +233,8 @@ for (const group of config.groups) {
 	}
 }
 
-if (bakFiles.length) {
-	console.log(chalk.yellow("\nBacked up files:"), bakFiles.join(" "));
+if (bakPaths.length) {
+	console.log(chalk.yellow("\nBacked up paths:"), bakPaths.join(" "));
 	console.log(chalk.yellow("Review and commit."));
 }
 
