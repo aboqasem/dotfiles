@@ -139,8 +139,6 @@ for (const group of config.groups) {
 					}
 					if (args.do) {
 						if (hasDiffAndIsTrackedAndUnmodified) {
-							console.log("hasDiffAndIsTrackedAndUnmodified", sourcePath, targetPath);
-							await $`which mv`;
 							await utils.mv(sourcePath, bakPath);
 						}
 						if (hasDiff) {
