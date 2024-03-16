@@ -34,6 +34,20 @@ namespace utils {
 		return kept;
 	}
 
+	export function hasDiff(path1: string, path2: string): Promise<boolean> {
+		return $`diff -ruN ${path1} ${path2}`
+			.quiet()
+			.nothrow()
+			.then(({ exitCode }) => exitCode !== 0);
+	}
+
+	export function isTrackedAndUnmodified(path: string): Promise<boolean> {
+		return $`git ls-files --error-unmatch ${path} &>/dev/null && git diff --exit-code --quiet ${path}`
+			.quiet()
+			.nothrow()
+			.then(({ exitCode }) => exitCode === 0);
+	}
+
 	export function mkdirp(path: string): ShellPromise {
 		return $`mkdir -p ${path}`;
 	}
@@ -59,7 +73,7 @@ namespace utils {
 	}
 
 	export function tilde(to: string): string {
-		return `~/${path.relative(HOME, to)}`;
+		return `~/${path.relative(HOME, to).replace(/ /g, "\\ ")}`;
 	}
 }
 

@@ -26,7 +26,7 @@ $.throws(true);
 
 const EMPTY_OBJECT = Object.freeze({});
 
-const bakPaths = [];
+const bakPaths: Array<string | null> = [];
 
 const typeDirLookup = new Map<string, boolean>();
 async function createTypeDirIfNotExists(type: string): Promise<string> {
@@ -123,12 +123,13 @@ for (const group of config.groups) {
 						continue;
 					}
 
-					const hasDiff = await $`diff -ruN ${sourcePath} ${targetPath}`
-						.quiet()
-						.nothrow()
-						.then(({ exitCode }) => exitCode !== 0);
+					const hasDiff = await utils.hasDiff(sourcePath, targetPath);
+					const hasDiffAndIsTrackedAndUnmodified = hasDiff && (await utils.isTrackedAndUnmodified(sourcePath));
 					const bakPath = `${sourcePath}.${Date.now()}.bak`;
-					if (hasDiff) {
+					if (hasDiffAndIsTrackedAndUnmodified) {
+						symlinkLog(`${chalk.yellow("Diff found but is tracked.")} Replacing with symlink...`);
+						bakPaths.push(null);
+					} else if (hasDiff) {
 						symlinkLog(
 							`${chalk.yellow("Diff found.")} Backing up source, replacing it with target, and creating symlink.`,
 						);
@@ -137,8 +138,10 @@ for (const group of config.groups) {
 						symlinkLog(`${chalk.green("No diff.")} Replacing with symlink...`);
 					}
 					if (args.do) {
-						if (hasDiff) {
+						if (hasDiffAndIsTrackedAndUnmodified) {
 							await utils.mv(sourcePath, bakPath);
+						}
+						if (hasDiff) {
 							await utils.mv(targetPath, sourcePath);
 						}
 						await utils.symlink(sourcePath, targetPath);
@@ -187,16 +190,22 @@ for (const group of config.groups) {
 
 							if (sourcePathStat) {
 								const existing = await Bun.file(sourcePath).text();
-								if (existing === final) {
+								const hasDiff = existing !== final;
+								if (!hasDiff) {
 									defaultsLog(chalk.green("No change."));
 									break;
 								}
-
-								defaultsLog(`${chalk.yellow("Diff found.")} Backing up existing and saving new...`);
-								const bakFile = `${sourcePath}.${Date.now()}.bak`;
-								bakPaths.push(utils.tilde(bakFile));
-								if (args.do) {
-									await utils.mv(sourcePath, bakFile);
+								const isTrackedAndUnmodified = await utils.isTrackedAndUnmodified(sourcePath);
+								if (isTrackedAndUnmodified) {
+									defaultsLog(`${chalk.yellow("Diff found but is tracked.")} Saving...`);
+									bakPaths.push(null);
+								} else {
+									defaultsLog(`${chalk.yellow("Diff found.")} Backing up existing and saving new...`);
+									const bakFile = `${sourcePath}.${Date.now()}.bak`;
+									bakPaths.push(utils.tilde(bakFile));
+									if (args.do) {
+										await utils.mv(sourcePath, bakFile);
+									}
 								}
 							}
 
@@ -234,10 +243,13 @@ for (const group of config.groups) {
 }
 
 if (bakPaths.length) {
-	console.log(chalk.yellow("\nBacked up paths:"), bakPaths.join(" "));
+	const backedUp = bakPaths.filter(Boolean).join(" ");
+	if (backedUp) {
+		console.log(chalk.yellow("\nBacked up paths:"), backedUp);
+	}
 	console.log(chalk.yellow("Review and commit."));
 }
 
 if (!args.do) {
-	console.log(chalk.yellow("\nUse --do to apply changes."));
+	console.log(chalk.yellow("\nNothing was actually done. Use --do to apply changes."));
 }
