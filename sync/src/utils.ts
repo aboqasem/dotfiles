@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { get, set } from "@sagold/json-query";
 import { $, type ShellPromise } from "bun";
 import { HOME } from "./config";

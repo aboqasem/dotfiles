@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import { $ } from "bun";
 import chalk from "chalk";
 import plist, { type PlistObject } from "plist";
