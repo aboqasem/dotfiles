@@ -17,12 +17,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
         with:
           working-dir: "sync"
+
       - name: Run Biome
         run: biome ci .
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies and typecheck
+        working-directory: sync
+        run: |
+          bun i
+          bun typecheck
 
   run:
     runs-on: macos-14

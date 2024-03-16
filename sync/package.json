@@ -3,7 +3,8 @@
 	"type": "module",
 	"module": "src/index.ts",
 	"scripts": {
-		"check": "biome check --config-path .. --apply .."
+		"check": "biome check --config-path .. --apply ..",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@sagold/json-query": "^6.1.1",

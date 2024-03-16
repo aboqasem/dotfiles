@@ -5,7 +5,7 @@ mydir=${0:a:h}
 syncdir=$mydir/../sync
 
 if [[ ! -d $syncdir/node_modules ]]; then
-  (cd $syncdir && bun i)
+  bun i --cwd $syncdir
 fi
 
 bun run $syncdir/src/index.ts -- $@

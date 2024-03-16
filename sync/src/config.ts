@@ -60,7 +60,7 @@ const SymlinkPathSchema = union([
 	string([custom(assignMaxOtherInfoLength)]),
 	tuple([string([custom(assignMaxOtherInfoLength)]), optional(SymlinkPathConfigSchema)]),
 ]);
-export const symlinkPathConfigDefaults = getDefaults(SymlinkPathConfigSchema);
+export const symlinkPathConfigDefaults = getDefaults(SymlinkPathConfigSchema) ?? utils.panic("SymlinkPathConfigSchema");
 export function symlinkPathAndConfig(meta: SymlinkPath): [string, SymlinkPathConfig] {
 	return typeof meta === "string" ? [meta, symlinkPathConfigDefaults] : [meta[0], meta[1] ?? symlinkPathConfigDefaults];
 }
@@ -82,7 +82,8 @@ const DefaultsDomainSchema = union([
 	string([custom(assignMaxOtherInfoLength)]),
 	tuple([string([custom(assignMaxOtherInfoLength)]), optional(DefaultsDomainConfigSchema)]),
 ]);
-export const defaultsDomainConfigDefaults = getDefaults(DefaultsDomainConfigSchema);
+export const defaultsDomainConfigDefaults =
+	getDefaults(DefaultsDomainConfigSchema) ?? utils.panic("DefaultsDomainConfigSchema");
 export function defaultsDomainAndConfig(meta: DefaultsDomain): [string, DefaultsDomainConfig] {
 	return typeof meta === "string"
 		? [meta, defaultsDomainConfigDefaults]
