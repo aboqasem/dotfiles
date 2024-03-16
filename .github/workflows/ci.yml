@@ -20,7 +20,7 @@ jobs:
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
         with:
-          version: latest
+          working-dir: "sync"
       - name: Run Biome
         run: biome ci .
 
@@ -33,7 +33,7 @@ jobs:
         uses: oven-sh/setup-bun@v1
 
       - name: Run
-        run: env -C sync bun install
+        run: cd sync && bun install
 
       - name: Run
         run: ./bin/dotfiles-sync --defaults-action import --do
