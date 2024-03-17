@@ -8,7 +8,6 @@ import {
 	HOME,
 	ItemType,
 	SYNCED_DIR_PATH,
-	SymlinkPathType,
 	args,
 	config,
 	defaultsDomainAndConfig,
@@ -79,9 +78,6 @@ for (const group of config.groups) {
 					if (!sourcePathStat && !targetPathStat) {
 						symlinkLog(`Does not exist. Creating an empty ${itemConfig.type} and creating symlink...`);
 						if (args.do) {
-							if (itemConfig.type === SymlinkPathType.File) {
-								await utils.touch(targetPath);
-							}
 							await utils.symlink(sourcePath, targetPath);
 						}
 						continue;
@@ -113,12 +109,13 @@ for (const group of config.groups) {
 						const linkTarget = fs.readlinkSync(targetPath);
 						if (linkTarget === sourcePath) {
 							symlinkLog(chalk.green("Already symlinked."));
-						} else {
-							symlinkLog(`${chalk.yellow("Overriding symlink:")} '${linkTarget}'...`);
-							if (args.do) {
-								await utils.unlink(targetPath);
-								await utils.symlink(sourcePath, targetPath);
-							}
+							continue;
+						}
+
+						symlinkLog(`${chalk.yellow("Overriding symlink:")} '${linkTarget}'...`);
+						if (args.do) {
+							await utils.unlink(targetPath);
+							await utils.symlink(sourcePath, targetPath);
 						}
 						continue;
 					}

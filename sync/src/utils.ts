@@ -54,10 +54,6 @@ namespace utils {
 		return $`mkdir -p ${path}`;
 	}
 
-	export function touch(path: string): ShellPromise {
-		return $`touch ${path}`;
-	}
-
 	export function rmrf(path: string): ShellPromise {
 		return $`rm -rf ${path}`;
 	}
