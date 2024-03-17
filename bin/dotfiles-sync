@@ -2,4 +2,10 @@
 
 mydir=${0:a:h}
 
-bun run $mydir/../sync/src/index.ts -- $@
+syncdir=$mydir/../sync
+
+if [[ ! -d $syncdir/node_modules ]]; then
+  bun i --cwd $syncdir
+fi
+
+bun run $syncdir/src/index.ts -- $@

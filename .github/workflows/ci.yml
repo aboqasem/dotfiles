@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  schedule:
+    - cron: "0 0 * * 6"
+  push:
+    branches: ["main"]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: ["main"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          working-dir: "sync"
+
+      - name: Run Biome
+        run: biome ci .
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies and typecheck
+        working-directory: sync
+        run: |
+          bun i
+          bun typecheck
+
+  run:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Run
+        run: |
+          ./bin/dotfiles-sync --do
+          ./bin/dotfiles-sync --defaults-action import --do
+          ./bin/dotfiles-sync --defaults-action export --do

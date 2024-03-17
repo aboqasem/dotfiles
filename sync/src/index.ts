@@ -133,7 +133,7 @@ for (const group of config.groups) {
 						symlinkLog(
 							`${chalk.yellow("Diff found.")} Backing up source, replacing it with target, and creating symlink.`,
 						);
-						bakPaths.push(utils.tilde(bakPath));
+						bakPaths.push(bakPath);
 					} else {
 						symlinkLog(`${chalk.green("No diff.")} Replacing with symlink...`);
 					}
@@ -202,7 +202,7 @@ for (const group of config.groups) {
 								} else {
 									defaultsLog(`${chalk.yellow("Diff found.")} Backing up existing and saving new...`);
 									const bakFile = `${sourcePath}.${Date.now()}.bak`;
-									bakPaths.push(utils.tilde(bakFile));
+									bakPaths.push(bakFile);
 									if (args.do) {
 										await utils.mv(sourcePath, bakFile);
 									}
@@ -243,7 +243,7 @@ for (const group of config.groups) {
 }
 
 if (bakPaths.length) {
-	const backedUp = bakPaths.filter(Boolean).join(" ");
+	const backedUp = bakPaths.filter(Boolean).map(utils.tilde).join(" ");
 	if (backedUp) {
 		console.log(chalk.yellow("\nBacked up paths:"), backedUp);
 	}
