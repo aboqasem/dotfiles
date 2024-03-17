@@ -1,5 +1,5 @@
 # theme
-export ZSH_THEME="aboqasem"
+export ZSH_THEME=""
 
 # Which plugins would you like to load?
 export plugins=(
@@ -7,11 +7,7 @@ export plugins=(
   zsh-syntax-highlighting
   zsh-autosuggestions
   you-should-use
-  timer
 )
-
-# `timer` plugin
-export TIMER_FORMAT="[%d]"
 
 # Path to your dotfiles.
 export DOTFILES="$HOME/dev/dotfiles"
@@ -38,3 +34,6 @@ export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Load oh-my-zsh
 source "$ZSH/oh-my-zsh.sh"
+
+# starship init
+eval "$(starship init zsh)"

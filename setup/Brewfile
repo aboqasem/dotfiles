@@ -3,6 +3,13 @@ tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
+tap "homebrew/cask-fonts"
+
+###############################################################################
+# Fonts                                                                       #
+###############################################################################
+
+cask "font-jetbrains-mono-nerd-font"
 
 ###############################################################################
 # Utils                                                                       #
@@ -22,6 +29,7 @@ brew 'zsh'
 brew 'bash'
 
 brew 'tmux'
+brew 'starship'
 
 # Install GnuPG to enable PGP-signing commits.
 brew 'gnupg'
