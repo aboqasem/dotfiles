@@ -22,5 +22,6 @@
 	},
 	"peerDependencies": {
 		"typescript": "^5.4.2"
-	}
+	},
+	"trustedDependencies": ["@biomejs/biome"]
 }
