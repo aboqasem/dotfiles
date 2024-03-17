@@ -36,6 +36,12 @@
     [".tmux", { type = "dir" }],
   ]
 
+[[groups]]
+  name = "lazygit"
+[[groups.items]]
+  type  = "symlink"
+  paths = ["Library/Application Support/lazygit/config.yml"]
+
 
 [[groups]]
   name = "iTerm"
