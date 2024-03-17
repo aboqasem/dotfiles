@@ -29,6 +29,7 @@ brew 'zsh'
 brew 'bash'
 
 brew 'tmux'
+# TODO: delete
 brew 'starship'
 
 # Install GnuPG to enable PGP-signing commits.
