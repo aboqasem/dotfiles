@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import path from "node:path";
 import { get, set } from "@sagold/json-query";
 import { $, type ShellPromise } from "bun";
@@ -68,8 +69,10 @@ namespace utils {
 		return $`unlink ${path}`;
 	}
 
-	export function mv(from: string, to: string): ShellPromise {
-		return $`mv ${from} ${to}`;
+	export function mv(from: string, to: string): Promise<void> {
+		// see https://github.com/oven-sh/bun/issues/9459
+		// return $`mv ${from} ${to}`;
+		return fs.rename(from, to);
 	}
 
 	export function tilde(to: string): string {

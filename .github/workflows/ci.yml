@@ -1,6 +1,8 @@
 name: CI
 
 on:
+  schedule:
+    - cron: '0 0 * * 6'
   push:
     branches: ['main']
   pull_request:
@@ -48,8 +50,6 @@ jobs:
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: "1.0.30"
 
       - name: Run
         run: ./bin/dotfiles-sync --defaults-action import --do
