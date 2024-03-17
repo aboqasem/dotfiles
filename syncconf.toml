@@ -43,7 +43,7 @@
   type = "defaults"
   domains = [
     [
-      "com.googlecode.iTerm2",
+      "com.googlecode.iterm2",
       { include = [
         "/AdjustWindowForFontSizeChange",
         "/AlternateMouseScroll",

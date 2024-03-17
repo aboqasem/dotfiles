@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { Command, Option } from "@commander-js/extra-typings";
+import { $ } from "bun";
 import {
 	type Output,
 	array,
@@ -19,6 +20,7 @@ import {
 import utils from "./utils";
 
 export const HOME = process.env.HOME ?? utils.panic("HOME not set");
+export const REPO_ROOT = (await $`git rev-parse --show-toplevel`.cwd(import.meta.dir).text()).trimEnd();
 
 export const maxLengths = {
 	groupName: -1,
@@ -110,9 +112,9 @@ const ConfigSchema = object({
 	),
 });
 
-export const SYNCED_DIR_PATH = path.join(import.meta.dir, "..", "..", "synced");
+export const SYNCED_DIR_PATH = path.join(REPO_ROOT, "synced");
 
-export const CONFIG_FILE_PATH = path.join(import.meta.dir, "..", "..", "syncconf.toml");
+export const CONFIG_FILE_PATH = path.join(REPO_ROOT, "syncconf.toml");
 
 export const config: Config = parse(ConfigSchema, Bun.TOML.parse(await Bun.file(CONFIG_FILE_PATH).text()));
 

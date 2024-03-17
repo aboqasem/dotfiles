@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { get, set } from "@sagold/json-query";
 import { $, type ShellPromise } from "bun";
-import { HOME } from "./config";
+import { HOME, REPO_ROOT } from "./config";
 
 namespace utils {
 	export function panic(message: string): never {
@@ -44,6 +44,7 @@ namespace utils {
 
 	export function isTrackedAndUnmodified(path: string): Promise<boolean> {
 		return $`git ls-files --error-unmatch ${path} &>/dev/null && git diff --exit-code --quiet ${path}`
+			.cwd(REPO_ROOT)
 			.quiet()
 			.nothrow()
 			.then(({ exitCode }) => exitCode === 0);
