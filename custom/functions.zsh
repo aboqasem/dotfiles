@@ -1,5 +1,18 @@
 #!/usr/bin/env zsh
 
+lazy_jenv() {
+  unset -f java jenv
+  eval "$(jenv init -)"
+}
+jenv() {
+  lazy_jenv
+  jenv $@
+}
+java() {
+  lazy_jenv
+  java $@
+}
+
 # Create a new directory and enter it
 function mkd() {
   mkdir -p "$@" && cd "$_" || exit
