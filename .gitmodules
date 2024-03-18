@@ -16,3 +16,6 @@
 [submodule "synced/symlink/.tmux/plugins/tmux-resurrect"]
 	path = synced/symlink/.tmux/plugins/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
+[submodule "synced/symlink/.oh-my-zsh"]
+	path = synced/symlink/.oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git

@@ -12,17 +12,6 @@ if ! type bun >/dev/null; then
 fi
 
 ###############################################################################
-# Oh My Zsh                                                                   #
-###############################################################################
-
-# Install Oh My Zsh if not installed
-if ! [ -d "$HOME/.oh-my-zsh" ]; then
-  echo "Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
-  wait
-fi
-
-###############################################################################
 # Homebrew                                                                    #
 ###############################################################################
 

@@ -32,6 +32,8 @@ export COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+zstyle ':omz:update' mode disabled
+
 # Load oh-my-zsh
 source "$ZSH/oh-my-zsh.sh"
 

@@ -10,6 +10,14 @@
   ]
 
 [[groups]]
+  name = "Oh My Zsh"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    [".oh-my-zsh", { type = "dir" }],
+  ]
+
+[[groups]]
   name = "Git"
 [[groups.items]]
   type = "symlink"
