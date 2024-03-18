@@ -74,7 +74,7 @@
 
 [sequence]
 
-	editor = rebase-editor
+	editor = interactive-rebase-tool
 
 [pager]
 
