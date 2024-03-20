@@ -1,16 +1,20 @@
 #!/usr/bin/env zsh
 
-lazy_jenv() {
-  unset -f java jenv
+load_jenv() {
+  unset -f java jenv mvn
   eval "$(jenv init -)"
 }
 jenv() {
-  lazy_jenv
+  load_jenv
   jenv $@
 }
 java() {
-  lazy_jenv
+  load_jenv
   java $@
+}
+mvn() {
+  load_jenv
+  mvn $@
 }
 
 # Create a new directory and enter it
