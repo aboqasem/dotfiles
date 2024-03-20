@@ -29,7 +29,6 @@ brew 'zsh'
 brew 'bash'
 
 brew 'tmux'
-brew 'starship'
 
 # Install GnuPG to enable PGP-signing commits.
 brew 'gnupg'

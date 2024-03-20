@@ -51,10 +51,10 @@
   paths = ["Library/Application Support/lazygit/config.yml"]
 
 [[groups]]
-  name = "Starship"
+  name = "powerlevel10k"
 [[groups.items]]
   type  = "symlink"
-  paths = [".config/starship.toml"]
+  paths = [".p10k.zsh"]
 
 [[groups]]
   name = "iTerm"

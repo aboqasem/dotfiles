@@ -19,3 +19,6 @@
 [submodule "synced/symlink/.oh-my-zsh"]
 	path = synced/symlink/.oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule "custom/themes/powerlevel10k"]
+	path = custom/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
