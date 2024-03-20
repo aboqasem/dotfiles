@@ -50,13 +50,6 @@
   type  = "symlink"
   paths = ["Library/Application Support/lazygit/config.yml"]
 
-# TODO: delete
-[[groups]]
-  name = "Starship"
-[[groups.items]]
-  type  = "symlink"
-  paths = [".config/starship.toml"]
-
 [[groups]]
   name = "powerlevel10k"
 [[groups.items]]
