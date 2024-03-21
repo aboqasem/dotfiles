@@ -4,9 +4,6 @@
 [submodule "custom/plugins/zsh-syntax-highlighting"]
 	path = custom/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting/
-[submodule "custom/plugins/you-should-use"]
-	path = custom/plugins/you-should-use
-	url = https://github.com/MichaelAquilina/zsh-you-should-use/
 [submodule "synced/symlink/.tmux/plugins/tpm"]
 	path = synced/symlink/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm

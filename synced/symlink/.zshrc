@@ -17,7 +17,6 @@ export plugins=(
   git
   zsh-syntax-highlighting
   zsh-autosuggestions
-  you-should-use
 )
 
 # Path to your dotfiles.
