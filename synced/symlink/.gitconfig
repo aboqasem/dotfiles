@@ -85,11 +85,8 @@
 
 [delta]
 
-	plus-style = "syntax #012800"
-	minus-style = "syntax #340001"
-	syntax-theme = OneHalfDark
 	navigate = true
-	line-numbers = true
+	line-numbers = false
 
 [interactive]
 	diffFilter = delta --color-only
@@ -162,6 +159,8 @@
 	renames = copies
 	# Show submodule diff
 	submodule = log
+    # Color moved lines differently
+	colorMoved = default
 
 [diff "bin"]
 
@@ -176,6 +175,7 @@
 
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+	conflictStyle = diff3
 
 [push]
 
