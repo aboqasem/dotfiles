@@ -5,7 +5,7 @@
 	},
 	"vcs": {
 		"enabled": true,
-		"root": "sync/",
+		"root": ".",
 		"clientKind": "git",
 		"useIgnoreFile": true
 	},
