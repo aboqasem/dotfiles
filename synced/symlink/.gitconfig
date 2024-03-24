@@ -55,6 +55,7 @@
 
 	autoSquash = true
 	autoStash = true
+	updateRefs = true
 
 [pull]
 
@@ -159,7 +160,7 @@
 	renames = copies
 	# Show submodule diff
 	submodule = log
-    # Color moved lines differently
+	# Color moved lines differently
 	colorMoved = default
 
 [diff "bin"]
