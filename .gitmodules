@@ -16,3 +16,6 @@
 [submodule "custom/themes/powerlevel10k"]
 	path = custom/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "synced/symlink/.tmux/plugins/tmux-sensible"]
+	path = synced/symlink/.tmux/plugins/tmux-sensible
+	url = https://github.com/tmux-plugins/tmux-sensible
