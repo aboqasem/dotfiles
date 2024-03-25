@@ -1,5 +1,5 @@
 # CodeWhisperer pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh"
+[[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -19,9 +19,13 @@ export ZSH_THEME="powerlevel10k/powerlevel10k"
 # Which plugins would you like to load?
 export plugins=(
   git
-  zsh-syntax-highlighting
-  zsh-autosuggestions
 )
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+  plugins+=(
+    zsh-syntax-highlighting
+    zsh-autosuggestions
+  )
+fi
 
 # Path to your dotfiles.
 export DOTFILES="$HOME/dev/dotfiles"
@@ -55,4 +59,4 @@ source "$ZSH/oh-my-zsh.sh"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # CodeWhisperer post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh"
+[[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh"
