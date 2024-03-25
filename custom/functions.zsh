@@ -1,22 +1,5 @@
 #!/usr/bin/env zsh
 
-load_jenv() {
-  unset -f java jenv mvn
-  eval "$(jenv init -)"
-}
-jenv() {
-  load_jenv
-  jenv $@
-}
-java() {
-  load_jenv
-  java $@
-}
-mvn() {
-  load_jenv
-  mvn $@
-}
-
 # Create a new directory and enter it
 function mkd() {
   mkdir -p "$@" && cd "$_" || exit

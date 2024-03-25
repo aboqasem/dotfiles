@@ -8,6 +8,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# mise, https://mise.jdx.dev/faq.html#what-does-mise-activate-do
+eval "$(~/.local/bin/mise activate zsh)"
+eval "$(mise hook-env)"
+
 # theme
 # export ZSH_THEME=""
 export ZSH_THEME="powerlevel10k/powerlevel10k"

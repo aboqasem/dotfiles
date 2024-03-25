@@ -3,12 +3,26 @@
 mydir=${0:a:h}
 
 ###############################################################################
-# Bun                                                                         #
+# Mise                                                                        #
 ###############################################################################
 
-if ! type bun >/dev/null; then
-  echo "Installing Bun..."
-  curl -fsSL https://bun.sh/install | bash
+if ! type mise >/dev/null; then
+  echo "Installing Mise..."
+  curl https://mise.run | sh
+  mise="~/.local/bin/mise"
+fi
+if [ ! -d ~/.asdf ]; then
+  ln -s ~/.local/share/mise ~/.asdf
+fi
+
+if ! mise which bun >/dev/null; then
+  mise u -g bun@latest
+fi
+if ! mise which java >/dev/null; then
+  mise u -g java@latest
+fi
+if ! mise which go >/dev/null; then
+  mise u -g go@latest
 fi
 
 ###############################################################################
@@ -50,21 +64,6 @@ if ! grep -Fq "${BREW_PREFIX}/bin/zsh" /etc/shells; then
   # Set default shell to Zsh
   chsh -s "${BREW_PREFIX}/bin/zsh"
 fi
-
-###############################################################################
-# Java                                                                        #
-###############################################################################
-
-echo "Initializing jenv..."
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-jenv enable-plugin maven
-for dir in /usr/local/Cellar/openjdk*; do
-  for dir in $dir/*/libexec/openjdk.jdk/Contents/Home; do
-    jenv add $dir
-  done
-done
-jenv refresh-versions
 
 ###############################################################################
 # Other                                                                       #
