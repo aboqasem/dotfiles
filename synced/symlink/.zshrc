@@ -13,8 +13,7 @@ eval "$(~/.local/bin/mise activate zsh)"
 eval "$(mise hook-env)"
 
 # theme
-# export ZSH_THEME=""
-export ZSH_THEME="powerlevel10k/powerlevel10k"
+export ZSH_THEME=""
 
 # Which plugins would you like to load?
 export plugins=(
@@ -57,6 +56,8 @@ source "$ZSH/oh-my-zsh.sh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # CodeWhisperer post block. Keep at the bottom of this file.
 [[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh"
