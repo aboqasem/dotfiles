@@ -19,12 +19,19 @@ namespace utils {
 		}
 	}
 
-	export function keep(data: Record<string, unknown> | unknown[], queries: string | string[]): unknown {
+	type Processed<T extends Record<string, unknown> | unknown[]> = {
+		[P in keyof T]?: T[P] extends Record<string, unknown> | unknown[] ? Processed<T[P]> : T[P] | null;
+	};
+
+	export function keep<T extends Record<string, unknown> | unknown[]>(
+		data: T,
+		queries: string | string[],
+	): Processed<T> {
 		if (typeof queries === "string") {
 			queries = [queries];
 		}
 
-		let kept: Record<string, unknown> | unknown[] = Array.isArray(data) ? [] : {};
+		let kept = (Array.isArray(data) ? [] : {}) as Processed<T>;
 		for (const query of queries) {
 			const ptrs: Record<string, unknown> = get(data, query, get.MAP);
 			for (const ptr in ptrs) {
@@ -66,10 +73,8 @@ namespace utils {
 		return $`unlink ${path}`;
 	}
 
-	export function mv(from: string, to: string): Promise<void> {
-		// see https://github.com/oven-sh/bun/issues/9459
-		// return $`mv ${from} ${to}`;
-		return fs.rename(from, to);
+	export function mv(from: string, to: string): ShellPromise {
+		return $`mv ${from} ${to}`;
 	}
 
 	export function tilde(to: string): string {

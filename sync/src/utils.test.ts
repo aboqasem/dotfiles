@@ -2,8 +2,7 @@ import { beforeEach, describe, expect, it } from "bun:test";
 import utils from "./utils";
 
 describe("keep", () => {
-	// biome-ignore lint/suspicious/noExplicitAny: testing
-	let data: any;
+	let data: Record<string, unknown>;
 
 	beforeEach(() => {
 		data = {
@@ -54,9 +53,7 @@ describe("keep", () => {
 		const data = { array: [1, { keep: true }, { keep: true }, 2] };
 		const result = utils.keep(data, "#/array/*?keep:true");
 
-		// @ts-expect-error
 		expect(result.array).toHaveLength(3);
-		// @ts-expect-error
 		expect(result.array).toEqual([null, { keep: true }, { keep: true }]);
 	});
 });
