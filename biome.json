@@ -3,6 +3,17 @@
 	"organizeImports": {
 		"enabled": true
 	},
+	"files": {
+		"ignore": [
+			"custom/plugins/zsh-autosuggestions",
+			"custom/plugins/zsh-syntax-highlighting",
+			"synced/symlink/.tmux/plugins/tmux-continuum",
+			"synced/symlink/.tmux/plugins/tmux-resurrect",
+			"synced/symlink/.oh-my-zsh",
+			"custom/themes/powerlevel10k",
+			"synced/symlink/.tmux/plugins/tmux-sensible"
+		]
+	},
 	"vcs": {
 		"enabled": true,
 		"root": ".",
