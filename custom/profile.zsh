@@ -10,7 +10,7 @@ if type brew &>/dev/null; then
 fi
 
 # atuin init
-[[ $TERM_PROGRAM != "WarpTerminal" ]] && eval "$(atuin init zsh --disable-up-arrow)"
+eval "$(atuin init zsh --disable-up-arrow)"
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
