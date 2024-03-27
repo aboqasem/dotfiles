@@ -1,5 +1,5 @@
-import fs from "node:fs/promises";
 import path from "node:path";
+import { remove as removePointer, removeUndefinedItems } from "@sagold/json-pointer";
 import { get, set } from "@sagold/json-query";
 import { $, type ShellPromise } from "bun";
 import { HOME, REPO_ROOT } from "./config";
@@ -36,6 +36,37 @@ namespace utils {
 			const ptrs: Record<string, unknown> = get(data, query, get.MAP);
 			for (const ptr in ptrs) {
 				kept = set(kept, ptr.substring(1), ptrs[ptr]);
+			}
+		}
+
+		return kept;
+	}
+
+	// https://github.com/sagold/json-query/blob/03792d246802500279e1f9f482ce048ff2909c48/lib/interpreter/keys.ts
+	const VALUE_INDEX = 0;
+	const KEY_INDEX = 1;
+	const PARENT_INDEX = 2;
+	const POINTER_INDEX = 3;
+	// https://github.com/sagold/json-query/blob/03792d246802500279e1f9f482ce048ff2909c48/lib/remove.ts
+	export function remove<T extends Record<string, unknown> | unknown[]>(
+		data: T,
+		queries: string | string[],
+	): Processed<T> {
+		if (typeof queries === "string") {
+			queries = [queries];
+		}
+
+		const kept: Processed<T> = structuredClone(data);
+		for (const query of queries) {
+			const ptrs = get(kept, query, get.ALL);
+			for (const ptr of ptrs) {
+				removePointer(kept, ptr[POINTER_INDEX], true);
+			}
+			for (const ptr of ptrs) {
+				const parent = ptr[PARENT_INDEX];
+				if (Array.isArray(parent)) {
+					removeUndefinedItems(parent as unknown[]);
+				}
 			}
 		}
 

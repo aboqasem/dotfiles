@@ -180,11 +180,14 @@ for (const group of config.groups) {
 							if (itemConfig.include) {
 								plistObject = utils.keep(plistObject, itemConfig.include) as PlistObject;
 							}
+							if (itemConfig.exclude) {
+								plistObject = utils.remove(plistObject, itemConfig.exclude) as PlistObject;
+							}
 
-							const final = plist.build(plistObject, { pretty: true, indent: "\t" });
+							const final = plist.build(plistObject, { pretty: true, indent: "\t" }).trim();
 
 							if (sourcePathStat) {
-								const existing = await Bun.file(sourcePath).text();
+								const existing = (await Bun.file(sourcePath).text()).trim();
 								const hasDiff = existing !== final;
 								if (!hasDiff) {
 									defaultsLog(chalk.green("No change."));
@@ -205,7 +208,7 @@ for (const group of config.groups) {
 							}
 
 							if (args.do) {
-								await Bun.write(sourcePath, final);
+								await Bun.write(sourcePath, `${final}\n`);
 							}
 
 							break;

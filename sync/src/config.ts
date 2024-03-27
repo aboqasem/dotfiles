@@ -79,6 +79,7 @@ export function symlinkPathValidateType(path: string, stat: fs.Stats, type: Syml
 
 const DefaultsDomainConfigSchema = object({
 	include: optional(array(string())),
+	exclude: optional(array(string())),
 });
 const DefaultsDomainSchema = union([
 	string([custom(assignMaxOtherInfoLength)]),
