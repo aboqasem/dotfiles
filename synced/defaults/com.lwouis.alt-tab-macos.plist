@@ -18,6 +18,8 @@
 		<string>0</string>
 		<key>crashPolicy</key>
 		<string>0</string>
+		<key>cursorFollowFocusEnabled</key>
+		<string>true</string>
 		<key>fadeOutAnimation</key>
 		<string>false</string>
 		<key>hideAppBadges</key>
@@ -28,6 +30,8 @@
 		<string>⌘</string>
 		<key>holdShortcut2</key>
 		<string>⌘</string>
+		<key>holdShortcut3</key>
+		<string>⌥</string>
 		<key>menubarIcon</key>
 		<string>3</string>
 		<key>mouseHoverEnabled</key>
@@ -36,8 +40,10 @@
 		<string>⇥</string>
 		<key>nextWindowShortcut2</key>
 		<string>`</string>
+		<key>nextWindowShortcut3</key>
+		<string>`</string>
 		<key>preferencesVersion</key>
-		<string>6.66.0</string>
+		<string>6.67.0</string>
 		<key>screensToShow</key>
 		<string>1</string>
 		<key>screensToShow2</key>
@@ -55,6 +61,8 @@
 		<key>showTabsAsWindows</key>
 		<string>false</string>
 		<key>spacesToShow</key>
+		<string>1</string>
+		<key>spacesToShow2</key>
 		<string>1</string>
 		<key>startAtLogin</key>
 		<string>true</string>

@@ -8,6 +8,8 @@
 		<integer>0</integer>
 		<key>CustomPresets</key>
 		<array/>
+		<key>DockIcon</key>
+		<false/>
 		<key>DontCheckForHelperTool</key>
 		<integer>0</integer>
 		<key>Fahrenheit</key>

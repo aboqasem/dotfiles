@@ -8,15 +8,41 @@
 		<true/>
 		<key>SUHasLaunchedBefore</key>
 		<true/>
+		<key>SUUpdateRelaunchingMarker</key>
+		<true/>
+		<key>allowAnyShortcut</key>
+		<true/>
+		<key>almostMaximize</key>
+		<dict/>
 		<key>alternateDefaultShortcuts</key>
 		<false/>
+		<key>doubleClickTitleBar</key>
+		<integer>0</integer>
+		<key>footprintAnimationDurationMultiplier</key>
+		<integer>0</integer>
 		<key>hideMenubarIcon</key>
 		<true/>
 		<key>launchOnLogin</key>
 		<true/>
 		<key>moveCursorAcrossDisplays</key>
 		<integer>2</integer>
+		<key>reflowTodo</key>
+		<dict>
+			<key>keyCode</key>
+			<integer>45</integer>
+			<key>modifierFlags</key>
+			<integer>786432</integer>
+		</dict>
 		<key>subsequentExecutionMode</key>
 		<integer>0</integer>
+		<key>todo</key>
+		<integer>2</integer>
+		<key>toggleTodo</key>
+		<dict>
+			<key>keyCode</key>
+			<integer>11</integer>
+			<key>modifierFlags</key>
+			<integer>786432</integer>
+		</dict>
 	</dict>
 </plist>
