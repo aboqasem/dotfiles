@@ -1,11 +1,11 @@
 #!/usr/bin/env zsh
 
 mydir=${0:a:h}
+rootdir=$mydir/../
+syncdir=$rootdir/sync
 
-syncdir=$mydir/../sync
-
-if [[ ! -d $syncdir/node_modules ]]; then
-  bun i --cwd $syncdir
+if [[ ! -d $rootdir/node_modules ]]; then
+  bun i --cwd $rootdir
 fi
 
 bun run $syncdir/src/index.ts -- $@
