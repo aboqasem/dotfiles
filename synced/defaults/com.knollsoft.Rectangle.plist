@@ -13,7 +13,16 @@
 		<key>allowAnyShortcut</key>
 		<true/>
 		<key>almostMaximize</key>
-		<dict/>
+		<dict>
+			<key>keyCode</key>
+			<integer>3</integer>
+			<key>modifierFlags</key>
+			<integer>1572864</integer>
+		</dict>
+		<key>almostMaximizeHeight</key>
+		<real>0.9200000166893005</real>
+		<key>almostMaximizeWidth</key>
+		<real>0.9599999785423279</real>
 		<key>alternateDefaultShortcuts</key>
 		<false/>
 		<key>doubleClickTitleBar</key>
@@ -24,6 +33,13 @@
 		<true/>
 		<key>launchOnLogin</key>
 		<true/>
+		<key>maximize</key>
+		<dict>
+			<key>keyCode</key>
+			<integer>3</integer>
+			<key>modifierFlags</key>
+			<integer>1310720</integer>
+		</dict>
 		<key>moveCursorAcrossDisplays</key>
 		<integer>2</integer>
 		<key>reflowTodo</key>
