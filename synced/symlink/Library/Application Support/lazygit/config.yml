@@ -1,3 +1,4 @@
 git:
-  paging:
-    pager: delta --paging=never
+  overrideGpg: true
+  # paging:
+    # pager: delta --paging=never
