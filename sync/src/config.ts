@@ -123,6 +123,7 @@ export const groupNames = config.groups.map((group) => group.name);
 
 export const args = new Command()
 	.option("--do", "Perform the sync", false)
+	.option("--no-diff", "Do not show diff")
 	.addOption(new Option("--groups <groups...>", "Groups to sync").choices(groupNames).default(groupNames))
 	.addOption(
 		new Option("--exclude-groups <groups...>", "Groups to not sync").choices(groupNames).default([] as string[]),

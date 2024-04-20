@@ -120,13 +120,13 @@ for (const group of config.groups) {
 						continue;
 					}
 
-					const hasDiff = await utils.hasDiff(sourcePath, targetPath);
+					const diff = await utils.diff({ path1: sourcePath, path2: targetPath, quiet: !args.diff });
 					const isTrackedAndUnmodified = await utils.isTrackedAndUnmodified(sourcePath);
 					const bakPath = `${sourcePath}.${Date.now()}.bak`;
-					if (hasDiff && isTrackedAndUnmodified) {
+					if (diff && isTrackedAndUnmodified) {
 						symlinkLog(`${chalk.yellow("Diff found but is tracked.")} Replacing with symlink...`);
 						bakPaths.push(null);
-					} else if (hasDiff) {
+					} else if (diff) {
 						symlinkLog(
 							`${chalk.yellow("Diff found.")} Backing up source, replacing it with target, and creating symlink.`,
 						);
@@ -135,7 +135,7 @@ for (const group of config.groups) {
 						symlinkLog(`${chalk.green("No diff.")} Replacing with symlink...`);
 					}
 					if (args.do) {
-						if (hasDiff) {
+						if (diff) {
 							isTrackedAndUnmodified || (await utils.mv(sourcePath, bakPath));
 							await utils.mv(targetPath, sourcePath);
 						}
@@ -204,6 +204,9 @@ for (const group of config.groups) {
 									if (args.do) {
 										await utils.mv(sourcePath, bakFile);
 									}
+								}
+								if (args.diff) {
+									await utils.diff({ str1: existing, str2: final, quiet: false });
 								}
 							}
 

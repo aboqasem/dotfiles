@@ -1,7 +1,7 @@
 import path from "node:path";
 import { remove as removePointer, removeUndefinedItems } from "@sagold/json-pointer";
 import { get, set } from "@sagold/json-query";
-import { $, type ShellPromise } from "bun";
+import { $, type ShellOutput, type ShellPromise } from "bun";
 import { HOME, REPO_ROOT } from "./config";
 
 namespace utils {
@@ -73,11 +73,51 @@ namespace utils {
 		return kept;
 	}
 
-	export function hasDiff(path1: string, path2: string): Promise<boolean> {
-		return $`diff -ruN ${path1} ${path2}`
+	type DiffPathToPath = {
+		path1: string;
+		path2: string;
+		str1?: never;
+		str2?: never;
+	};
+	type DiffPathToStr = {
+		path1: string;
+		path2?: never;
+		str2: string;
+		str1?: never;
+	};
+	type DiffStrToStr = {
+		path1?: never;
+		path2?: never;
+		str1: string;
+		str2: string;
+	};
+	type DiffStrToPath = {
+		path1?: never;
+		path2: string;
+		str1: string;
+		str2?: never;
+	};
+	type DiffOptions = { quiet?: boolean } & (DiffPathToPath | DiffPathToStr | DiffStrToStr | DiffStrToPath);
+
+	export function diff({
+		path1 = "",
+		path2 = "",
+		str1 = "",
+		str2 = "",
+		quiet = true,
+	}: DiffOptions): Promise<false | ShellOutput> {
+		assert((!path1 || !str1) && (!path2 || !str2), "path and str are mutually exclusive");
+
+		const sub1 = { raw: path1 ? "$" : "<" };
+		const sub2 = { raw: path2 ? "$" : "<" };
+		return $`zsh -c "diff -ruN ${sub1}(echo '${path1}${str1}') ${sub2}(echo '${path2}${str2}')"`
 			.quiet()
 			.nothrow()
-			.then(({ exitCode }) => exitCode !== 0);
+			.then((out) => {
+				if (!quiet) process.stdout.write(out.text());
+				const hasDiff = out.exitCode !== 0;
+				return hasDiff && out;
+			});
 	}
 
 	export function isTrackedAndUnmodified(path: string): Promise<boolean> {
