@@ -51,6 +51,6 @@ jobs:
 
       - name: Run
         run: |
-          ./bin/dotfiles-sync --do
-          ./bin/dotfiles-sync --defaults-action import --do
-          ./bin/dotfiles-sync --defaults-action export --do
+          ./bin/dotsync --do
+          ./bin/dotsync --defaults-action import --do
+          ./bin/dotsync --defaults-action export --do

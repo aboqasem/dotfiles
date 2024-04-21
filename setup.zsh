@@ -10,7 +10,7 @@ echo 'Setting up macOS...'
 zsh $mydir/setup/macos.zsh
 
 echo 'Next:'
-echo "  - Sync dotfiles: \`~/$myrelativetohomedir/bin/dotfiles-sync --defaults-action import # --do\`"
+echo "  - Sync dotfiles: \`~/$myrelativetohomedir/bin/dotsync --defaults-action import # --do\`"
 echo '  - Login to:'
 echo '    - Atuin: `atuin account login`'
 echo '    - CodeWhisperer: `cw login`'

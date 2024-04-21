@@ -27,7 +27,7 @@
 Run the sync script frequently:
 
 ```zsh
-dotfiles-sync
+dotsync
 ```
 
 ## Tips
