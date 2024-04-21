@@ -2,12 +2,12 @@ name: CI
 
 on:
   schedule:
-    - cron: "0 0 * * 6"
+    - cron: '0 0 * * 6'
   push:
-    branches: ["main"]
+    branches: ['main']
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: ["main"]
+    branches: ['main']
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,7 +26,7 @@ jobs:
       - name: Run Biome
         run: biome ci .
 
-  typecheck:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,10 +35,11 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
 
-      - name: Install dependencies and typecheck
+      - name: Install dependencies, typecheck, and test
         run: |
           bun i
           bun typecheck
+          bun test
 
   run:
     runs-on: macos-14
