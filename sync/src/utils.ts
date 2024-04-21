@@ -110,7 +110,7 @@ namespace utils {
 
 		const sub1 = { raw: path1 ? "$" : "<" };
 		const sub2 = { raw: path2 ? "$" : "<" };
-		return $`zsh -c "diff -ruN ${sub1}(echo '${path1}${str1}') ${sub2}(echo '${path2}${str2}')"`
+		return $`bash -c "diff -ruN ${sub1}(echo '${path1 || str1}') ${sub2}(echo '${path2 || str2}')"`
 			.quiet()
 			.nothrow()
 			.then((out) => {
