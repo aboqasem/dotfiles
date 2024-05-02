@@ -49,6 +49,9 @@ export COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# Disable automatic widget re-binding on each precmd
+export ZSH_AUTOSUGGEST_MANUAL_REBIND="true"
+
 zstyle ':omz:update' mode disabled
 
 # Load oh-my-zsh
