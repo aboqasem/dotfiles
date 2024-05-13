@@ -19,3 +19,6 @@
 [submodule "synced/symlink/.tmux/plugins/tmux-sensible"]
 	path = synced/symlink/.tmux/plugins/tmux-sensible
 	url = https://github.com/tmux-plugins/tmux-sensible
+[submodule "custom/plugins/wakatime"]
+	path = custom/plugins/wakatime
+	url = https://github.com/sobolevn/wakatime-zsh-plugin.git
