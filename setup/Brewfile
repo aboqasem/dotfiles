@@ -67,6 +67,7 @@ brew 'maven'
 ###############################################################################
 
 brew 'git'
+brew 'lazygit'
 brew 'git-delta'
 brew 'gh'
 brew 'git-interactive-rebase-tool'
