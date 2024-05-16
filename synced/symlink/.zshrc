@@ -1,5 +1,5 @@
-# CodeWhisperer pre block. Keep at the top of this file.
-[[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh"
+# Amazon Q pre block. Keep at the top of this file.
+[[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -63,5 +63,5 @@ source "$ZSH/oh-my-zsh.sh"
 
 source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
 
-# CodeWhisperer post block. Keep at the bottom of this file.
-[[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh"
+# Amazon Q post block. Keep at the bottom of this file.
+[[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
