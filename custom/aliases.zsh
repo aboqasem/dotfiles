@@ -5,9 +5,9 @@ alias cddl="cd ~/Downloads"
 alias cddf="cd $DOTFILES"
 alias cdd="cd ~/dev"
 
-# Always enable colored `grep` output
-# Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
+# Always enable colored `grep` & `ls` output
 alias grep='grep --color=auto'
+alias ls='ls --color=auto'
 
 alias cat='bat'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
