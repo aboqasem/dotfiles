@@ -36,6 +36,7 @@
 	sdiff = !git diff && git submodule foreach 'git diff'
 	spush = push --recurse-submodules=on-demand
 	supdate = submodule update --remote --merge
+	sstage = !git add $(git config --file .gitmodules --get-regexp path | awk '{ print $2 }')
 
 [status]
 
