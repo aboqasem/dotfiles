@@ -56,7 +56,7 @@ export ZSH_AUTOSUGGEST_MANUAL_REBIND="true"
 
 zstyle ':omz:update' mode disabled
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 
 # Load oh-my-zsh
 source "$ZSH/oh-my-zsh.sh"
