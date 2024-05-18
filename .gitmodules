@@ -22,3 +22,6 @@
 [submodule "custom/plugins/wakatime"]
 	path = custom/plugins/wakatime
 	url = https://github.com/sobolevn/wakatime-zsh-plugin.git
+[submodule "custom/plugins/fzf-tab"]
+	path = custom/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab
