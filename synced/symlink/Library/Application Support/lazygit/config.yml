@@ -1,4 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
+gui:
+  sidePanelWidth: 0.3
+  commandLogSize: 4
+  nerdFontsVersion: "3"
+
 git:
   overrideGpg: true
-  # paging:
-    # pager: delta --paging=never
+  paging:
+    pager: delta --paging=never
+
+refresher:
+  fetchInterval: 3600 # 1 hour
