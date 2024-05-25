@@ -36,6 +36,14 @@
   ]
 
 [[groups]]
+  name = "Zellij"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    [".config/zellij", { type = "dir" }],
+  ]
+
+[[groups]]
   name = "tmux"
 [[groups.items]]
   type = "symlink"

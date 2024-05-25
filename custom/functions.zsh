@@ -97,3 +97,47 @@ function rmcap() {
 function ret() {
   cat /tmp/capture.out
 }
+
+# TODO: remove when fixed: https://github.com/zellij-org/zellij/issues/3151
+function zj_fix() {
+  # replace panes like:
+  #   pane command="/usr/local/bin/zsh" focus=true {
+  #       args "-l"
+  #       start_suspended true
+  #   }
+  # with:
+  #   pane
+
+  local layout_dump_file="$1"
+  if [[ ! -f "$layout_dump_file" ]]; then
+    echo "Layout dump file not found"
+    return 1
+  fi
+
+  local fixed=$(cat "$layout_dump_file" | sed -zE 's/pane command="[^"]*zsh" [^{]*\{[^}]*start_suspended true[^}]*\}/pane/g')
+  echo "$fixed" >"$layout_dump_file"
+}
+
+function zj_save() {
+  if [[ -z "$ZELLIJ" ]]; then
+    echo "Not in a Zellij session"
+    return 1
+  fi
+
+  local layout_dump_name="$(date +%Y-%m-%d-%H-%M-%S-%N).dump"
+  local layout_dump_file="$HOME/.config/zellij/layouts/$layout_dump_name.kdl"
+  echo "Saving layout to $layout_dump_file..."
+  command zellij action dump-layout >"$layout_dump_file"
+  zj_fix "$layout_dump_file"
+  local latest_layout_dump_file="$HOME/.config/zellij/layouts/latest.dump.kdl"
+  ln -sf "$layout_dump_file" "$latest_layout_dump_file"
+}
+
+function zj_restore() {
+  local latest_layout_dump_file="$HOME/.config/zellij/layouts/latest.dump.kdl"
+  if [[ ! -f "$latest_layout_dump_file" ]]; then
+    echo "No layout found"
+    return 1
+  fi
+  command zellij -l "$latest_layout_dump_file" $@
+}
