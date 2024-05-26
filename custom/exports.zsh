@@ -30,3 +30,6 @@ export GPG_TTY=$TTY
 
 # Do not auto update Homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
+
+# Zellij
+export ZELLIJ_CONFIG_DIR=~/.config/zellij

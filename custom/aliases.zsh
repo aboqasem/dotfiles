@@ -13,8 +13,6 @@ alias cat='bat'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 alias lg=lazygit
-# TODO: remove when fixed: https://github.com/zellij-org/zellij/issues/2764
-alias zellij='zellij -l ~/.config/zellij/layouts/main.kdl'
 alias zj=zellij
 
 # Enable aliases to be sudo’ed

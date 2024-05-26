@@ -353,8 +353,7 @@ copy_on_select false
 
 // The folder in which Zellij will look for layouts
 //
-// TODO: uncomment when fixed: https://github.com/zellij-org/zellij/issues/2764
-// layout_dir "~/.config/zellij/layouts"
+// layout_dir "/path/to/my/layout_dir"
 
 // The folder in which Zellij will look for themes
 //

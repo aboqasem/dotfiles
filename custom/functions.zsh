@@ -98,6 +98,30 @@ function ret() {
   cat /tmp/capture.out
 }
 
+function zj_link_all() {
+  local saved_layouts_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved"
+  for saved_layout_file in "$saved_layouts_dir"/*/session-layout.kdl(N); do
+    local sess="$(basename "$(dirname "$saved_layout_file")")"
+    zj_link "$sess"
+  done
+}
+
+# zj_link <session>
+function zj_link() {
+  local saved_layouts_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved"
+  local version=$(command zellij -V | sed -E 's/^zellij (.+)$/\1/')
+  # https://github.com/zellij-org/zellij/blob/c72f3a712bfa92a4a80b4c1ad1dbe7669892a324/zellij-utils/src/consts.rs
+  local cache_dir="$HOME/Library/Caches/org.Zellij-Contributors.Zellij/"
+  local sess_info_caches_dir="$cache_dir/$version/session_info"
+  local sess_info_cache_dir="$sess_info_caches_dir/$sess"
+  local sess="$1"
+  local sess_cache_file="$sess_info_cache_dir/session-layout.kdl"
+  echo "Linking \"$sess\" to \"$sess_cache_file\"..."
+  mkdir -p "$sess_info_cache_dir"
+  ln -sf "$saved_layouts_dir/$sess/session-layout.kdl" "$sess_cache_file"
+}
+
+
 # TODO: remove when fixed: https://github.com/zellij-org/zellij/issues/3151
 function zj_fix() {
   # replace panes like:
@@ -107,37 +131,30 @@ function zj_fix() {
   #   }
   # with:
   #   pane
-
-  local layout_dump_file="$1"
-  if [[ ! -f "$layout_dump_file" ]]; then
-    echo "Layout dump file not found"
-    return 1
-  fi
-
-  local fixed=$(cat "$layout_dump_file" | sed -zE 's/pane command="[^"]*zsh" [^{]*\{[^}]*start_suspended true[^}]*\}/pane/g')
-  echo "$fixed" >"$layout_dump_file"
+  sed -zE 's/pane command="[^"]*zsh" [^{]*\{[^}]*start_suspended true[^}]*\}/pane/g'
 }
 
 function zj_save() {
-  if [[ -z "$ZELLIJ" ]]; then
-    echo "Not in a Zellij session"
+  # `zellij ls` example output:
+  # [32;1mexample 2[m [Created [35;1m17m 32s[m ago]
+  # [32;1mexample 1[m [Created [35;1m18m 48s[m ago]
+  # [32;1mexample[m [Created [35;1m15s[m ago] ([31;1mEXITED[m - attach to resurrect)
+
+  local sessions=$(command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g')
+  if [[ -z "$sessions" ]]; then
+    echo "No sessions to save"
     return 1
   fi
 
-  local layout_dump_name="$(date +%Y-%m-%d-%H-%M-%S-%N).dump"
-  local layout_dump_file="$HOME/.config/zellij/layouts/$layout_dump_name.kdl"
-  echo "Saving layout to $layout_dump_file..."
-  command zellij action dump-layout >"$layout_dump_file"
-  zj_fix "$layout_dump_file"
-  local latest_layout_dump_file="$HOME/.config/zellij/layouts/latest.dump.kdl"
-  ln -sf "$layout_dump_file" "$latest_layout_dump_file"
-}
-
-function zj_restore() {
-  local latest_layout_dump_file="$HOME/.config/zellij/layouts/latest.dump.kdl"
-  if [[ ! -f "$latest_layout_dump_file" ]]; then
-    echo "No layout found"
-    return 1
-  fi
-  command zellij -l "$latest_layout_dump_file" $@
+  local saved_layouts_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved"
+  local save_layout_name="$(date +%Y-%m-%d-%H-%M-%S-%N).save.kdl"
+  echo "$sessions" | while read -r sess; do
+    local save_layout_dir="$saved_layouts_dir/$sess"
+    local save_layout_file="$save_layout_dir/$save_layout_name"
+    echo "Saving \"$sess\" to \"$save_layout_file\"..."
+    mkdir -p "$save_layout_dir"
+    command zellij --session "$sess" action dump-layout | zj_fix >"$save_layout_file"
+    ln -sf "$save_layout_file" "$save_layout_dir/session-layout.kdl"
+    zj_link "$sess"
+  done
 }
