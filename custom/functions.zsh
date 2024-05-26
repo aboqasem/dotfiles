@@ -124,14 +124,13 @@ function zj_link() {
 
 # TODO: remove when fixed: https://github.com/zellij-org/zellij/issues/3151
 function zj_fix() {
-  # replace panes like:
-  #   pane command="/usr/local/bin/zsh" focus=true {
+  # remove `start_suspended true` within `zsh` panes like:
+  #   pane command="/usr/local/bin/zsh" cwd="path" focus=true size="50%" {
   #       args "-l"
-  #       start_suspended true
+  #       (// )start_suspended true
   #   }
-  # with:
-  #   pane
-  sed -zE 's/pane command="[^"]*zsh" [^{]*\{[^}]*start_suspended true[^}]*\}/pane/g'
+
+  sed -zE 's/(pane command="[^"]*zsh" [^{]*\{[^}]*)start_suspended true([^}]*\})/\1\2/g'
 }
 
 function zj_save() {
