@@ -18,25 +18,25 @@ layout {
         }
         tab max_panes=8/*6+2*/ {
             pane {
-                pane split_direction="vertical" { pane; pane; pane; }
-                pane split_direction="vertical" { pane; pane; pane; }
+                pane split_direction="vertical" { pane size="34%" {}; pane; pane; }
+                pane split_direction="vertical" { pane size="34%" {}; pane; pane; }
             }
         }
 
         tab max_panes=11/*9+2*/ {
             pane {
-                pane split_direction="vertical" { pane; pane; pane; }
-                pane split_direction="vertical" { pane; pane; pane; }
-                pane split_direction="vertical" { pane; pane; pane; }
+                pane size="34%" split_direction="vertical" { pane size="34%" {}; pane; pane; }
+                pane split_direction="vertical" { pane size="34%" {}; pane; pane; }
+                pane split_direction="vertical" { pane size="34%" {}; pane; pane; }
             }
         }
 
         tab max_panes=14/*12+2*/ {
             pane {
-                pane split_direction="vertical" { pane; pane; pane; }
-                pane split_direction="vertical" { pane; pane; pane; }
-                pane split_direction="vertical" { pane; pane; pane; }
-                pane split_direction="vertical" { pane; pane; pane; }
+                pane split_direction="vertical" { pane size="34%" {}; pane; pane; }
+                pane split_direction="vertical" { pane size="34%" {}; pane; pane; }
+                pane split_direction="vertical" { pane size="34%" {}; pane; pane; }
+                pane split_direction="vertical" { pane size="34%" {}; pane; pane; }
             }
         }
     }
@@ -62,7 +62,7 @@ layout {
 
     swap_floating_layout name="spread" {
         floating_panes max_panes=1 {
-            pane {y "50%"; x "50%"; }
+            pane { y "50%"; x "50%"; }
         }
         floating_panes max_panes=2 {
             pane { x "1%"; y "25%"; width "45%"; }
