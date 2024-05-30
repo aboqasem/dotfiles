@@ -146,7 +146,7 @@ keybinds {
     }
     shared_except "locked" {
         bind "Ctrl g" { SwitchToMode "Locked"; }
-        bind "Ctrl q" { Quit; }
+        bind "Ctrl q" { Detach; }
         bind "Alt n" { NewPane; }
         bind "Alt i" { MoveTab "Left"; }
         bind "Alt o" { MoveTab "Right"; }
@@ -159,12 +159,13 @@ keybinds {
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
 
-        bind "Alt f" {
-            LaunchPlugin "filepicker" {
-                floating true
-                close_on_selection true
-            }
-        }
+        // TODO: Alt+f is also being triggerred on Alt+right-arrow
+        // bind "Alt f" {
+        //     LaunchPlugin "filepicker" {
+        //         floating true
+        //         close_on_selection true
+        //     }
+        // }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
