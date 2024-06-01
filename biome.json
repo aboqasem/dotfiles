@@ -1,17 +1,16 @@
 {
-	"$schema": "./sync/node_modules/@biomejs/biome/configuration_schema.json",
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"organizeImports": {
 		"enabled": true
 	},
 	"files": {
 		"ignore": [
+			"custom/plugins/fzf-tab",
+			"custom/plugins/wakatime",
 			"custom/plugins/zsh-autosuggestions",
 			"custom/plugins/zsh-syntax-highlighting",
-			"synced/symlink/.tmux/plugins/tmux-continuum",
-			"synced/symlink/.tmux/plugins/tmux-resurrect",
-			"synced/symlink/.oh-my-zsh",
 			"custom/themes/powerlevel10k",
-			"synced/symlink/.tmux/plugins/tmux-sensible"
+			"synced/symlink/.oh-my-zsh"
 		]
 	},
 	"vcs": {

@@ -28,7 +28,6 @@ brew 'bash'
 
 # Terminal session managers
 brew 'zellij'
-brew 'tmux'
 
 # Install GnuPG to enable PGP-signing commits.
 brew 'gnupg'

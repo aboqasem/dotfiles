@@ -4,21 +4,12 @@
 [submodule "custom/plugins/zsh-syntax-highlighting"]
 	path = custom/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting/
-[submodule "synced/symlink/.tmux/plugins/tmux-continuum"]
-	path = synced/symlink/.tmux/plugins/tmux-continuum
-	url = https://github.com/tmux-plugins/tmux-continuum
-[submodule "synced/symlink/.tmux/plugins/tmux-resurrect"]
-	path = synced/symlink/.tmux/plugins/tmux-resurrect
-	url = https://github.com/tmux-plugins/tmux-resurrect
 [submodule "synced/symlink/.oh-my-zsh"]
 	path = synced/symlink/.oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
 [submodule "custom/themes/powerlevel10k"]
 	path = custom/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
-[submodule "synced/symlink/.tmux/plugins/tmux-sensible"]
-	path = synced/symlink/.tmux/plugins/tmux-sensible
-	url = https://github.com/tmux-plugins/tmux-sensible
 [submodule "custom/plugins/wakatime"]
 	path = custom/plugins/wakatime
 	url = https://github.com/sobolevn/wakatime-zsh-plugin.git

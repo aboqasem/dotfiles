@@ -44,15 +44,6 @@
   ]
 
 [[groups]]
-  name = "tmux"
-[[groups.items]]
-  type = "symlink"
-  paths = [
-    ".tmux.conf",
-    [".tmux", { type = "dir" }],
-  ]
-
-[[groups]]
   name = "lazygit"
 [[groups.items]]
   type  = "symlink"
