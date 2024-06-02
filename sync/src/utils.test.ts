@@ -9,7 +9,7 @@ type DirectoryTree = {
 	[name: string]: string | DirectoryTree;
 };
 
-export function tempDirWithFiles(basename: string, files: DirectoryTree): string {
+function tempDirWithFiles(basename: string, files: DirectoryTree): string {
 	function makeTree(base: string, tree: DirectoryTree) {
 		for (const [name, contents] of Object.entries(tree)) {
 			const joined = path.join(base, name);
