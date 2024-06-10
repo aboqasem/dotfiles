@@ -96,8 +96,6 @@
 
 [core]
 
-	editor = vim
-
 	pager = delta
 
 	# Use custom `.gitignore` and `.gitattributes`.
