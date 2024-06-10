@@ -516,12 +516,16 @@ The script should do this: \(ai.prompt)</string>
 		</dict>
 		<key>HapticFeedbackForEsc</key>
 		<false/>
+		<key>HideActivityIndicator</key>
+		<false/>
 		<key>HideMenuBarInFullscreen</key>
 		<true/>
 		<key>HideScrollbar</key>
 		<true/>
 		<key>HideTab</key>
-		<false/>
+		<true/>
+		<key>HideTabNumber</key>
+		<true/>
 		<key>HotkeyMigratedFromSingleToMulti</key>
 		<true/>
 		<key>IRMemory</key>
@@ -529,6 +533,8 @@ The script should do this: \(ai.prompt)</string>
 		<key>LeftTabBarWidth</key>
 		<integer>114</integer>
 		<key>LoadPrefsFromCustomFolder</key>
+		<false/>
+		<key>MaxVertically</key>
 		<false/>
 		<key>New Bookmarks</key>
 		<array>
@@ -1395,7 +1401,7 @@ The script should do this: \(ai.prompt)</string>
 				<key>Shortcut</key>
 				<string/>
 				<key>Show Status Bar</key>
-				<true/>
+				<false/>
 				<key>Silence Bell</key>
 				<false/>
 				<key>Space</key>
@@ -1625,7 +1631,7 @@ The script should do this: \(ai.prompt)</string>
 				<key>Visual Bell</key>
 				<true/>
 				<key>Window Type</key>
-				<integer>15</integer>
+				<integer>12</integer>
 				<key>Working Directory</key>
 				<string>~</string>
 			</dict>
@@ -1662,7 +1668,11 @@ The script should do this: \(ai.prompt)</string>
 		<true/>
 		<key>SeparateStatusBarsPerPane</key>
 		<false/>
+		<key>SeparateWindowTitlePerTab</key>
+		<true/>
 		<key>ShowFullScreenTabBar</key>
+		<true/>
+		<key>ShowNewOutputIndicator</key>
 		<true/>
 		<key>ShowPaneTitles</key>
 		<true/>
@@ -1674,12 +1684,16 @@ The script should do this: \(ai.prompt)</string>
 		<real>0.25</real>
 		<key>StatusBarPosition</key>
 		<integer>0</integer>
+		<key>StretchTabsToFillBar</key>
+		<true/>
 		<key>SwitchPaneModifier</key>
 		<integer>5</integer>
 		<key>TabStyleWithAutomaticOption</key>
 		<integer>5</integer>
 		<key>TabViewType</key>
 		<integer>0</integer>
+		<key>TabsHaveCloseButton</key>
+		<false/>
 		<key>TerminalMargin</key>
 		<integer>4</integer>
 		<key>TerminalVMargin</key>
@@ -1693,7 +1707,7 @@ The script should do this: \(ai.prompt)</string>
 		<key>VisualIndicatorForEsc</key>
 		<false/>
 		<key>WindowNumber</key>
-		<true/>
+		<false/>
 		<key>findMode_iTerm</key>
 		<integer>0</integer>
 		<key>kCPKSelectionViewPreferredModeKey</key>
