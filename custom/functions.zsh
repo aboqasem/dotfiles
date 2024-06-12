@@ -98,27 +98,32 @@ function ret() {
   cat /tmp/capture.out
 }
 
-function zj_link_all() {
-  local saved_layouts_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved"
-  for saved_layout_file in "$saved_layouts_dir"/*/session-layout.kdl(N); do
-    local sess="$(basename "$(dirname "$saved_layout_file")")"
-    zj_link "$sess"
-  done
-}
-
 # zj_link <session>
 function zj_link() {
+    local sess="$1"
+  if [[ -z "$sess" ]]; then
+    echo "Usage: $0 <session>"
+    return 1
+  fi
+
   local saved_layouts_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved"
   local version=$(command zellij -V | sed -E 's/^zellij (.+)$/\1/')
   # https://github.com/zellij-org/zellij/blob/c72f3a712bfa92a4a80b4c1ad1dbe7669892a324/zellij-utils/src/consts.rs
   local cache_dir="$HOME/Library/Caches/org.Zellij-Contributors.Zellij/"
   local sess_info_caches_dir="$cache_dir/$version/session_info"
   local sess_info_cache_dir="$sess_info_caches_dir/$sess"
-  local sess="$1"
   local sess_cache_file="$sess_info_cache_dir/session-layout.kdl"
   echo "Linking \"$sess\" to \"$sess_cache_file\"..."
   mkdir -p "$sess_info_cache_dir"
   ln -sf "$saved_layouts_dir/$sess/session-layout.kdl" "$sess_cache_file"
+}
+
+function zj_link_all() {
+  local saved_layouts_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved"
+  for saved_layout_file in "$saved_layouts_dir"/*/session-layout.kdl(N); do
+    local sess="$(basename "$(dirname "$saved_layout_file")")"
+    zj_link "$sess"
+  done
 }
 
 
@@ -134,6 +139,31 @@ function zj_fix() {
 }
 
 function zj_save() {
+  local session="$1"
+  local sessions="$2"
+  if [[ -z "$session" ]]; then
+    echo "Usage: $0 <session> [sessions]"
+    return 1
+  fi
+  if [[ -z "$sessions" ]]; then
+    sessions=$(command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g')
+  fi
+  if [[ ! "$sessions" =~ "$session" ]]; then
+    echo "Session '$session' does not exist"
+    return 1
+  fi
+
+
+  local save_layout_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved/$session"
+  local save_layout_file="$save_layout_dir/$(date +%Y-%m-%d-%H-%M-%S-%N).save.kdl"
+  echo "Saving \"$session\" to \"$save_layout_file\"..."
+  mkdir -p "$save_layout_dir"
+  command zellij --session "$session" action dump-layout | zj_fix >"$save_layout_file"
+  ln -sf "$save_layout_file" "$save_layout_dir/session-layout.kdl"
+  zj_link "$session"
+}
+
+function zj_save_all() {
   # `zellij ls` example output:
   # [32;1mexample 2[m [Created [35;1m17m 32s[m ago]
   # [32;1mexample 1[m [Created [35;1m18m 48s[m ago]
@@ -148,12 +178,42 @@ function zj_save() {
   local saved_layouts_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved"
   local save_layout_name="$(date +%Y-%m-%d-%H-%M-%S-%N).save.kdl"
   echo "$sessions" | while read -r sess; do
-    local save_layout_dir="$saved_layouts_dir/$sess"
-    local save_layout_file="$save_layout_dir/$save_layout_name"
-    echo "Saving \"$sess\" to \"$save_layout_file\"..."
-    mkdir -p "$save_layout_dir"
-    command zellij --session "$sess" action dump-layout | zj_fix >"$save_layout_file"
-    ln -sf "$save_layout_file" "$save_layout_dir/session-layout.kdl"
-    zj_link "$sess"
+    zj_save "$sess" "$sessions"
+  done
+}
+
+function zj_diff() {
+  local session="$1"
+  local sessions="$2"
+  if [[ -z "$session" ]]; then
+    echo "Usage: $0 <session> [sessions]"
+    return 1
+  fi
+  if [[ -z "$sessions" ]]; then
+    sessions=$(command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g')
+  fi
+  if [[ ! "$sessions" =~ "$session" ]]; then
+    echo "Session '$session' does not exist"
+    return 1
+  fi
+
+  local save_layout_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved/$session"
+  local save_layout_file="$save_layout_dir/session-layout.kdl"
+
+  echo "Diffing \"$session\" to \"$save_layout_file\"..."
+  git -P diff -u <(cat "$save_layout_file" 2>/dev/null) <(command zellij --session "$session" action dump-layout | zj_fix)
+}
+
+function zj_diff_all() {
+  local sessions=$(command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g')
+  if [[ -z "$sessions" ]]; then
+    echo "No sessions to diff"
+    return 1
+  fi
+
+  echo "$sessions" | while read -r sess; do
+    echo
+    zj_diff "$sess" "$sessions"
+    echo
   done
 }
