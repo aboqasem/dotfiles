@@ -9,8 +9,8 @@ export HISTFILESIZE=$HISTSIZE
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth'
 
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=lvim
+export VISUAL=lvim
 
 export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
 

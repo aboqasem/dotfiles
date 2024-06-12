@@ -18,6 +18,14 @@
   ]
 
 [[groups]]
+  name = "LunarVim"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    [".config/lvim", { type = "dir" }],
+  ]
+
+[[groups]]
   name = "Git"
 [[groups.items]]
   type = "symlink"
