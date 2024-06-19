@@ -3,15 +3,16 @@ import path from "node:path";
 import { Command, Option } from "@commander-js/extra-typings";
 import { $ } from "bun";
 import {
-	type Output,
+	type InferOutput,
 	array,
-	custom,
+	check,
 	enum_,
 	getDefaults,
 	literal,
 	object,
 	optional,
 	parse,
+	pipe,
 	string,
 	tuple,
 	union,
@@ -59,8 +60,8 @@ const SymlinkPathConfigSchema = object({
 	type: optional(enum_(SymlinkPathType), SymlinkPathType.File),
 });
 const SymlinkPathSchema = union([
-	string([custom(assignMaxOtherInfoLength)]),
-	tuple([string([custom(assignMaxOtherInfoLength)]), optional(SymlinkPathConfigSchema)]),
+	pipe(string(), check(assignMaxOtherInfoLength)),
+	tuple([pipe(string(), check(assignMaxOtherInfoLength)), optional(SymlinkPathConfigSchema)]),
 ]);
 export const symlinkPathConfigDefaults = getDefaults(SymlinkPathConfigSchema) ?? utils.panic("SymlinkPathConfigSchema");
 export function symlinkPathAndConfig(meta: SymlinkPath): [string, SymlinkPathConfig] {
@@ -82,8 +83,8 @@ const DefaultsDomainConfigSchema = object({
 	exclude: optional(array(string())),
 });
 const DefaultsDomainSchema = union([
-	string([custom(assignMaxOtherInfoLength)]),
-	tuple([string([custom(assignMaxOtherInfoLength)]), optional(DefaultsDomainConfigSchema)]),
+	pipe(string(), check(assignMaxOtherInfoLength)),
+	tuple([pipe(string(), check(assignMaxOtherInfoLength)), optional(DefaultsDomainConfigSchema)]),
 ]);
 export const defaultsDomainConfigDefaults =
 	getDefaults(DefaultsDomainConfigSchema) ?? utils.panic("DefaultsDomainConfigSchema");
@@ -107,7 +108,7 @@ const ItemSchema = variant("type", [
 const ConfigSchema = object({
 	groups: array(
 		object({
-			name: string([custom(assignMaxGroupNameLength)]),
+			name: pipe(string(), check(assignMaxGroupNameLength)),
 			items: array(ItemSchema),
 		}),
 	),
@@ -138,13 +139,13 @@ export const args = new Command()
 	.parse()
 	.opts();
 
-export type Config = Output<typeof ConfigSchema>;
+export type Config = InferOutput<typeof ConfigSchema>;
 
-export type Item = Output<typeof ItemSchema>;
+export type Item = InferOutput<typeof ItemSchema>;
 export type ItemOfType<T extends ItemType> = Extract<Item, { type: T }>;
 
-export type SymlinkPath = Output<typeof SymlinkPathSchema>;
-export type SymlinkPathConfig = Output<typeof SymlinkPathConfigSchema>;
+export type SymlinkPath = InferOutput<typeof SymlinkPathSchema>;
+export type SymlinkPathConfig = InferOutput<typeof SymlinkPathConfigSchema>;
 
-export type DefaultsDomain = Output<typeof DefaultsDomainSchema>;
-export type DefaultsDomainConfig = Output<typeof DefaultsDomainConfigSchema>;
+export type DefaultsDomain = InferOutput<typeof DefaultsDomainSchema>;
+export type DefaultsDomainConfig = InferOutput<typeof DefaultsDomainConfigSchema>;
