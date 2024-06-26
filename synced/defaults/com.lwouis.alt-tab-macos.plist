@@ -17,12 +17,14 @@
 		<key>appsToShow2</key>
 		<string>0</string>
 		<key>crashPolicy</key>
-		<string>0</string>
+		<string>1</string>
 		<key>cursorFollowFocusEnabled</key>
 		<string>true</string>
 		<key>fadeOutAnimation</key>
 		<string>false</string>
 		<key>hideAppBadges</key>
+		<string>false</string>
+		<key>hideThumbnails</key>
 		<string>false</string>
 		<key>hideWindowlessApps</key>
 		<string>true</string>
@@ -43,7 +45,9 @@
 		<key>nextWindowShortcut3</key>
 		<string>`</string>
 		<key>preferencesVersion</key>
-		<string>6.69.0</string>
+		<string>6.70.1</string>
+		<key>previewFocusedWindow</key>
+		<string>false</string>
 		<key>screensToShow</key>
 		<string>1</string>
 		<key>screensToShow2</key>
@@ -67,7 +71,7 @@
 		<key>startAtLogin</key>
 		<string>true</string>
 		<key>theme</key>
-		<string>0</string>
+		<string>1</string>
 		<key>titleTruncation</key>
 		<string>0</string>
 		<key>updatePolicy</key>
