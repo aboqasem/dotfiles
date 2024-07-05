@@ -68,3 +68,6 @@ source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+
+# https://github.com/oven-sh/bun/issues/12308#issuecomment-2204858086 :(
+# bun completions
