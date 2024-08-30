@@ -59,12 +59,12 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 
 # Load oh-my-zsh
-source "$ZSH/oh-my-zsh.sh"
+[[ ! -f "$ZSH/oh-my-zsh.sh" ]] || source "$ZSH/oh-my-zsh.sh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme ]] || source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"

@@ -20,5 +20,4 @@ lvim.plugins = {
 
 
 lvim.colorscheme = "github_dark_default"
-lvim.format_on_save.enabled = true
 lvim.transparent_window = true
