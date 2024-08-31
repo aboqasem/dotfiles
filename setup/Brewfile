@@ -89,7 +89,6 @@ cask 'brave-browser'
 cask 'alt-tab'
 cask 'rectangle'
 cask 'cleanmymac'
-cask 'amazon-q'
 cask 'raycast'
 cask 'macs-fan-control'
 

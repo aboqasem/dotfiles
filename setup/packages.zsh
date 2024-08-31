@@ -84,4 +84,3 @@ for item in {com.googlecode.iterm2:iTerm,com.lwouis.alt-tab-macos:AltTab,com.kno
 done
 unset app domain item
 
-cw launch
