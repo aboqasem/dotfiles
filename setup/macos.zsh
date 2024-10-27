@@ -447,7 +447,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 
 # Set apps in the Dock
 defaults write com.apple.dock persistent-apps -array
-for dockItem in {/System/Applications/{Mail,Notes,"App Store","System Preferences"},/Applications/{iTerm,"Visual Studio Code","Brave Browser"}}.app; do
+for dockItem in {/System/Applications/{Mail,Notes,"App Store","System Settings"},/Applications/{iTerm,"Visual Studio Code","Brave Browser"}}.app; do
   defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>'$dockItem'</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
 done
 
@@ -485,7 +485,7 @@ defaults write com.apple.dock showhidden -bool true
 defaults write com.apple.dock show-recents -bool false
 
 # Reset Launchpad, but keep the desktop wallpaper intact
-find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete
+find "${HOME}/Library/Application Support/Dock" -maxdepth 1 -name "*-*.db" -delete
 
 # Add iOS & Watch Simulator to Launchpad
 sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
@@ -552,7 +552,7 @@ defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnab
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable local Time Machine backups
-hash tmutil &>/dev/null && (sudo tmutil disablelocal || sudo tmutil disable)
+hash tmutil &>/dev/null && (sudo tmutil disablelocal 2>/dev/null || sudo tmutil disable)
 
 ###############################################################################
 # Activity Monitor                                                            #
