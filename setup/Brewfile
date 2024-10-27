@@ -74,7 +74,6 @@ cask 'iterm2'
 cask 'visual-studio-code'
 cask 'jetbrains-toolbox'
 cask 'docker'
-brew 'docker-completion'
 
 ###############################################################################
 # Tools                                                                       #

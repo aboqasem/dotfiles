@@ -15,6 +15,7 @@ export ZSH_THEME=""
 # Which plugins would you like to load?
 export plugins=(
   git
+  docker
   wakatime
 )
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
