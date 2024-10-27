@@ -1,11 +1,18 @@
 #!/usr/bin/env zsh
 
-mydir=${0:a:h}
-rootdir=$mydir/../
-syncdir=$rootdir/sync
+CURRENT_DIR=${0:a:h}
+ROOT_DIR=$CURRENT_DIR/..
+SYNC_DIR=$ROOT_DIR/sync
 
-if [[ ! -d $rootdir/node_modules ]]; then
-  bun i --cwd $rootdir
+if ! type mise >/dev/null; then
+  alias mise="~/.local/bin/mise"
+fi
+if ! type bun >/dev/null; then
+  alias bun=$(mise which bun)
 fi
 
-bun run $syncdir/src/index.ts -- $@
+if [[ ! -d $ROOT_DIR/node_modules ]]; then
+  bun i --cwd $ROOT_DIR
+fi
+
+bun run $SYNC_DIR/src/index.ts -- $@
