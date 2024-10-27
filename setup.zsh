@@ -1,16 +1,19 @@
 #!/usr/bin/env zsh
 
-mydir=${0:a:h}
-myrelativetohomedir=$(realpath --relative-to=$HOME $mydir)
+CURRENT_DIR=${0:a:h}
+RELATIVE_TO_HOME=$(python3 -c "import os; print(os.path.relpath('$CURRENT_DIR', '$HOME'))")
 
 echo 'Installing packages...'
-zsh $mydir/setup/packages.zsh
+zsh $CURRENT_DIR/setup/packages.zsh
+
+echo 'Running dotsync...'
+"$CURRENT_DIR/bin/dotsync" --defaults-action import # --do
 
 echo 'Setting up macOS...'
-zsh $mydir/setup/macos.zsh
+zsh $CURRENT_DIR/setup/macos.zsh
 
 echo 'Next:'
-echo "  - Sync dotfiles: \`~/$myrelativetohomedir/bin/dotsync --defaults-action import # --do\`"
+echo "  - Sync dotfiles: \`~/$RELATIVE_TO_HOME/bin/dotsync --defaults-action import # --do\`"
 echo '  - Login to:'
 echo '    - Atuin: `atuin account login`'
 echo '    - VSCode'
