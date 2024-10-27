@@ -12,6 +12,10 @@
 		<false/>
 		<key>alignThumbnails</key>
 		<string>0</string>
+		<key>appearanceSize</key>
+		<string>0</string>
+		<key>appearanceVisibility</key>
+		<string>0</string>
 		<key>appsToShow</key>
 		<string>0</string>
 		<key>appsToShow2</key>
@@ -45,7 +49,7 @@
 		<key>nextWindowShortcut3</key>
 		<string>`</string>
 		<key>preferencesVersion</key>
-		<string>6.70.1</string>
+		<string>7.0.2</string>
 		<key>previewFocusedWindow</key>
 		<string>false</string>
 		<key>screensToShow</key>
@@ -61,19 +65,15 @@
 		<key>showMinimizedWindows</key>
 		<string>1</string>
 		<key>showOnScreen</key>
-		<string>0</string>
+		<string>1</string>
 		<key>showTabsAsWindows</key>
-		<string>false</string>
-		<key>spacesToShow</key>
-		<string>1</string>
-		<key>spacesToShow2</key>
-		<string>1</string>
+		<string>true</string>
 		<key>startAtLogin</key>
 		<string>true</string>
 		<key>theme</key>
 		<string>1</string>
 		<key>titleTruncation</key>
-		<string>0</string>
+		<string>2</string>
 		<key>updatePolicy</key>
 		<string>2</string>
 		<key>windowMaxWidthInRow</key>
