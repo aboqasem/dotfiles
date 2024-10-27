@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-mydir=${0:a:h}
+CURRENT_DIR=${0:a:h}
 
 ###############################################################################
 # LunarVim                                                                    #
@@ -15,7 +15,7 @@ mydir=${0:a:h}
 if ! type mise >/dev/null; then
   echo "Installing Mise..."
   curl https://mise.run | sh
-  mise="~/.local/bin/mise"
+  alias mise="~/.local/bin/mise"
 fi
 if [ ! -d ~/.asdf ]; then
   ln -s ~/.local/share/mise ~/.asdf
@@ -45,7 +45,7 @@ else
 fi
 
 echo "Installing Homebrew packages..."
-brew bundle --file="$mydir/Brewfile"
+brew bundle --file="$CURRENT_DIR/Brewfile"
 
 outdated=$(brew outdated)
 if [ -n "$outdated" ]; then
@@ -83,4 +83,3 @@ for item in {com.googlecode.iterm2:iTerm,com.lwouis.alt-tab-macos:AltTab,com.kno
   fi
 done
 unset app domain item
-
