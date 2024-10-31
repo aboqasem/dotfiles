@@ -120,7 +120,7 @@ for (const group of config.groups) {
 						continue;
 					}
 
-					const diff = await utils.diff({ path1: sourcePath, path2: targetPath, quiet: !args.diff });
+					const diff = await utils.diff({ path1: sourcePath, path2: targetPath });
 					const isTrackedAndUnmodified = await utils.isTrackedAndUnmodified(sourcePath);
 					const bakPath = `${sourcePath}.${Date.now()}.bak`;
 					if (diff && isTrackedAndUnmodified) {
@@ -133,6 +133,9 @@ for (const group of config.groups) {
 						bakPaths.push(bakPath);
 					} else {
 						symlinkLog(`${chalk.green("No diff.")} Replacing with symlink...`);
+					}
+					if (args.diff && diff) {
+						process.stdout.write(utils.colorizeDiff(diff.text()));
 					}
 					if (args.do) {
 						if (diff) {
