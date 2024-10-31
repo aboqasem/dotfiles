@@ -2,6 +2,7 @@ import path from "node:path";
 import { remove as removePointer, removeUndefinedItems } from "@sagold/json-pointer";
 import { get, set } from "@sagold/json-query";
 import { $, type ShellOutput, type ShellPromise } from "bun";
+import chalk from "chalk";
 import { HOME, REPO_ROOT } from "./config";
 
 namespace utils {
@@ -43,8 +44,6 @@ namespace utils {
 	}
 
 	// https://github.com/sagold/json-query/blob/03792d246802500279e1f9f482ce048ff2909c48/lib/interpreter/keys.ts
-	const VALUE_INDEX = 0;
-	const KEY_INDEX = 1;
 	const PARENT_INDEX = 2;
 	const POINTER_INDEX = 3;
 	// https://github.com/sagold/json-query/blob/03792d246802500279e1f9f482ce048ff2909c48/lib/remove.ts
@@ -97,7 +96,24 @@ namespace utils {
 		str1: string;
 		str2?: never;
 	};
-	type DiffOptions = { quiet?: boolean } & (DiffPathToPath | DiffPathToStr | DiffStrToStr | DiffStrToPath);
+	type DiffOptions = { quiet?: boolean; color?: boolean } & (
+		| DiffPathToPath
+		| DiffPathToStr
+		| DiffStrToStr
+		| DiffStrToPath
+	);
+
+	const DIFF_COLORS: Record<string, (line: string) => string> = {
+		"+": chalk.green,
+		"-": chalk.red,
+		"@": chalk.magenta,
+	};
+	function diffLineColorMapper(line: string): string {
+		return DIFF_COLORS[line.charAt(0)]?.(line) ?? line;
+	}
+	export function colorizeDiff(diff: string): string {
+		return diff.split("\n").map(diffLineColorMapper).join("\n");
+	}
 
 	export function diff({
 		path1 = "",
@@ -105,6 +121,7 @@ namespace utils {
 		str1 = "",
 		str2 = "",
 		quiet = true,
+		color = true,
 	}: DiffOptions): Promise<false | ShellOutput> {
 		assert((!path1 || !str1) && (!path2 || !str2), "path and str are mutually exclusive");
 
@@ -114,7 +131,7 @@ namespace utils {
 			.quiet()
 			.nothrow()
 			.then((out) => {
-				if (!quiet) process.stdout.write(out.text());
+				if (!quiet) process.stdout.write(color ? colorizeDiff(out.text()) : out.text());
 				const hasDiff = out.exitCode !== 0;
 				return hasDiff && out;
 			});
