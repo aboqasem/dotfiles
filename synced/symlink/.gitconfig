@@ -79,18 +79,13 @@
 
 	editor = interactive-rebase-tool
 
-[pager]
-
-	diff = delta
-	log = delta
-	reflog = delta
-	show = delta
-
 [delta]
 
 	navigate = true
 	line-numbers = false
 	dark = true
+	tabs = 4
+	hyperlinks = true
 
 [interactive]
 	diffFilter = delta --color-only
