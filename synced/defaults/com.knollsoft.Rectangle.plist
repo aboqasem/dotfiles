@@ -9,7 +9,7 @@
 		<key>SUHasLaunchedBefore</key>
 		<true/>
 		<key>SUUpdateRelaunchingMarker</key>
-		<true/>
+		<false/>
 		<key>allowAnyShortcut</key>
 		<true/>
 		<key>almostMaximize</key>
@@ -31,6 +31,8 @@
 		<integer>0</integer>
 		<key>hideMenubarIcon</key>
 		<true/>
+		<key>internalTilingNotified</key>
+		<true/>
 		<key>launchOnLogin</key>
 		<true/>
 		<key>maximize</key>
@@ -41,7 +43,7 @@
 			<integer>1310720</integer>
 		</dict>
 		<key>moveCursorAcrossDisplays</key>
-		<integer>2</integer>
+		<integer>1</integer>
 		<key>reflowTodo</key>
 		<dict>
 			<key>keyCode</key>
