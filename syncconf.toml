@@ -10,6 +10,14 @@
   ]
 
 [[groups]]
+  name = "GPG"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    ".gnupg/gpg-agent.conf",
+  ]
+
+[[groups]]
   name = "Oh My Zsh"
 [[groups.items]]
   type = "symlink"
