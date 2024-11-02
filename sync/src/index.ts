@@ -8,6 +8,7 @@ import {
 	HOME,
 	ItemType,
 	SYNCED_DIR_PATH,
+	SymlinkPathType,
 	args,
 	config,
 	defaultsDomainAndConfig,
@@ -73,6 +74,10 @@ for (const group of config.groups) {
 
 					if (!targetPathStat && args.do) {
 						await utils.mkdirp(path.dirname(targetPath));
+					}
+					if (!sourcePathStat && args.do) {
+						const p = itemConfig.type === SymlinkPathType.Dir ? sourcePath : path.dirname(sourcePath);
+						await utils.mkdirp(p);
 					}
 
 					if (!sourcePathStat && !targetPathStat) {
