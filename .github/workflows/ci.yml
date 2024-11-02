@@ -42,15 +42,21 @@ jobs:
           bun test
 
   run:
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
 
-      - name: Run
-        run: |
-          ./bin/dotsync --do
-          ./bin/dotsync --defaults-action import --do
-          ./bin/dotsync --defaults-action export --do
+      - name: Dry run
+        run: ./bin/dotsync
+
+      - name: Do sync
+        run: ./bin/dotsync --do
+
+      - name: Import defaults
+        run: ./bin/dotsync --defaults-action import --do
+
+      - name: Export defaults
+        run: ./bin/dotsync --do
