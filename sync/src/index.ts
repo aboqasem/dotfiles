@@ -28,12 +28,16 @@ const EMPTY_OBJECT = Object.freeze({});
 
 const bakPaths: Array<string | null> = [];
 
+function debug(...args: unknown[]): void {
+	console.debug(chalk.gray(...args));
+}
+
 const typeDirLookup = new Map<string, boolean>();
 async function createTypeDirIfNotExists(type: string): Promise<string> {
 	const dirPath = path.join(SYNCED_DIR_PATH, type);
 	if (!typeDirLookup.has(dirPath)) {
 		if (!fs.existsSync(dirPath)) {
-			console.log(chalk.gray(`Creating ${utils.tilde(dirPath)} directory...`));
+			debug(`Creating ${utils.tilde(dirPath)} directory...`);
 			if (args.do) {
 				await utils.mkdirp(dirPath);
 			}
@@ -45,7 +49,9 @@ async function createTypeDirIfNotExists(type: string): Promise<string> {
 
 for (const group of config.groups) {
 	const groupName = group.name;
-	const groupLog = console.log.bind(console, chalk.blue(groupName.padEnd(maxLengths.groupName)));
+	const paddedGroupName = groupName.padEnd(maxLengths.groupName);
+	const groupLog = console.log.bind(console, chalk.blue(paddedGroupName));
+	const groupDebug = debug.bind(debug, chalk.gray(paddedGroupName));
 	if (!args.groups.includes(groupName) || args.excludeGroups.includes(groupName)) {
 		groupLog(chalk.gray(`Skipping ${groupName}...`));
 		continue;
@@ -53,35 +59,48 @@ for (const group of config.groups) {
 
 	for (const item of group.items) {
 		const itemType = item.type;
-		const itemLog = groupLog.bind(console, chalk.magenta(itemType.padEnd(maxLengths.itemType)));
+		const paddedItemType = itemType.padEnd(maxLengths.itemType);
+		const itemLog = groupLog.bind(console, chalk.magenta(paddedItemType));
+		const itemDebug = groupDebug.bind(debug, chalk.gray(paddedItemType));
 
 		if (!args.types.includes(itemType) || args.excludeTypes.includes(itemType)) {
 			itemLog(chalk.gray(`Skipping ${itemType}...`));
 			continue;
 		}
+		const arrow = chalk.gray(">");
 		const typeDir = await createTypeDirIfNotExists(itemType);
 
 		switch (itemType) {
 			case ItemType.Symlink:
 				for (const pathMeta of item.paths) {
 					const [itemPath, itemConfig] = symlinkPathAndConfig(pathMeta);
-					const symlinkLog = itemLog.bind(console, chalk.cyan(itemPath.padEnd(maxLengths.otherInfo)), chalk.gray(">"));
+					const paddedItemPath = itemPath.padEnd(maxLengths.otherInfo);
+					const symlinkLog = itemLog.bind(console, chalk.cyan(paddedItemPath), arrow);
+					const symlinkDebug = itemDebug.bind(debug, chalk.gray(paddedItemPath), arrow);
 
 					const sourcePath = path.resolve(typeDir, itemPath);
 					const sourcePathStat = fs.lstatSync(sourcePath, { throwIfNoEntry: false });
 					const targetPath = path.resolve(HOME, itemPath);
 					const targetPathStat = fs.lstatSync(targetPath, { throwIfNoEntry: false });
 
-					if (!targetPathStat && args.do) {
-						await utils.mkdirp(path.dirname(targetPath));
+					if (!targetPathStat) {
+						const p = path.dirname(targetPath);
+						symlinkDebug(`Creating ${utils.tilde(p)} target directory...`);
+						if (args.do) {
+							await utils.mkdirp(p);
+						}
 					}
-					if (!sourcePathStat && args.do) {
+					if (!sourcePathStat) {
 						const p = itemConfig.type === SymlinkPathType.Dir ? sourcePath : path.dirname(sourcePath);
-						await utils.mkdirp(p);
+						symlinkDebug(`Creating ${utils.tilde(p)} source directory...`);
+						if (args.do) {
+							await utils.mkdirp(p);
+						}
 					}
 
 					if (!sourcePathStat && !targetPathStat) {
 						symlinkLog(`Does not exist. Creating an empty ${itemConfig.type} and creating symlink...`);
+						symlinkDebug(`Symlinking ${utils.tilde(sourcePath)} to ${utils.tilde(targetPath)}...`);
 						if (args.do) {
 							await utils.symlink(sourcePath, targetPath);
 						}
@@ -92,6 +111,7 @@ for (const group of config.groups) {
 
 					if (sourcePathStat && !targetPathStat) {
 						symlinkLog(`${chalk.green("Only source exists.")} Creating symlink...`);
+						symlinkDebug(`Symlinking ${utils.tilde(sourcePath)} to ${utils.tilde(targetPath)}...`);
 						if (args.do) {
 							await utils.symlink(sourcePath, targetPath);
 						}
@@ -100,6 +120,9 @@ for (const group of config.groups) {
 
 					if (!sourcePathStat && targetPathStat) {
 						symlinkLog(`${chalk.green("Only target exists.")} Storing and creating symlink...`);
+						symlinkDebug(
+							`Moving ${utils.tilde(targetPath)} to ${utils.tilde(sourcePath)} and replacing with symlink...`,
+						);
 						if (args.do) {
 							await utils.mv(targetPath, sourcePath);
 							await utils.symlink(sourcePath, targetPath);
@@ -108,7 +131,7 @@ for (const group of config.groups) {
 					}
 
 					// compiler not narrowing the type
-					if (!sourcePathStat || !targetPathStat) utils.unreachable();
+					utils.assert(sourcePathStat && targetPathStat);
 
 					if (targetPathStat.isSymbolicLink()) {
 						const linkTarget = fs.readlinkSync(targetPath);
@@ -118,6 +141,9 @@ for (const group of config.groups) {
 						}
 
 						symlinkLog(`${chalk.yellow("Overriding symlink:")} '${linkTarget}'...`);
+						symlinkDebug(
+							`Unlinking ${utils.tilde(targetPath)} and replacing with symlink of ${utils.tilde(sourcePath)}...`,
+						);
 						if (args.do) {
 							await utils.unlink(targetPath);
 							await utils.symlink(sourcePath, targetPath);
@@ -130,11 +156,13 @@ for (const group of config.groups) {
 					const bakPath = `${sourcePath}.${Date.now()}.bak`;
 					if (diff && isTrackedAndUnmodified) {
 						symlinkLog(`${chalk.yellow("Diff found but is tracked.")} Replacing with symlink...`);
+						symlinkDebug(`Symlinking ${utils.tilde(sourcePath)} to ${utils.tilde(targetPath)}...`);
 						bakPaths.push(null);
 					} else if (diff) {
 						symlinkLog(
 							`${chalk.yellow("Diff found.")} Backing up source, replacing it with target, and creating symlink.`,
 						);
+						symlinkDebug(`Backing up ${utils.tilde(sourcePath)} to ${utils.tilde(bakPath)} and symlinking...`);
 						bakPaths.push(bakPath);
 					} else {
 						symlinkLog(`${chalk.green("No diff.")} Replacing with symlink...`);
@@ -155,11 +183,9 @@ for (const group of config.groups) {
 			case ItemType.Defaults:
 				for (const domainMeta of item.domains) {
 					const [itemDomain, itemConfig] = defaultsDomainAndConfig(domainMeta);
-					const defaultsLog = itemLog.bind(
-						console,
-						chalk.cyan(itemDomain.padEnd(maxLengths.otherInfo)),
-						chalk.gray(">"),
-					);
+					const paddedIemDomain = itemDomain.padEnd(maxLengths.otherInfo);
+					const defaultsLog = itemLog.bind(console, chalk.cyan(paddedIemDomain), arrow);
+					const defaultsDebug = itemDebug.bind(debug, chalk.gray(paddedIemDomain), arrow);
 
 					const sourcePath = path.resolve(typeDir, `${itemDomain}.plist`);
 					const sourcePathStat = fs.lstatSync(sourcePath, { throwIfNoEntry: false });
@@ -209,6 +235,7 @@ for (const group of config.groups) {
 									defaultsLog(`${chalk.yellow("Diff found.")} Backing up existing and saving new...`);
 									const bakFile = `${sourcePath}.${Date.now()}.bak`;
 									bakPaths.push(bakFile);
+									defaultsDebug(`Moving ${utils.tilde(sourcePath)} to ${utils.tilde(bakFile)}...`);
 									if (args.do) {
 										await utils.mv(sourcePath, bakFile);
 									}
@@ -218,6 +245,7 @@ for (const group of config.groups) {
 								}
 							}
 
+							defaultsDebug(`Writing defaults to ${utils.tilde(sourcePath)}...`);
 							if (args.do) {
 								await Bun.write(sourcePath, `${final}\n`);
 							}
@@ -232,6 +260,7 @@ for (const group of config.groups) {
 							}
 
 							defaultsLog(`${chalk.green("Found.")} Importing defaults...`);
+							defaultsDebug(`Importing defaults from ${utils.tilde(sourcePath)}...`);
 							if (args.do) {
 								await $`defaults import ${itemDomain} ${sourcePath}`;
 							}

@@ -10,13 +10,9 @@ namespace utils {
 		throw new Error(message);
 	}
 
-	export function unreachable(): never {
-		throw new Error("Unreachable");
-	}
-
 	export function assert(condition: unknown, message = "Assertion failed"): asserts condition {
 		if (!condition) {
-			throw new Error(message);
+			panic(message);
 		}
 	}
 
