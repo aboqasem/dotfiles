@@ -12,3 +12,6 @@ git:
 
 refresher:
   fetchInterval: 3600 # 1 hour
+
+os:
+  editPreset: lvim
