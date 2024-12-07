@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Homebrew completions
 fpath+=~/.zfunc
 if type brew &>/dev/null; then
@@ -7,6 +9,8 @@ if type brew &>/dev/null; then
 
   autoload -Uz compinit
   compinit
+
+  
 fi
 
 # atuin init
