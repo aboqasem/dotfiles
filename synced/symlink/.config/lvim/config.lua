@@ -16,6 +16,9 @@ lvim.plugins = {
       require("supermaven-nvim").setup({})
     end,
   },
+  {
+    "tpope/vim-eunuch",
+  },
 }
 
 
