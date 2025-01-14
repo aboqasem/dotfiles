@@ -2,6 +2,7 @@
 
 	name = Mohammad Al Zouabi
 	email = mb.alzouabi@gmail.com
+	signingkey = ~/.ssh/id_ed25519.pub
 
 [alias]
 
@@ -142,8 +143,17 @@
 
 [commit]
 
-	# https://help.github.com/articles/signing-commits-using-gpg/
 	gpgsign = true
+
+[gpg]
+
+  # https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification
+  # https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key#telling-git-about-your-ssh-key
+	format = ssh
+
+[gpg "ssh"]
+
+	allowedSignersFile = ~/.ssh/allowed_signers
 
 [submodule]
 
@@ -207,3 +217,4 @@
 [init]
 
 	defaultBranch = main
+
