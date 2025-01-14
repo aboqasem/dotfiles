@@ -9,12 +9,11 @@ if type brew &>/dev/null; then
 
   autoload -Uz compinit
   compinit
-
-  
 fi
 
 # atuin init
 eval "$(atuin init zsh --disable-up-arrow)"
 
 # bun completions
+bun completions &>/dev/null
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
