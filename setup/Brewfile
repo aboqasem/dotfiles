@@ -72,6 +72,7 @@ brew 'git-interactive-rebase-tool'
 ###############################################################################
 
 cask 'iterm2'
+cask 'ghostty'
 cask 'visual-studio-code'
 cask 'jetbrains-toolbox'
 cask 'docker'

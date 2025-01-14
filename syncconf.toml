@@ -72,6 +72,14 @@
   paths = [".p10k.zsh"]
 
 [[groups]]
+  name = "Ghostty"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    [".config/ghostty", { type = "dir" }],
+  ]
+
+[[groups]]
   name = "iTerm"
 [[groups.items]]
   type = "defaults"
