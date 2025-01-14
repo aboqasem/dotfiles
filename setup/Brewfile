@@ -21,6 +21,9 @@ brew 'gnu-sed'
 brew 'zsh'
 brew 'bash'
 
+# For LunarVim
+brew 'neovim'
+
 # Terminal session managers
 brew 'zellij'
 
