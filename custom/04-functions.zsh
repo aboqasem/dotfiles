@@ -138,6 +138,14 @@ function zj_fix() {
   sed -zE 's/(pane command="[^"]*zsh" [^{]*\{[^}]*)start_suspended true([^}]*\})/\1\2/g'
 }
 
+function zj_sessions() {
+  # `zellij ls` example output:
+  # [32;1mexample 2[m [Created [35;1m17m 32s[m ago]
+  # [32;1mexample 1[m [Created [35;1m18m 48s[m ago]
+  # [32;1mexample[m [Created [35;1m15s[m ago] ([31;1mEXITED[m - attach to resurrect)
+  command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g'
+}
+
 function zj_save() {
   local session="$1"
   local sessions="$2"
@@ -146,7 +154,7 @@ function zj_save() {
     return 1
   fi
   if [[ -z "$sessions" ]]; then
-    sessions=$(command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g')
+    sessions=$(zj_sessions)
   fi
   if [[ ! "$sessions" =~ "$session" ]]; then
     echo "Session '$session' does not exist"
@@ -164,19 +172,12 @@ function zj_save() {
 }
 
 function zj_save_all() {
-  # `zellij ls` example output:
-  # [32;1mexample 2[m [Created [35;1m17m 32s[m ago]
-  # [32;1mexample 1[m [Created [35;1m18m 48s[m ago]
-  # [32;1mexample[m [Created [35;1m15s[m ago] ([31;1mEXITED[m - attach to resurrect)
-
-  local sessions=$(command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g')
+  local sessions=$(zj_sessions)
   if [[ -z "$sessions" ]]; then
     echo "No sessions to save"
     return 1
   fi
 
-  local saved_layouts_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved"
-  local save_layout_name="$(date +%Y-%m-%d-%H-%M-%S-%N).save.kdl"
   echo "$sessions" | while read -r sess; do
     zj_save "$sess" "$sessions"
   done
@@ -190,7 +191,7 @@ function zj_diff() {
     return 1
   fi
   if [[ -z "$sessions" ]]; then
-    sessions=$(command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g')
+    sessions=$(zj_sessions)
   fi
   if [[ ! "$sessions" =~ "$session" ]]; then
     echo "Session '$session' does not exist"
@@ -205,7 +206,7 @@ function zj_diff() {
 }
 
 function zj_diff_all() {
-  local sessions=$(command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g')
+  local sessions=$(zj_sessions)
   if [[ -z "$sessions" ]]; then
     echo "No sessions to diff"
     return 1
