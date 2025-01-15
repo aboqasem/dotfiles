@@ -109,7 +109,7 @@ function zj_link() {
   local saved_layouts_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved"
   local version=$(command zellij -V | sed -E 's/^zellij (.+)$/\1/')
   # https://github.com/zellij-org/zellij/blob/c72f3a712bfa92a4a80b4c1ad1dbe7669892a324/zellij-utils/src/consts.rs
-  local cache_dir="$HOME/Library/Caches/org.Zellij-Contributors.Zellij/"
+  local cache_dir="$HOME/Library/Caches/org.Zellij-Contributors.Zellij"
   local sess_info_caches_dir="$cache_dir/$version/session_info"
   local sess_info_cache_dir="$sess_info_caches_dir/$sess"
   local sess_cache_file="$sess_info_cache_dir/session-layout.kdl"
@@ -146,11 +146,12 @@ function zj_sessions() {
   command zellij ls 2>/dev/null | grep -v EXITED | sed -E 's/^(.+) \[Created .*$/\1/' | sed 's/\x1B\[[0-9;]*[mK]//g'
 }
 
-function zj_save() {
+function zj_save_as() {
   local session="$1"
-  local sessions="$2"
-  if [[ -z "$session" ]]; then
-    echo "Usage: $0 <session> [sessions]"
+  local as_session="$2"
+  local sessions="$3"
+  if [[ -z "$session" || -z "$as_session" ]]; then
+    echo "Usage: $0 <session> <as_session> [sessions]"
     return 1
   fi
   if [[ -z "$sessions" ]]; then
@@ -162,13 +163,24 @@ function zj_save() {
   fi
 
 
-  local save_layout_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved/$session"
+  local save_layout_dir="$ZELLIJ_CONFIG_DIR/layouts/_saved/$as_session"
   local save_layout_file="$save_layout_dir/$(date +%Y-%m-%d-%H-%M-%S-%N).save.kdl"
-  echo "Saving \"$session\" to \"$save_layout_file\"..."
+  echo "Saving \"$session\" as \"$as_session\" to \"$save_layout_file\"..."
   mkdir -p "$save_layout_dir"
   command zellij --session "$session" action dump-layout | zj_fix >"$save_layout_file"
   ln -sf "$save_layout_file" "$save_layout_dir/session-layout.kdl"
-  zj_link "$session"
+  zj_link "$as_session"
+}
+
+function zj_save() {
+  local session="$1"
+  local sessions="$2"
+  if [[ -z "$session" ]]; then
+    echo "Usage: $0 <session> [sessions]"
+    return 1
+  fi
+
+  zj_save_as "$session" "$session" "$sessions"
 }
 
 function zj_save_all() {
