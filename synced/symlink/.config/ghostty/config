@@ -12,7 +12,7 @@ clipboard-trim-trailing-spaces = true
 font-family = "GeistMono NF"
 font-size = 13
 
-theme = Github Dark
+theme = vibrant-github-dark
 
 cursor-style = block
 

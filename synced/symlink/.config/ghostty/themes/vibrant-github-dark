@@ -1,0 +1,60 @@
+# From: https://github.com/primer/github-vscode-theme/blob/ad3f17519f2f7d7060afffac2b557c69c4534610/src/classic/theme.js
+
+# "terminal.ansiBlack"
+palette = 0=#484f58
+
+# "terminal.ansiRed"
+palette = 1=#ff7b72
+
+# "terminal.ansiGreen"
+palette = 2=#3fb950
+
+# "terminal.ansiYellow"
+palette = 3=#d29922
+
+# "terminal.ansiBlue"
+palette = 4=#58a6ff
+
+# "terminal.ansiMagenta"
+palette = 5=#bc8cff
+
+# "terminal.ansiCyan"
+palette = 6=#39c5cf
+
+# "terminal.ansiWhite"
+palette = 7=#b1bac4
+
+# "terminal.ansiBrightBlack"
+palette = 8=#6e7681
+
+# "terminal.ansiBrightRed"
+palette = 9=#ffa198
+
+# "terminal.ansiBrightGreen"
+palette = 10=#56d364
+
+# "terminal.ansiBrightYellow"
+palette = 11=#e3b341
+
+# "terminal.ansiBrightBlue"
+palette = 12=#79c0ff
+
+# "terminal.ansiBrightMagenta"
+palette = 13=#d2a8ff
+
+# "terminal.ansiBrightCyan"
+palette = 14=#56d4dd
+
+# "terminal.ansiBrightWhite"
+palette = 15=#ffffff
+
+# "panel.background"
+background = #010409
+
+# "terminal.foreground"
+foreground = #e6edf3
+
+# From "Github Dark" Ghostty theme
+cursor-color = #c9d1d9
+selection-background = #3b5070
+selection-foreground = #ffffff
