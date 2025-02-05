@@ -24,6 +24,7 @@ alias sudo='sudo '
 # Browser
 alias chrome='/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser'
 alias brave='/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser'
+alias zen='/Applications/Zen\ Browser.app/Contents/MacOS/zen'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"

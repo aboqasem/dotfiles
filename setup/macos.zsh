@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-# Close any open System Preferences panes, to prevent them from overriding
+# Close any open System Settings panes, to prevent them from overriding
 # settings we’re about to change
-osascript -e 'tell application "System Preferences" to quit'
+osascript -e 'tell application "System Settings" to quit'
 
 # Ask for the administrator password upfront
 sudo -v
@@ -18,7 +18,7 @@ done 2>/dev/null &
 # General UI/UX                                                               #
 ###############################################################################
 
-# Set computer name (as done via System Preferences → Sharing)
+# Set computer name (as done via System Settings → Sharing)
 sudo scutil --set ComputerName "Zouabi"
 sudo scutil --set HostName "Zouabi"
 sudo scutil --set LocalHostName "Zouabi"
@@ -447,7 +447,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 
 # Set apps in the Dock
 defaults write com.apple.dock persistent-apps -array
-for dockItem in {/System/Applications/{Mail,Notes,"App Store","System Settings"},/Applications/{iTerm,"Visual Studio Code","Brave Browser"}}.app; do
+for dockItem in {/System/Applications/{Mail,Notes,"App Store","System Settings"},/Applications/{Ghostty,"Visual Studio Code","Zen Browser"}}.app; do
   defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>'$dockItem'</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
 done
 
@@ -510,13 +510,13 @@ sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator (
 # 12: Notification Center
 # 13: Lock Screen
 # Top left screen corner → Mission Control
-defaults write com.apple.dock wvous-tl-corner -int 2
+defaults write com.apple.dock wvous-tl-corner -int 0
 defaults write com.apple.dock wvous-tl-modifier -int 0
 # Top right screen corner → Desktop
-defaults write com.apple.dock wvous-tr-corner -int 4
+defaults write com.apple.dock wvous-tr-corner -int 0
 defaults write com.apple.dock wvous-tr-modifier -int 0
 # Bottom left screen corner → Start screen saver
-defaults write com.apple.dock wvous-bl-corner -int 5
+defaults write com.apple.dock wvous-bl-corner -int 0
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
 ###############################################################################

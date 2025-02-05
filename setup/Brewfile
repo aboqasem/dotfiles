@@ -84,6 +84,7 @@ cask 'docker'
 # Tools                                                                       #
 ###############################################################################
 
+cask 'zen-browser'
 cask 'brave-browser'
 cask 'alt-tab'
 cask 'rectangle'
