@@ -9,6 +9,7 @@ git:
   overrideGpg: true
   paging:
     pager: delta --paging=never
+  autoForwardBranches: allBranches
 
 refresher:
   fetchInterval: 3600 # 1 hour
