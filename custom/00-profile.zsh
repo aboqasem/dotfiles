@@ -1,6 +1,9 @@
 #!/usr/bin/env zsh
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(/opt/Homebrew/bin/brew shellenv)"
+
+# zellij completions: https://zellij.dev/documentation/controlling-zellij-through-cli#completions
+source <(zellij setup --generate-completion zsh | sed '/_zellij "$@"/d')
 
 # Homebrew completions
 fpath+=~/.zfunc
