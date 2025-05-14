@@ -67,7 +67,7 @@
 		<key>showOnScreen</key>
 		<string>1</string>
 		<key>showTabsAsWindows</key>
-		<string>true</string>
+		<string>false</string>
 		<key>startAtLogin</key>
 		<string>true</string>
 		<key>theme</key>
