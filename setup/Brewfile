@@ -90,7 +90,6 @@ cask 'alt-tab'
 cask 'rectangle'
 cask 'cleanmymac'
 cask 'raycast'
-cask 'macs-fan-control'
 
 ###############################################################################
 # Editing                                                                     #

@@ -99,22 +99,6 @@
   ]
 
 [[groups]]
-  name = "Macs Fan Control"
-[[groups.items]]
-  type = "defaults"
-  domains = [
-    [
-      "com.crystalidea.MacsFanControl",
-      { exclude = [
-        "/License",
-        "/NSStatusItem Preferred Position MacsFanControlMenuBarIcon",
-        "/{UpdateChecker_(NextCheck|SkipVersion)}",
-        "/{Window(Geometry|SplitterPosition|State)}",
-      ] },
-    ],
-  ]
-
-[[groups]]
   name = "Rectangle"
 [[groups.items]]
   type = "defaults"
