@@ -200,7 +200,7 @@ describe("symlink files", () => {
 		expect(fs.readFileSync(escaped, "utf8")).toBe("outside\n");
 	});
 
-	it.todo("diffs shell-sensitive paths without corrupting the comparison", async () => {
+	it("diffs shell-sensitive paths without corrupting the comparison", async () => {
 		const itemPath = ".managed'quote";
 		const env = await setup(itemPath);
 		env.writeFile(env.sourcePath(itemPath), "repo\n");

@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { remove as removePointer, removeUndefinedItems } from "@sagold/json-pointer";
 import { get, set } from "@sagold/json-query";
@@ -123,7 +125,7 @@ namespace utils {
 		return diff.split("\n").map(diffLineColorMapper).join("\n");
 	}
 
-	export function diff({
+	export async function diff({
 		path1 = "",
 		path2 = "",
 		str1 = "",
@@ -133,16 +135,22 @@ namespace utils {
 	}: DiffOptions): Promise<false | $.ShellOutput> {
 		assert((!path1 || !str1) && (!path2 || !str2), "path and str are mutually exclusive");
 
-		const sub1 = { raw: path1 ? "$" : "<" };
-		const sub2 = { raw: path2 ? "$" : "<" };
-		return $`bash -c "diff -ruN ${sub1}(echo '${path1 || str1}') ${sub2}(echo '${path2 || str2}')"`
-			.quiet()
-			.nothrow()
-			.then((out) => {
-				if (!quiet) process.stdout.write(color ? colorizeDiff(out.text()) : out.text());
-				const hasDiff = out.exitCode !== 0;
-				return hasDiff && out;
-			});
+		const temporaryDirectory = !path1 || !path2 ? fs.mkdtempSync(path.join(os.tmpdir(), "dotsync-diff-")) : undefined;
+		try {
+			const left = path1 || path.join(temporaryDirectory ?? "", "left");
+			const right = path2 || path.join(temporaryDirectory ?? "", "right");
+			if (!path1) fs.writeFileSync(left, `${str1}\n`);
+			if (!path2) fs.writeFileSync(right, `${str2}\n`);
+
+			const out = await $`diff -ruN ${left} ${right}`.quiet().nothrow();
+			if (out.exitCode > 1) {
+				throw new Error(`diff failed with exit code ${out.exitCode}: ${out.stderr.toString().trim()}`);
+			}
+			if (!quiet) process.stdout.write(color ? colorizeDiff(out.text()) : out.text());
+			return out.exitCode === 1 && out;
+		} finally {
+			if (temporaryDirectory) fs.rmSync(temporaryDirectory, { recursive: true, force: true });
+		}
 	}
 
 	export function isTrackedAndUnmodified(path: string): Promise<boolean> {
