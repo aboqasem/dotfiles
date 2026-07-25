@@ -133,21 +133,3 @@
       ] },
     ],
   ]
-
-
-[[groups]]
-  name = "CleanMyMac"
-[[groups.items]]
-  type = "defaults"
-  domains = [
-    [
-      "com.macpaw.CleanMyMac4",
-      { include = [
-        "/MenubarAppEnabled",
-        "/{SU(AutomaticallyUpdate|EnableAutomaticChecks|HasLaunchedBefore)}",
-        "/SeenIntroVideo",
-        "/ShowReleaseNotes",
-        "/SmartScanModuleDisabledTasks",
-      ] },
-    ],
-  ]
