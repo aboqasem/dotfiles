@@ -123,7 +123,26 @@ for (const group of config.groups) {
 						continue;
 					}
 					sourcePathStat && symlinkPathValidateType(sourcePath, sourcePathStat, itemConfig.type);
-					targetPathStat && symlinkPathValidateType(targetPath, targetPathStat, itemConfig.type);
+
+					if (targetPathStat?.isSymbolicLink()) {
+						const linkTarget = fs.readlinkSync(targetPath);
+						if (linkTarget === sourcePath) {
+							symlinkLog(chalk.green("Already symlinked."));
+							continue;
+						}
+
+						symlinkLog(`${chalk.yellow("Overriding symlink:")} '${linkTarget}'...`);
+						symlinkDebug(
+							`Unlinking ${utils.tilde(targetPath)} and replacing with symlink of ${utils.tilde(sourcePath)}...`,
+						);
+						if (args.do) {
+							await utils.unlink(targetPath);
+							await utils.symlink(sourcePath, targetPath);
+						}
+						continue;
+					}
+
+					if (targetPathStat) symlinkPathValidateType(targetPath, targetPathStat, itemConfig.type);
 
 					if (sourcePathStat && !targetPathStat) {
 						symlinkLog(`${chalk.green("Only source exists.")} Creating symlink...`);
@@ -147,24 +166,6 @@ for (const group of config.groups) {
 
 					// compiler not narrowing the type
 					utils.assert(sourcePathStat && targetPathStat);
-
-					if (targetPathStat.isSymbolicLink()) {
-						const linkTarget = fs.readlinkSync(targetPath);
-						if (linkTarget === sourcePath) {
-							symlinkLog(chalk.green("Already symlinked."));
-							continue;
-						}
-
-						symlinkLog(`${chalk.yellow("Overriding symlink:")} '${linkTarget}'...`);
-						symlinkDebug(
-							`Unlinking ${utils.tilde(targetPath)} and replacing with symlink of ${utils.tilde(sourcePath)}...`,
-						);
-						if (args.do) {
-							await utils.unlink(targetPath);
-							await utils.symlink(sourcePath, targetPath);
-						}
-						continue;
-					}
 
 					const diff = await utils.diff({ path1: sourcePath, path2: targetPath });
 					const isRecoverableFromGit = await utils.isRecoverableFromGit(sourcePath);

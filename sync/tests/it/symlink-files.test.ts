@@ -76,7 +76,7 @@ describe("symlink files", () => {
 		expect(fs.readlinkSync(env.homePath(".managed"))).toBe(env.sourcePath(".managed"));
 	});
 
-	it.todo("repairs a broken target link", async () => {
+	it("repairs a broken target link", async () => {
 		const env = await setup();
 		env.writeFile(env.sourcePath(".managed"), "repo\n");
 		env.writeSymlink(path.join(env.root, "missing"), env.homePath(".managed"));
