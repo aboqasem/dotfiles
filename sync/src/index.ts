@@ -174,8 +174,14 @@ for (const group of config.groups) {
 					}
 					if (args.do) {
 						if (diff) {
-							isRecoverableFromGit || (await utils.mv(sourcePath, bakPath));
+							if (isRecoverableFromGit) {
+								await utils.rmrf(sourcePath);
+							} else {
+								await utils.mv(sourcePath, bakPath);
+							}
 							await utils.mv(targetPath, sourcePath);
+						} else {
+							await utils.rmrf(targetPath);
 						}
 						await utils.symlink(sourcePath, targetPath);
 					}

@@ -96,7 +96,7 @@ describe("symlink directories", () => {
 		expect(fs.existsSync(env.homePath(".managed-dir"))).toBeFalse();
 	});
 
-	it.todo("replaces equal real directories without nesting a link", async () => {
+	it("replaces equal real directories without nesting a link", async () => {
 		const env = await setup();
 		env.writeDirectory(env.sourcePath(".managed-dir"), { config: "same\n" });
 		env.writeDirectory(env.homePath(".managed-dir"), { config: "same\n" });
@@ -109,7 +109,7 @@ describe("symlink directories", () => {
 		expect(fs.existsSync(path.join(env.homePath(".managed-dir"), ".managed-dir"))).toBeFalse();
 	});
 
-	it.todo("adopts a differing directory over a tracked-clean source without nesting", async () => {
+	it("adopts a differing directory over a tracked-clean source without nesting", async () => {
 		const env = await setup();
 		env.writeDirectory(env.sourcePath(".managed-dir"), { config: "repo\n" });
 		await env.commitAll();
