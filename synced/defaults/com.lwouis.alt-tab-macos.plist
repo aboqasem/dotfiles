@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+		<key>NSStatusItem VisibleCC Item-0</key>
+		<false/>
 		<key>SUAutomaticallyUpdate</key>
 		<true/>
 		<key>SUEnableAutomaticChecks</key>
@@ -14,14 +16,22 @@
 		<string>0</string>
 		<key>appearanceSize</key>
 		<string>0</string>
+		<key>appearanceStyle</key>
+		<string>0</string>
+		<key>appearanceTheme</key>
+		<string>2</string>
 		<key>appearanceVisibility</key>
 		<string>0</string>
 		<key>appsToShow</key>
 		<string>0</string>
 		<key>appsToShow2</key>
 		<string>0</string>
+		<key>captureWindowsInBackground</key>
+		<string>true</string>
 		<key>crashPolicy</key>
-		<string>1</string>
+		<string>0</string>
+		<key>cursorFollowFocus</key>
+		<integer>1</integer>
 		<key>cursorFollowFocusEnabled</key>
 		<string>true</string>
 		<key>fadeOutAnimation</key>
@@ -33,41 +43,77 @@
 		<key>hideWindowlessApps</key>
 		<string>true</string>
 		<key>holdShortcut</key>
-		<string>⌘</string>
+		<dict>
+			<key>secureData</key>
+			<data>YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGmCwwZGhscVSRudWxs1g0ODxAREhMUFRQXGF1tb2RpZmllckZsYWdzXxAbY2hhcmFjdGVyc0lnbm9yaW5nTW9kaWZpZXJzViRjbGFzc1pjaGFyYWN0ZXJzV2tleUNvZGVXdmVyc2lvboAEgACABYAAgAOAAlExEf//EgAQAADSHR4fIFokY2xhc3NuYW1lWCRjbGFzc2VzWlNSU2hvcnRjdXSiHyFYTlNPYmplY3QACAARABoAJAApADIANwBJAEwAUQBTAFoAYABtAHsAmQCgAKsAswC7AL0AvwDBAMMAxQDHAMkAzADRANYA4QDqAPUA+AAAAAAAAAIBAAAAAAAAACIAAAAAAAAAAAAAAAAAAAEB</data>
+			<key>string</key>
+			<string>⌘</string>
+		</dict>
 		<key>holdShortcut2</key>
-		<string>⌘</string>
-		<key>holdShortcut3</key>
-		<string>⌥</string>
+		<dict>
+			<key>secureData</key>
+			<data>YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGmCwwZGhscVSRudWxs1g0ODxAREhMUFRQXGF1tb2RpZmllckZsYWdzXxAbY2hhcmFjdGVyc0lnbm9yaW5nTW9kaWZpZXJzViRjbGFzc1pjaGFyYWN0ZXJzV2tleUNvZGVXdmVyc2lvboAEgACABYAAgAOAAlExEf//EgAQAADSHR4fIFokY2xhc3NuYW1lWCRjbGFzc2VzWlNSU2hvcnRjdXSiHyFYTlNPYmplY3QACAARABoAJAApADIANwBJAEwAUQBTAFoAYABtAHsAmQCgAKsAswC7AL0AvwDBAMMAxQDHAMkAzADRANYA4QDqAPUA+AAAAAAAAAIBAAAAAAAAACIAAAAAAAAAAAAAAAAAAAEB</data>
+			<key>string</key>
+			<string>⌘</string>
+		</dict>
 		<key>menubarIcon</key>
-		<string>3</string>
+		<string>0</string>
+		<key>menubarIconShown</key>
+		<string>false</string>
 		<key>mouseHoverEnabled</key>
 		<string>false</string>
-		<key>nextWindowShortcut</key>
-		<string>⇥</string>
-		<key>nextWindowShortcut2</key>
-		<string>`</string>
-		<key>nextWindowShortcut3</key>
-		<string>`</string>
 		<key>preferencesVersion</key>
-		<string>7.2.0</string>
+		<string>11.4.3</string>
+		<key>previewFadeInAnimation</key>
+		<string>false</string>
 		<key>previewFocusedWindow</key>
 		<string>false</string>
 		<key>screensToShow</key>
 		<string>1</string>
 		<key>screensToShow2</key>
-		<string>1</string>
+		<string>0</string>
+		<key>settingsWindowShownOnFirstLaunch</key>
+		<string>true</string>
+		<key>shortcutCount</key>
+		<string>2</string>
 		<key>shortcutStyle</key>
 		<string>0</string>
 		<key>showFullscreenWindows</key>
-		<string>0</string>
+		<string>1</string>
 		<key>showHiddenWindows</key>
+		<string>0</string>
+		<key>showHiddenWindows2</key>
 		<string>0</string>
 		<key>showMinimizedWindows</key>
 		<string>1</string>
 		<key>showOnScreen</key>
 		<string>1</string>
-		<key>showTabsAsWindows</key>
-		<string>false</string>
+		<key>showTabsAsWindows10</key>
+		<string>1</string>
+		<key>showTabsAsWindows2</key>
+		<string>1</string>
+		<key>showTabsAsWindows3</key>
+		<string>1</string>
+		<key>showTabsAsWindows4</key>
+		<string>1</string>
+		<key>showTabsAsWindows5</key>
+		<string>1</string>
+		<key>showTabsAsWindows6</key>
+		<string>1</string>
+		<key>showTabsAsWindows7</key>
+		<string>1</string>
+		<key>showTabsAsWindows8</key>
+		<string>1</string>
+		<key>showTabsAsWindows9</key>
+		<string>1</string>
+		<key>showWindowlessApps</key>
+		<integer>1</integer>
+		<key>showWindowlessApps10</key>
+		<string>1</string>
+		<key>showWindowlessApps2</key>
+		<integer>1</integer>
+		<key>spacesToShow</key>
+		<string>1</string>
 		<key>startAtLogin</key>
 		<string>true</string>
 		<key>theme</key>
@@ -76,6 +122,8 @@
 		<string>2</string>
 		<key>updatePolicy</key>
 		<string>2</string>
+		<key>windowDisplayDelay</key>
+		<string>0</string>
 		<key>windowMaxWidthInRow</key>
 		<string>30</string>
 	</dict>

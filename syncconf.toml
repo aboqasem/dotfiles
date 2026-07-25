@@ -90,6 +90,7 @@
         "/Default Arrangement Name",
         "/Default Bookmark Guid",
         "/{NS.*}",
+        "PMPrintingPanelSize",
         "/{SU(FeedAlternateAppNameKey|FeedURL|LastCheckTime|UpdateGroupIdentifier)}",
         "/Window Arrangements",
         "/{NoSync.*}",
@@ -122,9 +123,12 @@
     [
       "com.lwouis.alt-tab-macos",
       { exclude = [
+        "NSOSPLastRootDirectory",
         "/{MSAppCenter.*}",
         "/NSStatusItem Visible Item-0",
-        "/{NSWindow Frame (NSFontPanel|SUAutomaticUpdateAlert|SUStatusFrame|SUUpdateAlert)}",
+        "NSNavPanelExpandedSizeForOpenMode",
+        "secureData",
+        "/{NSWindow Frame (NSFontPanel|SUAutomaticUpdateAlert|SUStatusFrame|SUUpdateAlert|NSNavPanelAutosaveName|PermissionsWindow|SettingsWindow)}",
         "/{SU(LastCheckTime|UpdateGroupIdentifier)}",
       ] },
     ],
