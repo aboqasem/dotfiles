@@ -4,7 +4,11 @@
 	"module": "sync/src/index.ts",
 	"scripts": {
 		"check": "biome check --write .",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"test": "bun test sync/tests",
+		"test:unit": "bun test sync/tests/unit",
+		"test:it": "bun test sync/tests/it",
+		"test:todo": "bun test --todo sync/tests/it"
 	},
 	"dependencies": {
 		"@sagold/json-query": "6.2.0",

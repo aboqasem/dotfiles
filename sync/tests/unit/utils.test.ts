@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { remove } from "@sagold/json-query";
-import utils from "./utils";
+import utils from "../../src/utils";
 
 type DirectoryTree = {
 	[name: string]: string | DirectoryTree;
