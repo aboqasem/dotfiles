@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, setDefaultTimeout } from "bun:test";
 import fs from "node:fs";
-import plist from "plist";
+import * as plist from "plist";
 import { EMPTY_PLIST, IntegrationFixture, plistWith } from "./harness";
 
 setDefaultTimeout(15_000);

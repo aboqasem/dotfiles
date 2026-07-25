@@ -3,11 +3,11 @@ import path from "node:path";
 import { Command, Option } from "@commander-js/extra-typings";
 import { $ } from "bun";
 import {
-	type InferOutput,
 	array,
 	check,
 	enum_,
 	getDefaults,
+	type InferOutput,
 	literal,
 	object,
 	optional,

@@ -1,7 +1,7 @@
 import path from "node:path";
 import { remove as removePointer, removeUndefinedItems } from "@sagold/json-pointer";
 import { get, set } from "@sagold/json-query";
-import { $, type ShellOutput, type ShellPromise } from "bun";
+import { $ } from "bun";
 import chalk from "chalk";
 import { HOME, REPO_ROOT } from "./config";
 
@@ -118,7 +118,7 @@ namespace utils {
 		str2 = "",
 		quiet = true,
 		color = true,
-	}: DiffOptions): Promise<false | ShellOutput> {
+	}: DiffOptions): Promise<false | $.ShellOutput> {
 		assert((!path1 || !str1) && (!path2 || !str2), "path and str are mutually exclusive");
 
 		const sub1 = { raw: path1 ? "$" : "<" };
@@ -141,23 +141,23 @@ namespace utils {
 			.then(({ exitCode }) => exitCode === 0);
 	}
 
-	export function mkdirp(path: string): ShellPromise {
+	export function mkdirp(path: string): $.ShellPromise {
 		return $`mkdir -p ${path}`;
 	}
 
-	export function rmrf(path: string): ShellPromise {
+	export function rmrf(path: string): $.ShellPromise {
 		return $`rm -rf ${path}`;
 	}
 
-	export function symlink(path: string, target: string, { force = true } = {}): ShellPromise {
+	export function symlink(path: string, target: string, { force = true } = {}): $.ShellPromise {
 		return $`ln -s${force ? "f" : ""} ${path} ${target}`;
 	}
 
-	export function unlink(path: string): ShellPromise {
+	export function unlink(path: string): $.ShellPromise {
 		return $`unlink ${path}`;
 	}
 
-	export function mv(from: string, to: string): ShellPromise {
+	export function mv(from: string, to: string): $.ShellPromise {
 		return $`mv ${from} ${to}`;
 	}
 

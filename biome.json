@@ -1,16 +1,16 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"organizeImports": {
-		"enabled": true
-	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"files": {
-		"ignore": [
-			"custom/plugins/fzf-tab",
-			"custom/plugins/wakatime",
-			"custom/plugins/zsh-autosuggestions",
-			"custom/plugins/zsh-syntax-highlighting",
-			"custom/themes/powerlevel10k",
-			"synced/symlink/.oh-my-zsh"
+		"includes": [
+			"**",
+			"!**/custom/plugins/fzf-tab",
+			"!**/custom/plugins/wakatime",
+			"!**/custom/plugins/zsh-autosuggestions",
+			"!**/custom/plugins/zsh-syntax-highlighting",
+			"!**/custom/themes/powerlevel10k",
+			"!**/synced/symlink/.oh-my-zsh",
+			"!**/synced/symlink/.config/lvim/lazy-lock.json"
 		]
 	},
 	"vcs": {
@@ -22,7 +22,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"suspicious": {
 				"useAwait": "warn"
 			},

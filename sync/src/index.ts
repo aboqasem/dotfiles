@@ -2,17 +2,18 @@ import fs from "node:fs";
 import path from "node:path";
 import { $ } from "bun";
 import chalk from "chalk";
-import plist, { type PlistObject } from "plist";
+import type { PlistValue } from "plist";
+import * as plist from "plist";
 import {
-	DefaultsActionType,
-	HOME,
-	ItemType,
-	SYNCED_DIR_PATH,
-	SymlinkPathType,
 	args,
 	config,
+	DefaultsActionType,
 	defaultsDomainAndConfig,
+	HOME,
+	ItemType,
 	maxLengths,
+	SYNCED_DIR_PATH,
+	SymlinkPathType,
 	symlinkPathAndConfig,
 	symlinkPathValidateType,
 } from "./config";
@@ -203,19 +204,25 @@ for (const group of config.groups) {
 								break;
 							}
 
-							utils.assert(
-								typeof plistObject === "object" &&
-									!Array.isArray(plistObject) &&
-									!(plistObject instanceof Date) &&
-									!(plistObject instanceof Buffer),
-								`Unexpected plist type: ${typeof plistObject}`,
-							);
-
-							if (itemConfig.include) {
-								plistObject = utils.keep(plistObject, itemConfig.include) as PlistObject;
+							function assertIsRecordOfPlistValue(value: unknown): asserts value is Record<string, PlistValue> {
+								utils.assert(
+									typeof value === "object" &&
+										!Array.isArray(value) &&
+										!(value instanceof Date) &&
+										!(value instanceof Buffer) &&
+										!(value instanceof Uint8Array),
+									`Unexpected plist type: ${typeof value}`,
+								);
 							}
+
+							assertIsRecordOfPlistValue(plistObject);
+							if (itemConfig.include) {
+								plistObject = utils.keep(plistObject, itemConfig.include) as Record<string, PlistValue>;
+							}
+
+							assertIsRecordOfPlistValue(plistObject);
 							if (itemConfig.exclude) {
-								plistObject = utils.remove(plistObject, itemConfig.exclude) as PlistObject;
+								plistObject = utils.remove(plistObject, itemConfig.exclude) as Record<string, PlistValue>;
 							}
 
 							const final = plist.build(plistObject, { pretty: true, indent: "\t" }).trim();
