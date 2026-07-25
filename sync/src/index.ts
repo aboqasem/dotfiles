@@ -153,9 +153,9 @@ for (const group of config.groups) {
 					}
 
 					const diff = await utils.diff({ path1: sourcePath, path2: targetPath });
-					const isTrackedAndUnmodified = await utils.isTrackedAndUnmodified(sourcePath);
+					const isRecoverableFromGit = await utils.isRecoverableFromGit(sourcePath);
 					const bakPath = `${sourcePath}.${Date.now()}.bak`;
-					if (diff && isTrackedAndUnmodified) {
+					if (diff && isRecoverableFromGit) {
 						symlinkLog(`${chalk.yellow("Diff found but is tracked.")} Replacing with symlink...`);
 						symlinkDebug(`Symlinking ${utils.tilde(sourcePath)} to ${utils.tilde(targetPath)}...`);
 						bakPaths.push(null);
@@ -173,7 +173,7 @@ for (const group of config.groups) {
 					}
 					if (args.do) {
 						if (diff) {
-							isTrackedAndUnmodified || (await utils.mv(sourcePath, bakPath));
+							isRecoverableFromGit || (await utils.mv(sourcePath, bakPath));
 							await utils.mv(targetPath, sourcePath);
 						}
 						await utils.symlink(sourcePath, targetPath);
@@ -234,8 +234,8 @@ for (const group of config.groups) {
 									defaultsLog(chalk.green("No change."));
 									break;
 								}
-								const isTrackedAndUnmodified = await utils.isTrackedAndUnmodified(sourcePath);
-								if (isTrackedAndUnmodified) {
+								const isRecoverableFromGit = await utils.isRecoverableFromGit(sourcePath);
+								if (isRecoverableFromGit) {
 									defaultsLog(`${chalk.yellow("Diff found but is tracked.")} Saving...`);
 									bakPaths.push(null);
 								} else {

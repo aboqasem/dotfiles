@@ -153,13 +153,16 @@ namespace utils {
 		}
 	}
 
-	export function isTrackedAndUnmodified(path: string): Promise<boolean> {
+	export async function isRecoverableFromGit(path: string): Promise<boolean> {
 		const REPO_ROOT = (require("./config") as typeof import("./config")).REPO_ROOT;
-		return $`git ls-files --error-unmatch ${path} &>/dev/null && git diff --exit-code --quiet ${path}`
+		const tracked = await $`git ls-files --error-unmatch ${path}`.cwd(REPO_ROOT).quiet().nothrow();
+		if (tracked.exitCode !== 0) return false;
+
+		const status = await $`git status --porcelain=v1 --untracked-files=all --ignored=matching -- ${path}`
 			.cwd(REPO_ROOT)
-			.quiet()
-			.nothrow()
-			.then(({ exitCode }) => exitCode === 0);
+			.quiet();
+
+		return status.text().trim().length === 0;
 	}
 
 	export function mkdirp(path: string): $.ShellPromise {

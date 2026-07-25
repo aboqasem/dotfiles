@@ -123,7 +123,7 @@ describe("symlink directories", () => {
 		expect(fs.readlinkSync(env.homePath(".managed-dir"))).toBe(env.sourcePath(".managed-dir"));
 	});
 
-	it.todo("backs up a tracked directory containing untracked descendants", async () => {
+	it("backs up a tracked directory containing untracked descendants", async () => {
 		const env = await setup();
 		env.writeDirectory(env.sourcePath(".managed-dir"), { tracked: "repo\n" });
 		await env.commitAll();
