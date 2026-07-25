@@ -213,7 +213,7 @@ describe("symlink files", () => {
 		expect(result.stdout).toContain("+home");
 	});
 
-	it.todo("rolls back adoption when link creation fails", async () => {
+	it("rolls back adoption when link creation fails", async () => {
 		const env = await setup();
 		env.writeFile(env.homePath(".managed"), "home\n");
 		env.failCommand("ln");

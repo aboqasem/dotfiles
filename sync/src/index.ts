@@ -48,6 +48,20 @@ async function createTypeDirIfNotExists(type: string): Promise<string> {
 	return dirPath;
 }
 
+async function moveTargetAndSymlink(sourcePath: string, targetPath: string): Promise<void> {
+	await utils.mv(targetPath, sourcePath);
+	try {
+		await utils.symlink(sourcePath, targetPath);
+	} catch (error) {
+		try {
+			await utils.mv(sourcePath, targetPath);
+		} catch (rollbackError) {
+			throw new AggregateError([error, rollbackError], `Failed to adopt '${targetPath}' and roll it back`);
+		}
+		throw error;
+	}
+}
+
 for (const group of config.groups) {
 	const groupName = group.name;
 	const paddedGroupName = groupName.padEnd(maxLengths.groupName);
@@ -126,8 +140,7 @@ for (const group of config.groups) {
 							`Moving ${utils.tilde(targetPath)} to ${utils.tilde(sourcePath)} and replacing with symlink...`,
 						);
 						if (args.do) {
-							await utils.mv(targetPath, sourcePath);
-							await utils.symlink(sourcePath, targetPath);
+							await moveTargetAndSymlink(sourcePath, targetPath);
 						}
 						continue;
 					}
