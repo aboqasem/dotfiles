@@ -92,7 +92,8 @@ for (const group of config.groups) {
 						}
 					}
 					if (!sourcePathStat) {
-						const p = itemConfig.type === SymlinkPathType.Dir ? sourcePath : path.dirname(sourcePath);
+						const p =
+							itemConfig.type === SymlinkPathType.Dir && !targetPathStat ? sourcePath : path.dirname(sourcePath);
 						symlinkDebug(`Creating ${utils.tilde(p)} source directory...`);
 						if (args.do) {
 							await utils.mkdirp(p);

@@ -40,7 +40,7 @@ describe("symlink directories", () => {
 		expect(fs.readFileSync(path.join(env.homePath(".managed-dir"), "nested/config"), "utf8")).toBe("repo\n");
 	});
 
-	it.todo("adopts an existing target directory without nesting it", async () => {
+	it("adopts an existing target directory without nesting it", async () => {
 		const env = await setup();
 		env.writeDirectory(env.homePath(".managed-dir"), { "nested/config": "home\n" });
 
