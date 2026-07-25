@@ -56,13 +56,20 @@ export enum DefaultsActionType {
 }
 export const defaultsActionTypes = Object.values(DefaultsActionType);
 
+const otherInfoString = pipe(string(), check(assignMaxOtherInfoLength));
+const symlinkPathString = pipe(
+	otherInfoString,
+	check((itemPath) => {
+		utils.resolveContainedOrFail(SYMLINK_DIR_PATH, itemPath);
+		utils.resolveContainedOrFail(HOME, itemPath);
+		return true;
+	}),
+);
+
 const SymlinkPathConfigSchema = object({
 	type: optional(enum_(SymlinkPathType), SymlinkPathType.File),
 });
-const SymlinkPathSchema = union([
-	pipe(string(), check(assignMaxOtherInfoLength)),
-	tuple([pipe(string(), check(assignMaxOtherInfoLength)), optional(SymlinkPathConfigSchema)]),
-]);
+const SymlinkPathSchema = union([symlinkPathString, tuple([otherInfoString, optional(SymlinkPathConfigSchema)])]);
 export const symlinkPathConfigDefaults = getDefaults(SymlinkPathConfigSchema) ?? utils.panic("SymlinkPathConfigSchema");
 export function symlinkPathAndConfig(meta: SymlinkPath): [string, SymlinkPathConfig] {
 	return typeof meta === "string" ? [meta, symlinkPathConfigDefaults] : [meta[0], meta[1] ?? symlinkPathConfigDefaults];
@@ -82,10 +89,7 @@ const DefaultsDomainConfigSchema = object({
 	include: optional(array(string())),
 	exclude: optional(array(string())),
 });
-const DefaultsDomainSchema = union([
-	pipe(string(), check(assignMaxOtherInfoLength)),
-	tuple([pipe(string(), check(assignMaxOtherInfoLength)), optional(DefaultsDomainConfigSchema)]),
-]);
+const DefaultsDomainSchema = union([otherInfoString, tuple([otherInfoString, optional(DefaultsDomainConfigSchema)])]);
 export const defaultsDomainConfigDefaults =
 	getDefaults(DefaultsDomainConfigSchema) ?? utils.panic("DefaultsDomainConfigSchema");
 export function defaultsDomainAndConfig(meta: DefaultsDomain): [string, DefaultsDomainConfig] {
@@ -115,6 +119,8 @@ const ConfigSchema = object({
 });
 
 export const SYNCED_DIR_PATH = path.join(REPO_ROOT, "synced");
+
+const SYMLINK_DIR_PATH = path.join(SYNCED_DIR_PATH, ItemType.Symlink);
 
 export const CONFIG_FILE_PATH = path.join(REPO_ROOT, "syncconf.toml");
 

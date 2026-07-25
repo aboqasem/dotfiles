@@ -188,7 +188,7 @@ describe("symlink files", () => {
 		expect(fs.existsSync(env.homePath(".managed"))).toBeFalse();
 	});
 
-	it.todo("rejects a path that escapes its managed roots", async () => {
+	it("rejects a path that escapes its managed roots", async () => {
 		const env = await setup("../outside/escaped");
 		const escaped = path.join(env.outside, "escaped");
 		env.writeFile(escaped, "outside\n");

@@ -3,7 +3,6 @@ import { remove as removePointer, removeUndefinedItems } from "@sagold/json-poin
 import { get, set } from "@sagold/json-query";
 import { $ } from "bun";
 import chalk from "chalk";
-import { HOME, REPO_ROOT } from "./config";
 
 namespace utils {
 	export function panic(message: string): never {
@@ -14,6 +13,19 @@ namespace utils {
 		if (!condition) {
 			panic(message);
 		}
+	}
+
+	export function resolveContainedOrFail(root: string, configuredPath: string): string {
+		if (path.isAbsolute(configuredPath)) {
+			throw new Error(`Expected a relative path within '${root}', received '${configuredPath}'`);
+		}
+
+		const resolved = path.resolve(root, configuredPath);
+		const relative = path.relative(root, resolved);
+		if (!relative || relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
+			throw new Error(`Path '${configuredPath}' escapes managed root '${root}'`);
+		}
+		return resolved;
 	}
 
 	type Processed<T extends Record<string, unknown> | unknown[]> = {
@@ -134,6 +146,7 @@ namespace utils {
 	}
 
 	export function isTrackedAndUnmodified(path: string): Promise<boolean> {
+		const REPO_ROOT = (require("./config") as typeof import("./config")).REPO_ROOT;
 		return $`git ls-files --error-unmatch ${path} &>/dev/null && git diff --exit-code --quiet ${path}`
 			.cwd(REPO_ROOT)
 			.quiet()
@@ -162,6 +175,7 @@ namespace utils {
 	}
 
 	export function tilde(to: string): string {
+		const HOME = (require("./config") as typeof import("./config")).HOME;
 		return `~/${path.relative(HOME, to).replace(/ /g, "\\ ")}`;
 	}
 }

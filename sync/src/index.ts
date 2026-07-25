@@ -79,9 +79,9 @@ for (const group of config.groups) {
 					const symlinkLog = itemLog.bind(console, chalk.cyan(paddedItemPath), arrow);
 					const symlinkDebug = itemDebug.bind(debug, chalk.gray(paddedItemPath), arrow);
 
-					const sourcePath = path.resolve(typeDir, itemPath);
+					const sourcePath = utils.resolveContainedOrFail(typeDir, itemPath);
 					const sourcePathStat = fs.lstatSync(sourcePath, { throwIfNoEntry: false });
-					const targetPath = path.resolve(HOME, itemPath);
+					const targetPath = utils.resolveContainedOrFail(HOME, itemPath);
 					const targetPathStat = fs.lstatSync(targetPath, { throwIfNoEntry: false });
 
 					if (!targetPathStat) {
