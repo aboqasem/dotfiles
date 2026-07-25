@@ -167,7 +167,13 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFin
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -int 3
 
 # Increase sound quality for Bluetooth headphones/headsets
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Max (editable)" 80
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" 80
+defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool (editable)" 80
+defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool Min (editable)" 80
+defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool" 80
+defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Max" 80
+defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Min" 80
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
@@ -204,10 +210,10 @@ for layout in "252:ABC" "-17920:Arabic"; do
 done
 
 # Set language and text formats
-defaults write NSGlobalDomain AppleLanguages -array "en-GB" "ar-MY"
-defaults write NSGlobalDomain AppleLocale -string "en_MY@currency=MYR"
-defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-defaults write NSGlobalDomain AppleMetricUnits -bool true
+# defaults write NSGlobalDomain AppleLanguages -array "en-GB" "ar-MY"
+# defaults write NSGlobalDomain AppleLocale -string "en_MY@currency=MYR"
+# defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+# defaults write NSGlobalDomain AppleMetricUnits -bool true
 
 # Use the Caps Lock to switch to and from ABC (Press and hold to enable typing in all uppercase)
 defaults write NSGlobalDomain TISRomanSwitchState -int 1

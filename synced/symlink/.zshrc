@@ -13,10 +13,11 @@ eval "$(mise hook-env)"
 export ZSH_THEME=""
 
 # Which plugins would you like to load?
-export plugins=(
+plugins=(
   git
   docker
   wakatime
+  pnpm-shell-completion
 )
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
   plugins+=(

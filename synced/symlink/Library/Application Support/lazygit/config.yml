@@ -7,12 +7,12 @@ gui:
 
 git:
   overrideGpg: true
-  paging:
-    pager: delta --paging=never
+  pagers:
+    - pager: delta --paging=never
   autoForwardBranches: allBranches
 
 refresher:
   fetchInterval: 3600 # 1 hour
 
 os:
-  editPreset: lvim
+  editPreset: nvim

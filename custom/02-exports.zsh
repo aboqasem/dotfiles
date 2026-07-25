@@ -9,8 +9,8 @@ export HISTFILESIZE=$HISTSIZE
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth'
 
-export EDITOR=lvim
-export VISUAL=lvim
+export EDITOR=nvim
+export VISUAL=nvim
 
 export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
 
@@ -33,3 +33,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Zellij
 export ZELLIJ_CONFIG_DIR=~/.config/zellij
+
+
+export DO_NOT_TRACK=1
+export DISABLE_TELEMETRY=1

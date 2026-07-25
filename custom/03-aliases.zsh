@@ -5,8 +5,8 @@ alias cddl="cd ~/Downloads"
 alias cddf="cd $DOTFILES"
 alias cdd="cd ~/dev"
 
-alias v=vim
-alias vim=lvim
+alias v=nvim
+alias vim=nvim
 
 alias grep='grep --color=auto'
 
