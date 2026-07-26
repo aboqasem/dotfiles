@@ -188,6 +188,9 @@ sudo defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool tr
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
+# Enabke moving windows by holding ctrl+cmd and dragging any part of the window (not necessarily the window title)
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
 # Set a blazingly fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
