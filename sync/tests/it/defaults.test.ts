@@ -73,6 +73,55 @@ describe("macOS defaults", () => {
 			expect(plist.parse(fs.readFileSync(env.defaultsPath(domain), "utf8"))).toEqual({ keep: "yes" });
 		});
 
+		it("reduces Dock persistent apps to the fields in the shell declaration", async () => {
+			const env = await setup({
+				exclude: [
+					"/persistent-apps/*((/{GUID|tile-type}),(/tile-data/{book|bundle-identifier|dock-extra|file-label|file-mod-date|file-type|is-beta|parent-mod-date}))",
+				],
+			});
+			env.setDefaults(
+				domain,
+				plist.build({
+					"persistent-apps": [
+						{
+							GUID: 1,
+							"tile-data": {
+								book: Buffer.from("bookmark"),
+								"bundle-identifier": "com.apple.mail",
+								"dock-extra": false,
+								"file-data": {
+									_CFURLString: "file:///System/Applications/Mail.app/",
+									_CFURLStringType: 15,
+								},
+								"file-label": "Mail",
+								"file-mod-date": 123,
+								"file-type": 41,
+								"is-beta": false,
+								"parent-mod-date": 123,
+							},
+							"tile-type": "file-tile",
+						},
+					],
+				}),
+			);
+
+			const result = await env.run(["--do"]);
+
+			expect(result.exitCode).toBe(0);
+			expect(plist.parse(fs.readFileSync(env.defaultsPath(domain), "utf8"))).toEqual({
+				"persistent-apps": [
+					{
+						"tile-data": {
+							"file-data": {
+								_CFURLString: "file:///System/Applications/Mail.app/",
+								_CFURLStringType: 15,
+							},
+						},
+					},
+				],
+			});
+		});
+
 		it("applies include and then exclude filters", async () => {
 			const env = await setup({ include: ["#/*"], exclude: ["#/remove"] });
 			env.setDefaults(domain, plistWith({ keep: "yes", remove: "no" }));

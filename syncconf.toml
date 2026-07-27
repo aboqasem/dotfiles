@@ -80,6 +80,27 @@
   ]
 
 [[groups]]
+  name = "MacOS"
+[[groups.items]]
+  type = "defaults"
+  domains = [
+    [
+      "com.apple.dock",
+      { exclude = [
+        "/last-analytics-stamp",
+        "/lastShowIndicatorTime",
+        "/loc",
+        "/mod-count",
+        "/recent-apps",
+        "/region",
+        "/trash-full",
+        "/persistent-apps/*((/{GUID|tile-type}),(/tile-data/{book|bundle-identifier|dock-extra|file-label|file-mod-date|file-type|is-beta|parent-mod-date}))",
+        "/persistent-others",
+      ] },
+    ],
+  ]
+
+[[groups]]
   name = "iTerm"
 [[groups.items]]
   type = "defaults"
