@@ -44,6 +44,14 @@
   ]
 
 [[groups]]
+  name = "AeroSpace"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    [".config/aerospace", { type = "dir" }],
+  ]
+
+[[groups]]
   name = "Atuin"
 [[groups.items]]
   type = "symlink"
