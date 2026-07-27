@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>Apple Bitpool Max (editable)</key>
+		<string>80</string>
+		<key>Apple Bitpool Min (editable)</key>
+		<string>80</string>
+		<key>Apple Initial Bitpool (editable)</key>
+		<string>80</string>
+		<key>Apple Initial Bitpool Min (editable)</key>
+		<string>80</string>
+		<key>Negotiated Bitpool</key>
+		<string>80</string>
+		<key>Negotiated Bitpool Max</key>
+		<string>80</string>
+		<key>Negotiated Bitpool Min</key>
+		<string>80</string>
+	</dict>
+</plist>
