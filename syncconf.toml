@@ -297,6 +297,7 @@
         "/systemTranscriptionsAlertShownCount",
       ] },
     ],
+    "com.apple.symbolichotkeys.plist",
     [
       "NSGlobalDomain",
       { include = [

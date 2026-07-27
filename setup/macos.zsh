@@ -36,10 +36,6 @@ sudo nvram SystemAudioVolume=" "
 # Show Bluetooth in the control center
 defaults write com.apple.controlcenter NSStatusItem\ Visible\ Bluetooth -bool true
 
-# TODO: NOT WORKING, FIX
-# Disable "Show Spotlight search" keyboard shortcut (⌘Space), used for Raycast.app
-/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:64:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-
 # Show language menu in the top right corner of the boot screen
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
