@@ -298,6 +298,13 @@
       ] },
     ],
     "com.apple.symbolichotkeys.plist",
+    [
+      "com.apple.spaces",
+      { exclude = [
+        "/SpacesDisplayConfiguration",
+      ] },
+    ],
+    "com.apple.dashboard",
     "com.apple.screensaver",
     [
       "com.apple.controlcenter",

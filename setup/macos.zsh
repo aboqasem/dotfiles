@@ -104,15 +104,8 @@ chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
 sudo chflags nohidden /Volumes
 
 ###############################################################################
-# Dashboard and Launchpad                                                    #
+# Launchpad                                                    #
 ###############################################################################
-
-# Disable 'Displays have separate Spaces'
-# https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
-defaults write com.apple.spaces spans-displays -bool true
-
-# Disable Dashboard
-defaults write com.apple.dashboard mcx-disabled -bool true
 
 # Reset Launchpad, but keep the desktop wallpaper intact
 find "${HOME}/Library/Application Support/Dock" -maxdepth 1 -name "*-*.db" -delete
