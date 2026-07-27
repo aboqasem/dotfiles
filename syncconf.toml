@@ -215,6 +215,7 @@
         "/{Apple(CurrentKeyboardLayoutInputSourceID|EnabledInputSources|InputSourceHistory|InputSourceUpdateTime|SelectedInputSources)}",
       ] },
     ],
+    "com.apple.messageshelper.MessageController",
     [
       "NSGlobalDomain",
       { include = [
