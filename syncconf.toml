@@ -298,6 +298,7 @@
       ] },
     ],
     "com.apple.symbolichotkeys.plist",
+    "com.apple.screensaver",
     [
       "com.apple.controlcenter",
       { exclude = [
