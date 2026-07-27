@@ -264,6 +264,20 @@
     ],
     "com.apple.messageshelper.MessageController",
     [
+      "com.apple.SoftwareUpdate",
+      { exclude = [
+        "/{AutoUpdate(MajorOSVersion|RetryCount)}",
+        "/{AvailableUpdatesNotification(CountKey|ProductKey)}",
+        "/UserNotificationDate",
+      ] },
+    ],
+    [
+      "com.apple.commerce",
+      { exclude = [
+        "/PurchasesInflight",
+      ] },
+    ],
+    [
       "NSGlobalDomain",
       { include = [
         "/AppleActionOnDoubleClick",
