@@ -123,12 +123,8 @@ defaults write com.apple.controlcenter NSStatusItem\ Visible\ Bluetooth -bool tr
 # sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
 
 ###############################################################################
-# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+# Keyboard, Bluetooth accessories, and input                                  #
 ###############################################################################
-
-# Trackpad: enable tap to click for the login screen
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Max (editable)" 80

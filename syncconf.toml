@@ -209,6 +209,12 @@
         "/version",
       ] },
     ],
+    [
+      "NSGlobalDomain",
+      { include = [
+        "/com.apple.mouse.tapBehavior",
+      ] },
+    ],
   ]
 
 [[groups]]
