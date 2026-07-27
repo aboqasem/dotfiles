@@ -466,9 +466,13 @@ defaults write com.apple.dock launchanim -bool false
 # Speed up Mission Control animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
-# Don’t group windows by application in Mission Control
-# (i.e. use the old Exposé behavior instead)
-defaults write com.apple.dock expose-group-by-app -bool false
+# Group windows by application in Mission Control
+# (i.e. don't use the old Exposé behavior)
+defaults write com.apple.dock expose-group-by-app -bool true
+
+# Disable 'Displays have separate Spaces'
+# https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
+defaults write com.apple.spaces spans-displays -bool true
 
 # Disable Dashboard
 defaults write com.apple.dashboard mcx-disabled -bool true
