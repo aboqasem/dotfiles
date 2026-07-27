@@ -98,6 +98,45 @@
         "/persistent-others",
       ] },
     ],
+    [
+      "com.apple.ActivityMonitor",
+      { exclude = [
+        "/Column Width",
+        "/DisplayType",
+        "/SelectedTab",
+        "/{NSWindow Frame .*}",
+        "/{NSTableView (Columns v3|Sort Ordering v2|Supports v2) cacheTableColumns}",
+      ] },
+    ],
+    [
+      "com.apple.TextEdit",
+      { exclude = [
+        "/NSNavPanelExpandedSizeForOpenMode",
+        "/{NSWindow Frame .*}",
+      ] },
+    ],
+    [
+      "com.apple.DiskUtility",
+      { exclude = [
+        "/NSSplitView Subview Frames SUMainWindow",
+        "/NSToolbar Configuration kMainToolbarIdentifier",
+        "/{NSWindow Frame .*}",
+      ] },
+    ],
+    [
+      "com.apple.QuickTimePlayerX",
+      { exclude = [
+        "/MGInspectorWindowControllerShowWindowAtLaunch",
+        "/MGInspectorWindowControllerWindowTopLeftPoint",
+        "/MGRecentDocumentsSharedFileListIsValid",
+        "/MGRecentDocumentURLBookmarks",
+        "/NSNavLastUserSetHideExtensionButtonState",
+        "/NSNavPanelExpandedSizeForOpenMode",
+        "/NSNavPanelExpandedSizeForSaveMode",
+        "/NSOSPLastRootDirectory",
+        "/{NSWindow Frame .*}",
+      ] },
+    ],
   ]
 
 [[groups]]
