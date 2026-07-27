@@ -653,6 +653,12 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
 ###############################################################################
+# Other                                                                       #
+###############################################################################
+
+xattr -cr /Applications/InstantSpaceSwitcher.app
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 

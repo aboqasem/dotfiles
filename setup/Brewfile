@@ -88,6 +88,7 @@ cask 'zen-browser'
 cask 'brave-browser'
 cask 'alt-tab'
 cask 'rectangle'
+cask 'jurplel/tap/instant-space-switcher'
 cask 'raycast'
 
 ###############################################################################

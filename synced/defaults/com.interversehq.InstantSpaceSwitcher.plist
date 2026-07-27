@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>enabled.lastSpace</key>
+		<false/>
+		<key>gestureSpeed</key>
+		<integer>2000</integer>
+		<key>hotkey.left</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiLihpAiLCJrZXlDb2RlIjoxMjMsImtleUVxdWl2YWxlbnQiOiLvnIIifQ==</data>
+		<key>hotkey.right</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiLihpIiLCJrZXlDb2RlIjoxMjQsImtleUVxdWl2YWxlbnQiOiLvnIMifQ==</data>
+		<key>hotkey.space1</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiIhIiwia2V5Q29kZSI6MTgsImtleUVxdWl2YWxlbnQiOiIhIn0=</data>
+		<key>hotkey.space10</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiIpIiwia2V5Q29kZSI6MjksImtleUVxdWl2YWxlbnQiOiIpIn0=</data>
+		<key>hotkey.space2</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiJAIiwia2V5Q29kZSI6MTksImtleUVxdWl2YWxlbnQiOiJAIn0=</data>
+		<key>hotkey.space3</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiIjIiwia2V5Q29kZSI6MjAsImtleUVxdWl2YWxlbnQiOiIjIn0=</data>
+		<key>hotkey.space4</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiIkIiwia2V5Q29kZSI6MjEsImtleUVxdWl2YWxlbnQiOiIkIn0=</data>
+		<key>hotkey.space5</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiIlIiwia2V5Q29kZSI6MjMsImtleUVxdWl2YWxlbnQiOiIlIn0=</data>
+		<key>hotkey.space6</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiJeIiwia2V5Q29kZSI6MjIsImtleUVxdWl2YWxlbnQiOiJeIn0=</data>
+		<key>hotkey.space7</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiImIiwia2V5Q29kZSI6MjYsImtleUVxdWl2YWxlbnQiOiImIn0=</data>
+		<key>hotkey.space8</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiIqIiwia2V5Q29kZSI6MjgsImtleUVxdWl2YWxlbnQiOiIqIn0=</data>
+		<key>hotkey.space9</key>
+		<data>eyJtb2RpZmllcnMiOjQ2MDgsImRpc3BsYXlLZXkiOiIoIiwia2V5Q29kZSI6MjUsImtleUVxdWl2YWxlbnQiOiIoIn0=</data>
+		<key>swipeOverride</key>
+		<true/>
+	</dict>
+</plist>

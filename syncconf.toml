@@ -114,6 +114,16 @@
     ],
   ]
 
+[[groups]]
+  name = "InstantSpaceSwitcher"
+[[groups.items]]
+  type = "defaults"
+  domains = [
+    [
+      "com.interversehq.InstantSpaceSwitcher",
+    ],
+  ]
+
 
 [[groups]]
   name = "AltTab"
