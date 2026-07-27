@@ -155,23 +155,6 @@ defaults write -g NSWindowShouldDragOnGesture -bool true
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
-# Press fn key to:
-#  0: Do nothing
-#  1: Show Input Source
-#  2: Show Emoji & Symbols
-#  3: Start Dictation (Press fn Twice)
-defaults write com.apple.HIToolbox AppleFnUsageType -int 2
-
-# Add the ABC and Arabic keyboard layouts
-currentInputSources=$(defaults read com.apple.HIToolbox AppleEnabledInputSources)
-for layout in "252:ABC" "-17920:Arabic"; do
-  layoutId=$(echo $layout | cut -d: -f1)
-  layoutName=$(echo $layout | cut -d: -f2)
-  if ! echo $currentInputSources | grep -Fq -- $layoutId; then
-    defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>'$layoutId'</integer><key>KeyboardLayout Name</key><string>'$layoutName'</string></dict>'
-  fi
-done
-
 # Set language and text formats
 # defaults write NSGlobalDomain AppleLanguages -array "en-GB" "ar-MY"
 # defaults write NSGlobalDomain AppleLocale -string "en_MY@currency=MYR"

@@ -210,6 +210,12 @@
       ] },
     ],
     [
+      "com.apple.HIToolbox",
+      { exclude = [
+        "/{Apple(CurrentKeyboardLayoutInputSourceID|EnabledInputSources|InputSourceHistory|InputSourceUpdateTime|SelectedInputSources)}",
+      ] },
+    ],
+    [
       "NSGlobalDomain",
       { include = [
         "/com.apple.mouse.tapBehavior",
