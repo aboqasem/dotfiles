@@ -33,9 +33,6 @@ sudo nvram SystemAudioVolume=" "
 # Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
-# Show Bluetooth in the control center
-defaults write com.apple.controlcenter NSStatusItem\ Visible\ Bluetooth -bool true
-
 # Show language menu in the top right corner of the boot screen
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 

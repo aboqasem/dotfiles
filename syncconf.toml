@@ -299,6 +299,21 @@
     ],
     "com.apple.symbolichotkeys.plist",
     [
+      "com.apple.controlcenter",
+      { exclude = [
+        "/BentoBoxCustomizationState",
+        "/ControlCenterDisplayableChronoControlsProviderConfiguration",
+        "/HasAttemptedMenuBarWorkflowMigration",
+        "/LastHeartbeatDateString.daily",
+        "/LastPeriodicAnalyticsPostDate",
+        "/LiveActivityState",
+        "/MenuBarCustomizationState",
+        "/missionControlTooltipCount",
+        "/{NSStatusItem Preferred Position .*}",
+        "/{NSStatusItem Visible Item-.*}",
+      ] },
+    ],
+    [
       "NSGlobalDomain",
       { include = [
         "/AppleActionOnDoubleClick",
