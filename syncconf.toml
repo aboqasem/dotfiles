@@ -195,6 +195,20 @@
         "/UserSetAutoPlayVideoSetting",
       ] },
     ],
+    [
+      "com.apple.driver.AppleBluetoothMultitouch.trackpad",
+      { exclude = [
+        "/UserPreferences",
+        "/version",
+      ] },
+    ],
+    [
+      "com.apple.AppleMultitouchTrackpad",
+      { exclude = [
+        "/UserPreferences",
+        "/version",
+      ] },
+    ],
   ]
 
 [[groups]]
