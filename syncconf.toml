@@ -279,6 +279,25 @@
     ],
     "com.apple.BluetoothAudioAgent",
     [
+      "com.apple.universalaccess",
+      { exclude = [
+        "/FontSizeCategory",
+        "/History",
+        "/closeViewZoomDisplayID",
+        "/closeViewZoomFactorBeforeTermination",
+        "/com.apple.custommenu.apps",
+        "/grayscaleMigrated",
+        "/hudNotifiedConstrast",
+        "/keyboardAccessCommandMap",
+        "/{lastNightShift.*}",
+        "/login",
+        "/restoreTrueToneEnabled",
+        "/sessionChange",
+        "/switchInputs",
+        "/systemTranscriptionsAlertShownCount",
+      ] },
+    ],
+    [
       "NSGlobalDomain",
       { include = [
         "/AppleActionOnDoubleClick",

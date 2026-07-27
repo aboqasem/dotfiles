@@ -36,16 +36,6 @@ sudo nvram SystemAudioVolume=" "
 # Show Bluetooth in the control center
 defaults write com.apple.controlcenter NSStatusItem\ Visible\ Bluetooth -bool true
 
-###############################################################################
-# Keyboard and input                                                          #
-###############################################################################
-
-# Use scroll gesture with the Ctrl (^) modifier key to zoom
-sudo defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-sudo defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-# Follow the keyboard focus while zoomed in
-sudo defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
-
 # TODO: NOT WORKING, FIX
 # Disable "Show Spotlight search" keyboard shortcut (⌘Space), used for Raycast.app
 /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:64:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
