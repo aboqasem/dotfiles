@@ -86,6 +86,7 @@ cask 'docker'
 
 cask 'zen-browser'
 cask 'brave-browser'
+cask 'chatgpt'
 cask 'alt-tab'
 cask 'rectangle'
 cask 'jurplel/tap/instant-space-switcher'
