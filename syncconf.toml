@@ -137,6 +137,64 @@
         "/{NSWindow Frame .*}",
       ] },
     ],
+    [
+      "com.apple.screencapture",
+      { exclude = [
+        "/last-analytics-stamp",
+        "/last-selection",
+        "/last-selection-display",
+        "/style",
+        "/video",
+      ] },
+    ],
+    [
+      "com.apple.desktopservices",
+    ],
+    [
+      "com.apple.frameworks.diskimages",
+    ],
+    [
+      "com.apple.NetworkBrowser",
+    ],
+    [
+      "com.apple.TimeMachine",
+    ],
+    [
+      "com.apple.helpviewer",
+      { exclude = [
+        "/\"NSSplitView Subview Frames Tips, SidebarNavigationSplitView\"",
+        "/NSWindow Frame Tips",
+        "/TPSAnalyticsStore",
+        "/TPSDisplayedFeaturedTopics",
+        "/TPSLastFeaturedTopicsUpdateDate",
+      ] },
+    ],
+    [
+      "com.apple.systempreferences",
+      { exclude = [
+        "/ThirdPartyCount",
+      ] },
+    ],
+    [
+      "com.apple.print.PrintingPrefs",
+    ],
+    [
+      "com.apple.LaunchServices",
+    ],
+    [
+      "com.apple.appstore",
+      { exclude = [
+        "/ASAcknowledgedOnboardingItems",
+        "/ASAcknowledgedOnboardingVersion",
+        "/JetEngine_metricsSampling_page_render_sampleWindowStart",
+        "/kAOSUIProfilePictureCropRect",
+        "/lastBootstrapDate",
+        "/lastBootstrapTimeZone",
+        "/mostRecentTabIdentifier",
+        "/NSWindow Frame AppStoreMainWindow",
+        "/UserSetAutoPlayVideoSetting",
+      ] },
+    ],
   ]
 
 [[groups]]
