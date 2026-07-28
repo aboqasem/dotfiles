@@ -174,7 +174,7 @@
 			</dict>
 		</array>
 		<key>floating-is-blacklist</key>
-		<integer>1</integer>
+		<integer>0</integer>
 		<key>focus-follows-mouse</key>
 		<false/>
 		<key>follow-space-thrown-windows</key>
