@@ -396,6 +396,26 @@
   ]
 
 [[groups]]
+  name = "Amethyst"
+[[groups.items]]
+  type = "defaults"
+  domains = [
+    [
+      "com.amethyst.Amethyst",
+      { exclude = [
+        "/EncodedWindowManager",
+        "/{migrated-.*}",
+        "/SUFeedURL",
+        "/SUHasLaunchedBefore",
+        "/SULastCheckTime",
+        "/SUUpdateGroupIdentifier",
+        "/NSNavPanelExpandedSizeForOpenMode",
+        "/NSOSPLastRootDirectory",
+      ] },
+    ],
+  ]
+
+[[groups]]
   name = "InstantSpaceSwitcher"
 [[groups.items]]
   type = "defaults"

@@ -90,7 +90,7 @@ cask 'brave-browser'
 cask 'chatgpt'
 cask 'whatsapp'
 cask 'alt-tab'
-cask 'rectangle'
+cask 'amethyst'
 cask 'jurplel/tap/instant-space-switcher'
 cask 'raycast'
 
