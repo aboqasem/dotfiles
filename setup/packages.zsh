@@ -70,16 +70,3 @@ if ! grep -Fq "${BREW_PREFIX}/bin/zsh" /etc/shells; then
   # Set default shell to Zsh
   chsh -s "${BREW_PREFIX}/bin/zsh"
 fi
-
-###############################################################################
-# Other                                                                       #
-###############################################################################
-
-for item in {com.googlecode.iterm2:iTerm,com.lwouis.alt-tab-macos:AltTab,com.knollsoft.Rectangle:Rectangle,com.crystalidea.macsfancontrol:MacsFanControl,com.macpaw.CleanMyMac4:CleanMyMac,com.raycast.macos:Raycast}; do
-  app=${item#*:}
-  domain=${item%%:*}
-  if ! defaults read $domain >/dev/null; then
-    open -a "$app" >/dev/null &
-  fi
-done
-unset app domain item
