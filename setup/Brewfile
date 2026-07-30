@@ -1,115 +1,174 @@
-###############################################################################
-# Fonts                                                                       #
-###############################################################################
-
-cask 'font-geist-mono-nerd-font'
-
-###############################################################################
-# Utils                                                                       #
-###############################################################################
-
-# Install GNU core utilities (those that come with macOS are outdated).
-# Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
-brew 'coreutils'
-# Install some other useful utilities like `sponge`.
-brew 'moreutils'
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
-brew 'findutils'
-# Install GNU `sed`, overwriting the built-in `sed`.
-brew 'gnu-sed'
-# Install a modern version of Zsh & Bash.
-brew 'zsh'
-brew 'bash'
-
-# For LunarVim
-brew 'neovim'
-
-# Terminal session managers
-brew 'zellij'
-
-# Install GnuPG to enable PGP-signing commits.
-brew 'gnupg'
-
-# Install more recent versions of some macOS tools.
-brew 'vim'
-brew 'grep'
-brew 'openssh'
-brew 'gmp'
-
-# Install other useful binaries.
-brew 'atuin'
-brew 'bat'
-brew 'eza'
-brew 'fd'
-brew 'btop'
-brew 'fzf'
-brew 'ripgrep'
-brew 'gs'
-brew 'imagemagick'
-brew 'less'
-brew 'postgresql'
-brew 'rename'
-brew 'shellcheck'
-brew 'tldr'
-brew 'tree'
-brew 'watch'
-
-###############################################################################
-# Java                                                                        #
-###############################################################################
-
-brew 'maven'
-
-###############################################################################
-# Git                                                                         #
-###############################################################################
-
-brew 'git'
-brew 'lazygit'
-brew 'git-delta'
-brew 'gh'
-brew 'git-interactive-rebase-tool'
-
-###############################################################################
-# Development                                                                 #
-###############################################################################
-
-cask 'iterm2'
-cask 'ghostty'
-cask 'visual-studio-code'
-cask 'cursor'
-cask 'jetbrains-toolbox'
-cask 'docker'
-
-###############################################################################
-# Tools                                                                       #
-###############################################################################
-
-cask 'zen-browser'
-cask 'brave-browser'
-cask 'chatgpt'
-cask 'whatsapp'
-cask 'alt-tab'
-cask 'amethyst'
-cask 'jurplel/tap/instant-space-switcher'
-cask 'raycast'
-
-###############################################################################
-# Editing                                                                     #
-###############################################################################
-
-cask 'libreoffice'
-cask 'adobe-acrobat-reader'
-cask 'gimp'
-
-###############################################################################
-# Quicklook                                                                   #
-###############################################################################
-
-cask 'qlcolorcode'
-cask 'qlimagesize'
-cask 'qlmarkdown'
-cask 'qlstephen'
-cask 'qlvideo'
-cask 'quicklook-json'
-brew 'yazi'
+tap "homebrew/bundle"
+tap "jurplel/tap", trusted: { formulae: ["instant-space-switcher"] }
+# Improved shell history for zsh, bash, fish and nushell
+brew "atuin", restart_service: :changed
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cloudflared"
+# Dependency manager for Cocoa projects
+brew "cocoapods"
+# GNU multiple precision arithmetic library
+brew "gmp"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Modern, maintained replacement for ls
+brew "eza"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Collection of GNU find, xargs, and locate
+brew "findutils"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# GitHub command-line tool
+brew "gh"
+# TIFF library and utilities
+brew "libtiff"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
+# Distributed revision control system
+brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+# Native sequence editor for Git interactive rebase
+brew "git-interactive-rebase-tool"
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
+# GNU Privacy Guard (OpenPGP)
+brew "gnupg"
+# GNU grep, egrep and fgrep
+brew "grep"
+# Open-source video transcoder available for Linux, Mac, and Windows
+brew "handbrake"
+# Command-line benchmarking tool
+brew "hyperfine"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Lazier way to manage everything docker
+brew "lazydocker"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Pager program similar to more
+brew "less"
+# Mac App Store command-line interface
+brew "mas"
+# Collection of tools that nobody wrote when UNIX was young
+brew "moreutils"
+# NCurses Disk Usage
+brew "ncdu"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# OpenBSD freely-licensed SSH connectivity tools
+brew "openssh"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Object-relational database system
+brew "postgresql@18", link: true
+# Framework for managing multi-language pre-commit hooks
+brew "pre-commit"
+# Perl-powered file rename script with many helpful built-ins
+brew "rename"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# 7-Zip is a file archiver with a high compression ratio
+brew "sevenzip"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Extremely fast LaTeX formatter written in Rust
+brew "tex-fmt"
+# Simplified and community-driven man pages
+brew "tldr"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
+# Vi 'workalike' with many additional features
+brew "vim"
+# Executes a program periodically, showing output fullscreen
+brew "watch"
+# Internet file retriever
+brew "wget"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
+# Pluggable terminal workspace, with terminal multiplexer as the base feature
+brew "zellij"
+# UNIX shell (command interpreter)
+brew "zsh"
+# Time tracker
+cask "activitywatch"
+# Enable Windows-like alt-tab
+cask "alt-tab"
+# Automatic tiling window manager similar to xmonad
+cask "amethyst"
+# Webcam & audio device software
+cask "ankerwork"
+# Desktop password and login vault
+cask "bitwarden"
+# Web browser focusing on privacy
+cask "brave-browser"
+# OpenAI's official ChatGPT desktop app
+cask "chatgpt"
+# Free app that makes your Internet safer
+cask "cloudflare-warp"
+# Menu bar usage monitor for Codex and Claude
+cask "codexbar"
+# UI for creating Windows installer ISO from UUPDump
+cask "crystalfetch"
+# Write, edit, and chat about your code with AI
+cask "cursor"
+# Voice and text chat software
+cask "discord"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
+# Offline voice-to-text dictation app with AI enhancement
+cask "fluidvoice"
+cask "font-geist-mono-nerd-font"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Free and open-source image editor
+cask "gimp"
+# Web browser
+cask "google-chrome"
+# Graphically shows disk usage within a file system
+cask "grandperspective"
+# Native instant workspace switching
+cask "jurplel/tap/instant-space-switcher"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+# Optimise and personalise your Jabra headset
+cask "jabra-direct"
+# JetBrains tools manager
+cask "jetbrains-toolbox"
+# App to manage software development and track bugs
+cask "linear"
+# Trims video and audio files losslessly
+cask "losslesscut"
+# Full TeX Live distribution with GUI applications
+cask "mactex"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# Quick Look plug-in that renders source code with syntax highlighting
+cask "qlcolorcode"
+# Quick Look generator for Markdown files
+cask "qlmarkdown"
+# Quick Look plugin for plaintext files without an extension
+cask "qlstephen"
+# Control your tools with a few keystrokes
+cask "raycast"
+# Unpacks archive files
+cask "the-unarchiver"
+# To-do & task list manager
+cask "ticktick"
+# Control your data usage on slow or expensive networks
+cask "tripmode"
+# Open-source code editor
+cask "visual-studio-code"
+# Gecko based web browser
+cask "zen"
+mas "Outbank", id: 1094255754
+mas "PDFgear", id: 6469021132
+mas "WhatsApp", id: 310633997

@@ -18,6 +18,9 @@ fi
 if ! mise which bun >/dev/null; then
   mise u -g bun@latest
 fi
+if ! mise which maven >/dev/null; then
+  mise u -g maven@latest
+fi
 if ! mise which java >/dev/null; then
   mise u -g java@latest
 fi
