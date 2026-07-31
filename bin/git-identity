@@ -1,0 +1,256 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+function usage() {
+  cat <<EOF
+Usage: git-identity <profile> [name] [email] [options]
+
+Options:
+  --default          Use this profile outside any matching scoped directory
+  --git-dir <path>   Use this profile below path; may be repeated
+  --local-only       Configure this machine without changing the GitHub account
+EOF
+}
+
+LOCAL_ONLY=false
+MAKE_DEFAULT=false
+POSITIONAL=()
+GIT_DIRS=()
+
+while (( $# )); do
+  case "$1" in
+    --default)
+      MAKE_DEFAULT=true
+      shift
+      ;;
+    --git-dir)
+      if (( $# < 2 )); then
+        echo "--git-dir requires a path."
+        usage
+        exit 1
+      fi
+      GIT_DIRS+=("$2")
+      shift 2
+      ;;
+    --local-only)
+      LOCAL_ONLY=true
+      shift
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    --*)
+      echo "Unknown option: $1"
+      usage
+      exit 1
+      ;;
+    *)
+      POSITIONAL+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if (( ${#POSITIONAL} < 1 || ${#POSITIONAL} > 3 )); then
+  usage
+  exit 1
+fi
+
+PROFILE=$POSITIONAL[1]
+if [[ ! "$PROFILE" =~ '^[a-z0-9][a-z0-9-]*$' ]]; then
+  echo "Profile names must use lowercase letters, numbers, and hyphens."
+  exit 1
+fi
+
+NAME=${POSITIONAL[2]:-}
+EMAIL=${POSITIONAL[3]:-}
+
+if [[ -z "$NAME" ]]; then
+  read "NAME?Git author name: "
+fi
+if [[ -z "$EMAIL" ]]; then
+  read "EMAIL?Git author email: "
+fi
+if [[ -z "$NAME" || -z "$EMAIL" ]]; then
+  echo "Name and email are required."
+  exit 1
+fi
+
+SSH_DIR="$HOME/.ssh"
+KEY_PATH="$SSH_DIR/id_ed25519_github_${PROFILE}"
+PUBLIC_KEY_PATH="${KEY_PATH}.pub"
+SSH_CONFIG_DIR="$SSH_DIR/config.d"
+SSH_PROFILE_CONFIG="$SSH_CONFIG_DIR/github-${PROFILE}"
+IDENTITY_CONFIG="$HOME/.gitconfig-${PROFILE}"
+IDENTITIES_CONFIG="$HOME/.gitconfig-identities"
+ALLOWED_SIGNERS="$SSH_DIR/allowed_signers"
+HOST_ALIAS="github-${PROFILE}"
+
+install -d -m 700 "$SSH_DIR" "$SSH_CONFIG_DIR"
+
+if [[ ! -f "$KEY_PATH" ]]; then
+  echo "No ${PROFILE} GitHub key exists at '$KEY_PATH'."
+  echo "Copy an existing private key there now and rerun this script to reuse it."
+  read "GENERATE?Generate a new Ed25519 key instead? [Y/n] "
+  if [[ "${GENERATE:-y}" == [nN] ]]; then
+    exit 0
+  fi
+  ssh-keygen -t ed25519 -C "$EMAIL" -f "$KEY_PATH"
+fi
+
+chmod 600 "$KEY_PATH"
+
+if [[ ! -f "$PUBLIC_KEY_PATH" ]]; then
+  echo "Deriving the missing public key..."
+  ssh-keygen -y -f "$KEY_PATH" >"$PUBLIC_KEY_PATH"
+  echo " $EMAIL" >>"$PUBLIC_KEY_PATH"
+fi
+chmod 644 "$PUBLIC_KEY_PATH"
+
+cat >"$SSH_PROFILE_CONFIG" <<EOF
+Host $HOST_ALIAS
+  HostName github.com
+  User git
+  IdentityFile $KEY_PATH
+  IdentitiesOnly yes
+  AddKeysToAgent yes
+  IgnoreUnknown UseKeychain
+  UseKeychain yes
+EOF
+chmod 600 "$SSH_PROFILE_CONFIG"
+
+SSH_INCLUDE='Include ~/.ssh/config.d/*'
+SSH_CONFIG="$SSH_DIR/config"
+touch "$SSH_CONFIG"
+chmod 600 "$SSH_CONFIG"
+if ! grep -Fqx "$SSH_INCLUDE" "$SSH_CONFIG"; then
+  TEMP_CONFIG=$(mktemp "$SSH_DIR/config.XXXXXX")
+  {
+    echo "$SSH_INCLUDE"
+    echo
+    cat "$SSH_CONFIG"
+  } >"$TEMP_CONFIG"
+  chmod 600 "$TEMP_CONFIG"
+  mv "$TEMP_CONFIG" "$SSH_CONFIG"
+fi
+
+TEMP_IDENTITY=$(mktemp "$HOME/.gitconfig-${PROFILE}.XXXXXX")
+git config --file "$TEMP_IDENTITY" user.name "$NAME"
+git config --file "$TEMP_IDENTITY" user.email "$EMAIL"
+git config --file "$TEMP_IDENTITY" user.signingkey "$PUBLIC_KEY_PATH"
+git config --file "$TEMP_IDENTITY" commit.gpgsign true
+git config --file "$TEMP_IDENTITY" core.sshCommand "ssh -i ${(q)KEY_PATH} -o IdentitiesOnly=yes"
+chmod 600 "$TEMP_IDENTITY"
+mv "$TEMP_IDENTITY" "$IDENTITY_CONFIG"
+
+touch "$IDENTITIES_CONFIG"
+chmod 600 "$IDENTITIES_CONFIG"
+
+if [[ "$MAKE_DEFAULT" == true ]]; then
+  TEMP_IDENTITIES=$(mktemp "$HOME/.gitconfig-identities.XXXXXX")
+  git config --file "$TEMP_IDENTITIES" --add include.path "$IDENTITY_CONFIG"
+  while IFS= read -r identity_entry; do
+    [[ -z "$identity_entry" ]] && continue
+    identity_key=${identity_entry%%[[:space:]]*}
+    identity_path=${identity_entry#*[[:space:]]}
+    git config --file "$TEMP_IDENTITIES" --add "$identity_key" "$identity_path"
+  done < <(git config --file "$IDENTITIES_CONFIG" --get-regexp '^includeIf\..*\.path$' 2>/dev/null || true)
+  chmod 600 "$TEMP_IDENTITIES"
+  mv "$TEMP_IDENTITIES" "$IDENTITIES_CONFIG"
+fi
+
+for git_dir in "${GIT_DIRS[@]}"; do
+  NORMALIZED_GIT_DIR=$(python3 -c 'import os, sys; print(os.path.realpath(os.path.abspath(os.path.expanduser(sys.argv[1]))))' "$git_dir")
+  SCOPE_KEY="includeIf.gitdir:${NORMALIZED_GIT_DIR%/}/.path"
+  git config --file "$IDENTITIES_CONFIG" --replace-all "$SCOPE_KEY" "$IDENTITY_CONFIG"
+done
+
+PUBLIC_KEY_MATERIAL=$(awk '{ print $1 " " $2 }' "$PUBLIC_KEY_PATH")
+SIGNER_LINE="$EMAIL namespaces=\"git\" $PUBLIC_KEY_MATERIAL"
+touch "$ALLOWED_SIGNERS"
+if ! grep -Fqx "$SIGNER_LINE" "$ALLOWED_SIGNERS"; then
+  echo "$SIGNER_LINE" >>"$ALLOWED_SIGNERS"
+fi
+chmod 644 "$ALLOWED_SIGNERS"
+
+SSH_ADD_BIN=${SSH_ADD_BIN:-/usr/bin/ssh-add}
+if ! "$SSH_ADD_BIN" --apple-use-keychain "$KEY_PATH"; then
+  echo "Warning: the key was not added to Apple’s SSH agent."
+  echo "Git configuration will continue, but signing may fail until the key is loaded."
+  echo "Retry with: /usr/bin/ssh-add --apple-use-keychain '$KEY_PATH'"
+fi
+
+echo "Configured '$PROFILE' Git identity:"
+git config --file "$IDENTITY_CONFIG" --get-regexp '^(user|commit|core)\.'
+if [[ "$MAKE_DEFAULT" == false && ${#GIT_DIRS} == 0 ]]; then
+  echo "This profile is not active yet. Rerun with --default or one or more --git-dir paths."
+fi
+
+if [[ "$LOCAL_ONLY" == true ]]; then
+  echo "Local identity configured without changing the GitHub account."
+  echo "Later, rerun without '--local-only' to upload and verify the key."
+  exit 0
+fi
+
+if ! command -v gh >/dev/null 2>&1; then
+  echo "GitHub CLI is not installed. Add '$PUBLIC_KEY_PATH' manually as both an authentication and signing key."
+  exit 0
+fi
+
+if ! gh auth status --hostname github.com >/dev/null 2>&1; then
+  echo "Authenticate GitHub CLI. Key generation and upload are skipped during login because this script manages them."
+  gh auth login --hostname github.com --git-protocol ssh --web --skip-ssh-key
+fi
+
+GITHUB_USER=$(gh api user --jq .login)
+echo "GitHub CLI is active as '$GITHUB_USER' for the '$PROFILE' profile."
+read "CONFIRM_ACCOUNT?Upload this key to that account? [Y/n] "
+if [[ "${CONFIRM_ACCOUNT:-y}" == [nN] ]]; then
+  echo "Run 'gh auth switch --hostname github.com' or 'gh auth login', then rerun this script."
+  exit 0
+fi
+
+if ! gh api user/keys --silent >/dev/null 2>&1 || ! gh api user/ssh_signing_keys --silent >/dev/null 2>&1; then
+  echo "GitHub CLI needs permission to manage authentication and signing keys."
+  gh auth refresh --hostname github.com --scopes admin:public_key,admin:ssh_signing_key
+fi
+
+MACHINE_NAME=$(scutil --get ComputerName 2>/dev/null || hostname -s)
+MACHINE_MODEL=$(system_profiler SPHardwareDataType 2>/dev/null | awk -F': ' '
+  /Model Name/ { name = $2 }
+  /Model Identifier/ { identifier = $2 }
+  END {
+    if (name && identifier) print name " " identifier
+    else if (identifier) print identifier
+  }
+')
+if [[ -z "$MACHINE_MODEL" ]]; then
+  MACHINE_MODEL=$(sysctl -n hw.model 2>/dev/null || echo "Mac")
+fi
+KEY_TITLE_PREFIX="$MACHINE_NAME / $MACHINE_MODEL / $PROFILE"
+
+function github_has_key() {
+  local endpoint=$1
+  gh api "$endpoint" --paginate --jq '.[].key' | awk '{ print $1 " " $2 }' | grep -Fqx "$PUBLIC_KEY_MATERIAL"
+}
+
+if github_has_key user/keys; then
+  echo "Authentication key is already registered."
+else
+  gh ssh-key add "$PUBLIC_KEY_PATH" \
+    --type authentication \
+    --title "$KEY_TITLE_PREFIX / authentication"
+fi
+
+if github_has_key user/ssh_signing_keys; then
+  echo "Signing key is already registered."
+else
+  gh ssh-key add "$PUBLIC_KEY_PATH" \
+    --type signing \
+    --title "$KEY_TITLE_PREFIX / signing"
+fi
+
+echo "Testing SSH authentication through '$HOST_ALIAS'..."
+ssh -T "git@$HOST_ALIAS" || [[ $? == 1 ]]

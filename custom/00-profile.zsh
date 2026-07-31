@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 
-eval "$(/opt/Homebrew/bin/brew shellenv)"
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 # zellij completions: https://zellij.dev/documentation/controlling-zellij-through-cli#completions
 source <(zellij setup --generate-completion zsh | sed '/_zellij "$@"/d')

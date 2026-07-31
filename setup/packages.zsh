@@ -1,31 +1,41 @@
 #!/usr/bin/env zsh
 
+set -euo pipefail
+
 CURRENT_DIR=${0:a:h}
 
 ###############################################################################
 # Mise                                                                        #
 ###############################################################################
 
-if ! type mise >/dev/null; then
+if command -v mise >/dev/null 2>&1; then
+  MISE_BIN=$(command -v mise)
+else
   echo "Installing Mise..."
-  curl https://mise.run | sh
-  alias mise="~/.local/bin/mise"
-fi
-if [ ! -d ~/.asdf ]; then
-  ln -s ~/.local/share/mise ~/.asdf
+  curl -fsSL https://mise.run | sh
+  MISE_BIN="$HOME/.local/bin/mise"
 fi
 
-if ! mise which bun >/dev/null; then
-  mise u -g bun@latest
+if [[ ! -x "$MISE_BIN" ]]; then
+  echo "Mise was not found at '$MISE_BIN'."
+  exit 1
 fi
-if ! mise which maven >/dev/null; then
-  mise u -g maven@latest
+
+if [[ ! -e "$HOME/.asdf" && ! -L "$HOME/.asdf" ]]; then
+  ln -s "$HOME/.local/share/mise" "$HOME/.asdf"
 fi
-if ! mise which java >/dev/null; then
-  mise u -g java@latest
+
+if ! "$MISE_BIN" which bun >/dev/null 2>&1; then
+  "$MISE_BIN" use --global bun@latest
 fi
-if ! mise which go >/dev/null; then
-  mise u -g go@latest
+if ! "$MISE_BIN" which maven >/dev/null 2>&1; then
+  "$MISE_BIN" use --global maven@latest
+fi
+if ! "$MISE_BIN" which java >/dev/null 2>&1; then
+  "$MISE_BIN" use --global java@latest
+fi
+if ! "$MISE_BIN" which go >/dev/null 2>&1; then
+  "$MISE_BIN" use --global go@latest
 fi
 
 ###############################################################################
@@ -33,13 +43,29 @@ fi
 ###############################################################################
 
 # Install or update Homebrew
-if ! type brew >/dev/null; then
+if command -v brew >/dev/null 2>&1; then
+  BREW_BIN=$(command -v brew)
+elif [[ -x /opt/homebrew/bin/brew ]]; then
+  BREW_BIN=/opt/homebrew/bin/brew
+elif [[ -x /usr/local/bin/brew ]]; then
+  BREW_BIN=/usr/local/bin/brew
+else
   echo "Installing Homebrew..."
   bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-else
-  echo "Updating Homebrew..."
-  brew update
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    BREW_BIN=/opt/homebrew/bin/brew
+  elif [[ -x /usr/local/bin/brew ]]; then
+    BREW_BIN=/usr/local/bin/brew
+  else
+    echo "Homebrew installation finished, but the brew executable was not found."
+    exit 1
+  fi
 fi
+
+eval "$("$BREW_BIN" shellenv)"
+
+echo "Updating Homebrew..."
+brew update
 
 echo "Installing Homebrew packages..."
 brew bundle --file="$CURRENT_DIR/Brewfile"
@@ -57,7 +83,9 @@ BREW_PREFIX=$(brew --prefix)
 # Utils                                                                       #
 ###############################################################################
 
-ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
+if [[ ! -e "${BREW_PREFIX}/bin/sha256sum" && ! -L "${BREW_PREFIX}/bin/sha256sum" ]]; then
+  ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
+fi
 
 # Switch to using brew-installed shells
 if ! grep -Fq "${BREW_PREFIX}/bin/zsh" /etc/shells; then

@@ -28,7 +28,7 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 fi
 
 # Path to your dotfiles.
-export DOTFILES="$HOME/dev/dotfiles"
+export DOTFILES="$HOME/.dotfiles"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
