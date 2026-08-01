@@ -10,6 +10,8 @@ CURRENT_DIR=${0:a:h}
 
 if command -v mise >/dev/null 2>&1; then
   MISE_BIN=$(command -v mise)
+elif [[ -x "$HOME/.local/bin/mise" ]]; then
+  MISE_BIN="$HOME/.local/bin/mise"
 else
   echo "Installing Mise..."
   curl -fsSL https://mise.run | sh
