@@ -30,6 +30,8 @@ export GPG_TTY=$TTY
 
 # Do not auto update Homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
+# Do not auto update Homebrew casks
+export HOMEBREW_NO_UPGRADE_AUTO_UPDATES_CASKS=1
 
 # Zellij
 export ZELLIJ_CONFIG_DIR=~/.config/zellij
@@ -37,3 +39,4 @@ export ZELLIJ_CONFIG_DIR=~/.config/zellij
 
 export DO_NOT_TRACK=1
 export DISABLE_TELEMETRY=1
+
