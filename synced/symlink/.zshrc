@@ -18,6 +18,7 @@ plugins=(
   docker
   wakatime
   pnpm-shell-completion
+  mise
 )
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
   plugins+=(
