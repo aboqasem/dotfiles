@@ -70,7 +70,7 @@ echo "Updating Homebrew..."
 brew update
 
 echo "Installing Homebrew packages..."
-brew bundle --file="$CURRENT_DIR/Brewfile"
+brew bundle --file="$CURRENT_DIR/Brewfile" --verbose
 
 outdated=$(brew outdated)
 if [ -n "$outdated" ]; then
