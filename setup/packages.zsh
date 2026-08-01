@@ -30,7 +30,7 @@ fi
 if ! "$MISE_BIN" which bun >/dev/null 2>&1; then
   "$MISE_BIN" use --global bun@latest
 fi
-if ! "$MISE_BIN" which maven >/dev/null 2>&1; then
+if ! "$MISE_BIN" which mvn >/dev/null 2>&1; then
   "$MISE_BIN" use --global maven@latest
 fi
 if ! "$MISE_BIN" which java >/dev/null 2>&1; then
