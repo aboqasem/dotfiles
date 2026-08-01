@@ -1,5 +1,4 @@
-tap "homebrew/bundle"
-tap "jurplel/tap", trusted: { formulae: ["instant-space-switcher"] }
+tap "jurplel/tap", trusted: { casks: ["instant-space-switcher"] }
 # Improved shell history for zsh, bash, fish and nushell
 brew "atuin", restart_service: :changed
 # Bourne-Again SHell, a UNIX command interpreter
