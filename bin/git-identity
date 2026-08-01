@@ -116,8 +116,6 @@ Host $HOST_ALIAS
   IdentityFile $KEY_PATH
   IdentitiesOnly yes
   AddKeysToAgent yes
-  IgnoreUnknown UseKeychain
-  UseKeychain yes
 EOF
 chmod 600 "$SSH_PROFILE_CONFIG"
 
