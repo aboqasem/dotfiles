@@ -160,6 +160,8 @@ cask "qlmarkdown"
 cask "qlstephen"
 # Control your tools with a few keystrokes
 cask "raycast"
+# Move and resize windows using keyboard shortcuts or snap areas
+cask "rectangle"
 # Unpacks archive files
 cask "the-unarchiver"
 # To-do & task list manager
