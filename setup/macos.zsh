@@ -219,7 +219,7 @@ get_pmset_value() {
   local scope="$1"
   local key="$2"
 
-  sudo pmset -g custom | awk -v scope="${scope}" -v key="${key}" '
+  pmset -g custom | awk -v scope="${scope}" -v key="${key}" '
     /^[^[:space:]].*:$/ {
       profile = $0
       sub(/:$/, "", profile)
@@ -228,6 +228,20 @@ get_pmset_value() {
       (scope == "-b" && profile == "Battery Power") ||
       (scope == "-c" && profile == "AC Power")) {
       print profile ": " $2
+    }
+  '
+}
+
+pmset_supports() {
+  local key="$1"
+
+  pmset -g custom | awk -v key="${key}" '
+    $1 == key {
+      found = 1
+      exit
+    }
+    END {
+      exit !found
     }
   '
 }
@@ -316,11 +330,6 @@ set_scutil HostName "Zouabi"
 set_scutil LocalHostName "Zouabi"
 set_defaults /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName string "Zouabi" system
 
-# Disable Gatekeeper (do not ask to run software downloaded from the internet)
-change_setting "Disabling Gatekeeper checks for downloaded applications." "Gatekeeper" \
-  sudo spctl --status -- \
-  sudo spctl --master-disable
-
 # Disable the sound effects on boot
 change_setting "Disabling the startup sound." "NVRAM SystemAudioVolume" \
   sudo nvram SystemAudioVolume -- \
@@ -345,7 +354,12 @@ set_pmset -a lidwake 1
 set_pmset -a autorestart 1
 
 # Automatic graphics switching
-set_pmset -a gpuswitch 2
+if pmset_supports gpuswitch; then
+  set_pmset -a gpuswitch 2
+else
+  skip "Configuring automatic graphics switching." \
+    "This Mac does not expose the gpuswitch setting."
+fi
 
 # Restart automatically if the computer freezes
 set_systemsetup restartfreeze on
