@@ -4,6 +4,21 @@ setopt ERR_EXIT PIPE_FAIL
 
 typeset -g approve_all=false
 typeset -gr script_name="${0:t}"
+typeset -g color_cyan=""
+typeset -g color_dim=""
+typeset -g color_green=""
+typeset -g color_red=""
+typeset -g color_reset=""
+typeset -g color_yellow=""
+
+if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then
+  color_cyan=$'\e[1;36m'
+  color_dim=$'\e[2m'
+  color_green=$'\e[1;32m'
+  color_red=$'\e[1;31m'
+  color_reset=$'\e[0m'
+  color_yellow=$'\e[1;33m'
+fi
 
 usage() {
   printf 'Usage: %s [--yes]\n' "${script_name}"
@@ -20,7 +35,7 @@ while (( $# )); do
       exit 0
       ;;
     *)
-      printf 'Unknown option: %s\n' "$1" >&2
+      printf '%sUnknown option:%s %s\n' "${color_red}" "${color_reset}" "$1" >&2
       usage >&2
       exit 2
       ;;
@@ -29,37 +44,53 @@ while (( $# )); do
 done
 
 log_command() {
-  printf '    $'
-  printf ' %q' "$@"
-  printf '\n'
+  local argument
+
+  printf '    %s$' "${color_dim}"
+  for argument in "$@"; do
+    if [[ -n "${argument}" && "${argument}" != *[^A-Za-z0-9_@%+=:,./-]* ]]; then
+      printf ' %s' "${argument}"
+    else
+      printf ' %s' "${(qq)argument}"
+    fi
+  done
+  printf '%s\n' "${color_reset}"
+}
+
+log_action() {
+  printf '\n%s==>%s %s\n' "${color_cyan}" "${color_reset}" "$1"
 }
 
 confirm_change() {
   [[ "${approve_all}" == true ]] && return 0
 
   if [[ ! -t 0 ]]; then
-    printf 'Interactive confirmation requires a terminal; rerun with --yes for unattended use.\n' >&2
+    printf '%sError:%s Interactive confirmation requires a terminal; rerun with --yes for unattended use.\n' \
+      "${color_red}" "${color_reset}" >&2
     exit 2
   fi
 
   local reply
   while true; do
-    read -r "reply?    Apply this change? [y/n/a/q] " </dev/tty || exit 130
+    read -r "reply?    ${color_yellow}Apply this change?${color_reset} ${color_dim}[y/n/a/q]${color_reset} " \
+      </dev/tty || exit 130
 
     case "${reply:l}" in
       y|yes)
         return 0
         ;;
       n|no)
-        printf '    Skipped.\n'
+        printf '    %sSkipped.%s\n' "${color_yellow}" "${color_reset}"
         return 1
         ;;
       a|all)
         approve_all=true
+        printf '    %sApplying all remaining changes without prompting.%s\n' \
+          "${color_green}" "${color_reset}"
         return 0
         ;;
       q|quit)
-        printf 'Aborted.\n'
+        printf '%sAborted.%s\n' "${color_red}" "${color_reset}"
         exit 130
         ;;
     esac
@@ -70,7 +101,7 @@ run_preflight() {
   local description="$1"
   shift
 
-  printf '\n==> %s\n' "${description}"
+  log_action "${description}"
   log_command "$@"
   "$@"
 }
@@ -79,7 +110,7 @@ run_preflight_quietly() {
   local description="$1"
   shift
 
-  printf '\n==> %s\n' "${description}"
+  log_action "${description}"
   log_command "$@"
   "$@" &>/dev/null
 }
@@ -88,7 +119,7 @@ run() {
   local description="$1"
   shift
 
-  printf '\n==> %s\n' "${description}"
+  log_action "${description}"
   log_command "$@"
   if ! confirm_change; then
     return 0
@@ -100,7 +131,7 @@ run_quietly() {
   local description="$1"
   shift
 
-  printf '\n==> %s\n' "${description}"
+  log_action "${description}"
   log_command "$@"
   if ! confirm_change; then
     return 0
@@ -109,8 +140,8 @@ run_quietly() {
 }
 
 skip() {
-  printf '\n==> %s\n' "$1"
-  printf '    Skipped: %s\n' "$2"
+  log_action "$1"
+  printf '    %sSkipped:%s %s\n' "${color_yellow}" "${color_reset}" "$2"
 }
 
 change_setting() {
@@ -127,14 +158,15 @@ change_setting() {
   done
 
   if (( $# == 0 )); then
-    printf 'change_setting: missing -- separator for %s\n' "${setting}" >&2
+    printf '%sError:%s change_setting is missing the -- separator for %s\n' \
+      "${color_red}" "${color_reset}" "${setting}" >&2
     return 2
   fi
 
   shift
   setter=("$@")
 
-  printf '\n==> %s\n' "${description}"
+  log_action "${description}"
   log_command "${getter[@]}"
   if previous_value="$("${getter[@]}" 2>/dev/null)"; then
     [[ -n "${previous_value}" ]] || previous_value="<empty>"
@@ -142,7 +174,8 @@ change_setting() {
     previous_value="<not set or unavailable>"
   fi
   previous_value="${previous_value//$'\n'/${newline_indent}}"
-  printf '    Previous %s: %s\n' "${setting}" "${previous_value}"
+  printf '    %sPrevious %s:%s %s\n' \
+    "${color_yellow}" "${setting}" "${color_reset}" "${previous_value}"
   log_command "${setter[@]}"
   if ! confirm_change; then
     return 0
@@ -262,7 +295,8 @@ run "Closing System Settings so it cannot overwrite these changes." \
 run_preflight "Requesting administrator credentials for system-wide changes." sudo -v
 if ! run_preflight_quietly "Verifying that the sudo credential can be reused without another prompt." \
   sudo -n true; then
-  printf '    Warning: sudo credential reuse is disabled; privileged commands may prompt again.\n' >&2
+  printf '    %sWarning:%s sudo credential reuse is disabled; privileged commands may prompt again.\n' \
+    "${color_red}" "${color_reset}" >&2
 fi
 
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
@@ -451,8 +485,10 @@ for app in "Activity Monitor" \
   "Photos" \
   "SystemUIServer"; do
   if ! run_quietly "Restarting ${app} so changed settings take effect." killall "${app}"; then
-    printf '    Skipped: %s is not currently running.\n' "${app}"
+    printf '    %sSkipped:%s %s is not currently running.\n' \
+      "${color_yellow}" "${color_reset}" "${app}"
   fi
 done
 
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+printf '\n%sDone.%s Some changes require a logout or restart to take effect.\n' \
+  "${color_green}" "${color_reset}"
