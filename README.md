@@ -62,6 +62,15 @@ Start from Terminal:
    To configure only local Git and SSH files without changing GitHub, add
    `--local-only`. Rerun without that flag later to upload and verify the key.
 
+   The initial clone uses HTTPS because SSH is not configured yet. After the
+   identity setup succeeds, switch the repository to SSH so the scoped
+   personal key is used:
+
+   ```zsh
+   git -C ~/.dotfiles remote set-url origin git@github.com:aboqasem/dotfiles.git
+   git -C ~/.dotfiles push --dry-run
+   ```
+
 5. Optionally apply the opinionated macOS system settings after reviewing the
    script:
 
