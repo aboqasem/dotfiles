@@ -144,6 +144,8 @@ cask "jabra-direct"
 cask "jetbrains-toolbox"
 # App to manage software development and track bugs
 cask "linear"
+# Software for Logitech devices
+cask "logi-options+"
 # Trims video and audio files losslessly
 cask "losslesscut"
 # Full TeX Live distribution with GUI applications
