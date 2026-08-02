@@ -97,3 +97,6 @@ if ! grep -Fq "${BREW_PREFIX}/bin/zsh" /etc/shells; then
   # Set default shell to Zsh
   chsh -s "${BREW_PREFIX}/bin/zsh"
 fi
+
+# wakatime-cli
+brew exec python3 -c "$(wget -qO- https://raw.githubusercontent.com/wakatime/vim-wakatime/master/scripts/install_cli.py)"
