@@ -86,6 +86,8 @@
 		<false/>
 		<key>liveSpeechEnabled</key>
 		<false/>
+		<key>mouseDriver</key>
+		<false/>
 		<key>reduceMotion</key>
 		<false/>
 		<key>reduceTransparency</key>

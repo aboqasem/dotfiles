@@ -4,8 +4,8 @@
 	<dict>
 		<key>IconType</key>
 		<integer>5</integer>
-		<key>OpenMainWindow</key>
-		<true/>
+		<key>NetworkGraphType</key>
+		<integer>1</integer>
 		<key>ShowCategory</key>
 		<integer>100</integer>
 		<key>SortColumn</key>

@@ -31,6 +31,8 @@
 		<integer>0</integer>
 		<key>hideMenubarIcon</key>
 		<true/>
+		<key>installVersion</key>
+		<string>104</string>
 		<key>internalTilingNotified</key>
 		<true/>
 		<key>launchOnLogin</key>

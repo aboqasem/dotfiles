@@ -10,6 +10,8 @@
 		<true/>
 		<key>NSStatusItem VisibleCC BentoBox-0</key>
 		<true/>
+		<key>NSStatusItem VisibleCC Bluetooth</key>
+		<true/>
 		<key>NSStatusItem VisibleCC Clock</key>
 		<true/>
 		<key>NSStatusItem VisibleCC NowPlaying</key>
