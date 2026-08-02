@@ -1,0 +1,24 @@
+# Effective deviations from defaults
+# ghostty +show-config --changes-only
+#
+# Complete current default with documentation
+# ghostty +show-config --default --docs
+#
+# Default keybindings
+# ghostty +list-keybinds --default
+
+font-family = "GeistMono NF"
+theme = vibrant-github-dark
+
+window-decoration = none
+fullscreen = non-native-visible-menu
+macos-non-native-fullscreen = visible-menu
+macos-titlebar-style = hidden
+
+macos-option-as-alt = true
+
+quit-after-last-window-closed = true
+
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = no-bell,notify
+notify-on-command-finish-after = 30s
