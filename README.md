@@ -57,7 +57,8 @@ Start from Terminal:
 
    The script asks for the Git author name and email, configures commit
    signing, and uses GitHub CLI to add the public key for both authentication
-   and signing.
+   and signing. Enter the SSH key passphrase when prompted; it is saved in the
+   macOS Keychain and restored into Apple's SSH agent in new shell sessions.
 
    To configure only local Git and SSH files without changing GitHub, add
    `--local-only`. Rerun without that flag later to upload and verify the key.
@@ -221,8 +222,10 @@ run before applying changes on an existing machine.
   '^(user\.|core\.sshcommand)'` inside the repository, then check
   `~/.gitconfig-identities`.
 - Commit signing failure: check `git config --show-origin user.signingkey` and
-  `ssh-add -l`. `synced/**/*.bak` contains recoverable dotsync backups when a
-  backup was necessary.
+  `ssh-add -l`. If the key is missing from the agent, save it to Keychain with
+  `/usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_ed25519_github_PROFILE`, then
+  open a new shell. `synced/**/*.bak` contains recoverable dotsync backups when
+  a backup was necessary.
 
 ## Local shell customization
 

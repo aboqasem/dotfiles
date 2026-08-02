@@ -6,6 +6,12 @@ elif [[ -x /usr/local/bin/brew ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
+# Restore SSH keys whose passphrases were saved by `ssh-add --apple-use-keychain`.
+# This also makes SSH-backed Git commit signing work before the first pull/push.
+if [[ "$OSTYPE" == darwin* ]]; then
+  /usr/bin/ssh-add --apple-load-keychain >/dev/null 2>&1
+fi
+
 # zellij completions: https://zellij.dev/documentation/controlling-zellij-through-cli#completions
 source <(zellij setup --generate-completion zsh | sed '/_zellij "$@"/d')
 

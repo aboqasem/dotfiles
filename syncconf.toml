@@ -18,6 +18,14 @@
   ]
 
 [[groups]]
+  name = "SSH"
+[[groups.items]]
+  type = "symlink"
+  paths = [
+    ".ssh/config.d/00-macos-keychain",
+  ]
+
+[[groups]]
   name = "Oh My Zsh"
 [[groups.items]]
   type = "symlink"
