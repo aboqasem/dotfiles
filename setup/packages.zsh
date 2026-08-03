@@ -27,18 +27,23 @@ if [[ ! -e "$HOME/.asdf" && ! -L "$HOME/.asdf" ]]; then
   ln -s "$HOME/.local/share/mise" "$HOME/.asdf"
 fi
 
-if ! "$MISE_BIN" which bun >/dev/null 2>&1; then
-  "$MISE_BIN" use --global bun@latest
-fi
-if ! "$MISE_BIN" which mvn >/dev/null 2>&1; then
-  "$MISE_BIN" use --global maven@latest
-fi
-if ! "$MISE_BIN" which java >/dev/null 2>&1; then
-  "$MISE_BIN" use --global java@latest
-fi
-if ! "$MISE_BIN" which go >/dev/null 2>&1; then
-  "$MISE_BIN" use --global go@latest
-fi
+tools=(
+  "usage:usage@latest"
+  "bun:bun@latest"
+  "mvn:maven@latest"
+  "java:java@latest"
+  "go:go@latest"
+)
+
+# Loop and split each item by the colon
+for item in "${tools[@]}"; do
+  bin="${item%%:*}"
+  plugin="${item#*:}"
+
+  if ! "$MISE_BIN" which "$bin" >/dev/null 2>&1; then
+    "$MISE_BIN" use --global "$plugin"
+  fi
+done
 
 ###############################################################################
 # Homebrew                                                                    #
