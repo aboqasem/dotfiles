@@ -40,3 +40,5 @@ Thumbs.db
 ############
 .idea/
 *.iml
+
+**/.claude/settings.local.json
