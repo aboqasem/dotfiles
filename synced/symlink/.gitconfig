@@ -78,7 +78,6 @@
 
 	navigate = true
 	line-numbers = false
-	dark = true
 	tabs = 4
 	hyperlinks = true
 
