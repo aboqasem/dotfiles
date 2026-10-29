@@ -7,8 +7,8 @@ gui:
 
 git:
   overrideGpg: true
-  pagers:
-    - pager: delta --paging=never
+  diffRenderers:
+    - command: delta --paging=never
   autoForwardBranches: allBranches
 
 refresher:
