@@ -253,6 +253,8 @@ web_client {
 // Default: default
 //
 // theme "dracula"
+theme_dark "catppuccin-mocha"
+theme_light "catppuccin-latte"
 
 // Choose the base input mode of zellij.
 // Default: normal
